@@ -4,7 +4,15 @@ using System;
 
 namespace Braintree
 {
-    public class MerchantAccountBusinessDetails
+    public interface IMerchantAccountBusinessDetails
+    {
+        string DbaName { get; }
+        string LegalName { get; }
+        string TaxId { get; }
+        IAddress Address { get; }
+    }
+
+    public class MerchantAccountBusinessDetails : IMerchantAccountBusinessDetails
     {
         public string DbaName { get; protected set; }
         public string LegalName { get; protected set; }
