@@ -4,7 +4,18 @@ using System;
 
 namespace Braintree
 {
-    public class DisbursementDetails
+    public interface IDisbursementDetails
+    {
+        decimal? SettlementAmount { get; }
+        string SettlementCurrencyIsoCode { get; }
+        string SettlementCurrencyExchangeRate { get; }
+        bool? FundsHeld { get; }
+        bool? Success { get; }
+        DateTime? DisbursementDate { get; }
+        bool IsValid();
+    }
+
+    public class DisbursementDetails : IDisbursementDetails
     {
         public decimal? SettlementAmount { get; protected set; }
         public string SettlementCurrencyIsoCode { get; protected set; }

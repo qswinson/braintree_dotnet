@@ -3537,7 +3537,7 @@ namespace Braintree.Tests
 
             Assert.AreEqual(transaction.IsDisbursed(), true);
 
-            DisbursementDetails details = transaction.DisbursementDetails;
+            IDisbursementDetails details = transaction.DisbursementDetails;
             Assert.AreEqual(details.DisbursementDate, DateTime.Parse("2013-04-10"));
             Assert.AreEqual(details.SettlementAmount, decimal.Parse("100.00"));
             Assert.AreEqual(details.SettlementCurrencyIsoCode, "USD");
