@@ -38,7 +38,7 @@ namespace Braintree.Tests
         {
             Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.SUBSCRIPTION_WENT_PAST_DUE, "my_id");
 
-            WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+            IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
             Assert.AreEqual(WebhookKind.SUBSCRIPTION_WENT_PAST_DUE, notification.Kind);
             Assert.AreEqual("my_id", notification.Subscription.Id);
@@ -89,7 +89,7 @@ namespace Braintree.Tests
         {
             Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.SUB_MERCHANT_ACCOUNT_APPROVED, "my_id");
 
-            WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+            IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
             Assert.AreEqual(WebhookKind.SUB_MERCHANT_ACCOUNT_APPROVED, notification.Kind);
             Assert.AreEqual("my_id", notification.MerchantAccount.Id);
@@ -104,7 +104,7 @@ namespace Braintree.Tests
         {
           Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.SUB_MERCHANT_ACCOUNT_DECLINED, "my_id");
 
-          WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+          IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
           Assert.AreEqual(WebhookKind.SUB_MERCHANT_ACCOUNT_DECLINED, notification.Kind);
           Assert.AreEqual("my_id", notification.MerchantAccount.Id);
@@ -117,7 +117,7 @@ namespace Braintree.Tests
         {
           Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.TRANSACTION_DISBURSED, "my_id");
 
-          WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+          IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
           Assert.AreEqual(WebhookKind.TRANSACTION_DISBURSED, notification.Kind);
           Assert.AreEqual(100.00, notification.Transaction.Amount);
@@ -130,7 +130,7 @@ namespace Braintree.Tests
         {
           Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.DISBURSEMENT_EXCEPTION, "my_id");
 
-          WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+          IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
           Assert.AreEqual(WebhookKind.DISBURSEMENT_EXCEPTION, notification.Kind);
           Assert.AreEqual("my_id", notification.Disbursement.Id);
@@ -148,7 +148,7 @@ namespace Braintree.Tests
         {
           Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.DISBURSEMENT, "my_id");
 
-          WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+          IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
           Assert.AreEqual(WebhookKind.DISBURSEMENT, notification.Kind);
           Assert.AreEqual("my_id", notification.Disbursement.Id);
@@ -167,7 +167,7 @@ namespace Braintree.Tests
         {
             Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.DISPUTE_OPENED, "my_id");
 
-            WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+            IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
             Assert.AreEqual(WebhookKind.DISPUTE_OPENED, notification.Kind);
             Assert.AreEqual("my_id", notification.Dispute.Id);
@@ -181,7 +181,7 @@ namespace Braintree.Tests
         {
             Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.DISPUTE_LOST, "my_id");
 
-            WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+            IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
             Assert.AreEqual(WebhookKind.DISPUTE_LOST, notification.Kind);
             Assert.AreEqual("my_id", notification.Dispute.Id);
@@ -192,7 +192,7 @@ namespace Braintree.Tests
         {
             Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.DISPUTE_WON, "my_id");
 
-            WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+            IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
             Assert.AreEqual(WebhookKind.DISPUTE_WON, notification.Kind);
             Assert.AreEqual("my_id", notification.Dispute.Id);
@@ -203,7 +203,7 @@ namespace Braintree.Tests
         {
           Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.PARTNER_MERCHANT_CONNECTED, "my_id");
 
-          WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+          IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
           Assert.AreEqual(WebhookKind.PARTNER_MERCHANT_CONNECTED, notification.Kind);
           Assert.AreEqual("public_id", notification.PartnerMerchant.MerchantPublicId);
@@ -218,7 +218,7 @@ namespace Braintree.Tests
         {
           Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.PARTNER_MERCHANT_DISCONNECTED, "my_id");
 
-          WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+          IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
           Assert.AreEqual(WebhookKind.PARTNER_MERCHANT_DISCONNECTED, notification.Kind);
           Assert.AreEqual(null, notification.PartnerMerchant.MerchantPublicId);
@@ -232,7 +232,7 @@ namespace Braintree.Tests
         {
           Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.PARTNER_MERCHANT_DECLINED, "my_id");
 
-          WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+          IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
           Assert.AreEqual(WebhookKind.PARTNER_MERCHANT_DECLINED, notification.Kind);
           Assert.AreEqual("abc123", notification.PartnerMerchant.PartnerMerchantId);
@@ -243,7 +243,7 @@ namespace Braintree.Tests
         {
           Dictionary<string, string> sampleNotification = gateway.WebhookTesting.SampleNotification(WebhookKind.SUBSCRIPTION_CHARGED_SUCCESSFULLY, "my_id");
 
-          WebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
+          IWebhookNotification notification = gateway.WebhookNotification.Parse(sampleNotification["bt_signature"], sampleNotification["bt_payload"]);
 
           Assert.AreEqual(WebhookKind.SUBSCRIPTION_CHARGED_SUCCESSFULLY, notification.Kind);
           Assert.AreEqual("my_id", notification.Subscription.Id);

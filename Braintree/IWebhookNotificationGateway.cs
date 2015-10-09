@@ -6,7 +6,7 @@ namespace Braintree
 {
     public interface IWebhookNotificationGateway
     {
-        WebhookNotification Parse(string signature, string payload);
+        IWebhookNotification Parse(string signature, string payload);
         string Verify(string challenge);
     }
 }

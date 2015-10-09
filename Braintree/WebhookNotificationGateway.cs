@@ -21,7 +21,7 @@ namespace Braintree
             this.service = new BraintreeService(gateway.Configuration);
         }
 
-        public virtual WebhookNotification Parse(string signature, string payload)
+        public virtual IWebhookNotification Parse(string signature, string payload)
         {
             ValidateSignature(signature, payload);
             var xmlPayload = Encoding.Default.GetString(Convert.FromBase64String(payload));

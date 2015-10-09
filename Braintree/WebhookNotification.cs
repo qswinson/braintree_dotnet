@@ -50,7 +50,21 @@ namespace Braintree
         protected WebhookKind(string name) : base(name) {}
     }
 
-    public class WebhookNotification
+    public interface IWebhookNotification
+    {
+        WebhookKind Kind { get; }
+        ISubscription Subscription { get; }
+        IMerchantAccount MerchantAccount { get; }
+        ValidationErrors Errors { get; }
+        string Message { get; }
+        DateTime? Timestamp { get; }
+        ITransaction Transaction { get; }
+        IDisbursement Disbursement { get; }
+        IDispute Dispute { get; }
+        IPartnerMerchant PartnerMerchant { get; }
+    }
+
+    public class WebhookNotification : IWebhookNotification
     {
         public WebhookKind Kind { get; protected set; }
         public ISubscription Subscription { get; protected set; }
