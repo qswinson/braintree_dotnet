@@ -54,7 +54,7 @@ namespace Braintree
     {
         public WebhookKind Kind { get; protected set; }
         public Subscription Subscription { get; protected set; }
-        public MerchantAccount MerchantAccount { get; protected set; }
+        public IMerchantAccount MerchantAccount { get; protected set; }
         public ValidationErrors Errors { get; protected set; }
         public string Message { get; protected set; }
         public DateTime? Timestamp { get; protected set; }

@@ -29,10 +29,10 @@ namespace Braintree.Tests
         public void Create_DeprecatedWithoutId()
         {
             var request = deprecatedCreateRequest(null);
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsTrue(result.IsSuccess());
 
-            MerchantAccount merchantAccount = result.Target;
+            IMerchantAccount merchantAccount = result.Target;
             Assert.AreEqual(MerchantAccountStatus.PENDING, merchantAccount.Status);
             Assert.AreEqual("sandbox_master_merchant_account", merchantAccount.MasterMerchantAccount.Id);
             Assert.IsTrue(merchantAccount.IsSubMerchant);
@@ -47,10 +47,10 @@ namespace Braintree.Tests
             int randomNumber = random.Next(0, 10000);
             var subMerchantAccountId = "sub_merchant_account_id_" + randomNumber;
             var request = deprecatedCreateRequest(subMerchantAccountId);
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsTrue(result.IsSuccess());
 
-            MerchantAccount merchantAccount = result.Target;
+            IMerchantAccount merchantAccount = result.Target;
             Assert.AreEqual(MerchantAccountStatus.PENDING, merchantAccount.Status);
             Assert.AreEqual("sandbox_master_merchant_account", merchantAccount.MasterMerchantAccount.Id);
             Assert.IsTrue(merchantAccount.IsSubMerchant);
@@ -61,7 +61,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_HandlesUnsuccessfulResults()
         {
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(new MerchantAccountRequest());
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(new MerchantAccountRequest());
             Assert.IsFalse(result.IsSuccess());
             List<ValidationError> errors = result.Errors.ForObject("merchant-account").OnField("master-merchant-account-id");
             Assert.AreEqual(1, errors.Count);
@@ -72,10 +72,10 @@ namespace Braintree.Tests
         public void Create_WithoutId()
         {
             var request = createRequest(null);
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsTrue(result.IsSuccess());
 
-            MerchantAccount merchantAccount = result.Target;
+            IMerchantAccount merchantAccount = result.Target;
             Assert.AreEqual(MerchantAccountStatus.PENDING, merchantAccount.Status);
             Assert.AreEqual("sandbox_master_merchant_account", merchantAccount.MasterMerchantAccount.Id);
             Assert.IsTrue(merchantAccount.IsSubMerchant);
@@ -90,10 +90,10 @@ namespace Braintree.Tests
             int randomNumber = random.Next(0, 10000);
             var subMerchantAccountId = "sub_merchant_account_id_" + randomNumber;
             var request = createRequest(subMerchantAccountId);
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsTrue(result.IsSuccess());
 
-            MerchantAccount merchantAccount = result.Target;
+            IMerchantAccount merchantAccount = result.Target;
             Assert.AreEqual(MerchantAccountStatus.PENDING, merchantAccount.Status);
             Assert.AreEqual("sandbox_master_merchant_account", merchantAccount.MasterMerchantAccount.Id);
             Assert.IsTrue(merchantAccount.IsSubMerchant);
@@ -106,7 +106,7 @@ namespace Braintree.Tests
         {
             var request = createRequest(null);
             request.Funding.Destination = FundingDestination.BANK;
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsTrue(result.IsSuccess());
         }
 
@@ -115,7 +115,7 @@ namespace Braintree.Tests
         {
             var request = createRequest(null);
             request.Funding.Destination = FundingDestination.MOBILE_PHONE;
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsTrue(result.IsSuccess());
         }
 
@@ -124,7 +124,7 @@ namespace Braintree.Tests
         {
             var request = createRequest(null);
             request.Funding.Destination = FundingDestination.EMAIL;
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsTrue(result.IsSuccess());
         }
 
@@ -132,14 +132,14 @@ namespace Braintree.Tests
         public void Update_UpdatesAllFields()
         {
             var request = deprecatedCreateRequest(null);
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsTrue(result.IsSuccess());
             var updateRequest = createRequest(null);
             updateRequest.TosAccepted = null;
             updateRequest.MasterMerchantAccountId = null;
-            Result<MerchantAccount> updateResult = gateway.MerchantAccount.Update(result.Target.Id, updateRequest);
+            Result<IMerchantAccount> updateResult = gateway.MerchantAccount.Update(result.Target.Id, updateRequest);
             Assert.IsTrue(updateResult.IsSuccess());
-            MerchantAccount merchantAccount = updateResult.Target;
+            IMerchantAccount merchantAccount = updateResult.Target;
             Assert.AreEqual("Job", merchantAccount.IndividualDetails.FirstName);
             Assert.AreEqual("Leoggs", merchantAccount.IndividualDetails.LastName);
             Assert.AreEqual("job@leoggs.com", merchantAccount.IndividualDetails.Email);
@@ -173,7 +173,7 @@ namespace Braintree.Tests
                 TosAccepted = true,
                 MasterMerchantAccountId = "sandbox_master_merchant_account"
             };
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsFalse(result.IsSuccess());
             ValidationErrors errors = result.Errors.ForObject("merchant-account");
             Assert.AreEqual(ValidationErrorCode.MERCHANT_ACCOUNT_INDIVIDUAL_FIRST_NAME_IS_REQUIRED,
@@ -239,7 +239,7 @@ namespace Braintree.Tests
                 TosAccepted = true,
                 MasterMerchantAccountId = "sandbox_master_merchant_account"
             };
-            Result<MerchantAccount> result = gateway.MerchantAccount.Create(request);
+            Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsFalse(result.IsSuccess());
             ValidationErrors errors = result.Errors.ForObject("merchant-account");
             Assert.AreEqual(ValidationErrorCode.MERCHANT_ACCOUNT_INDIVIDUAL_FIRST_NAME_IS_INVALID,
@@ -287,8 +287,8 @@ namespace Braintree.Tests
         [Test]
         public void Find()
         {
-            MerchantAccount merchantAccount = gateway.MerchantAccount.Create(createRequest(null)).Target;
-            MerchantAccount foundMerchantAccount = gateway.MerchantAccount.Find(merchantAccount.Id);
+            IMerchantAccount merchantAccount = gateway.MerchantAccount.Create(createRequest(null)).Target;
+            IMerchantAccount foundMerchantAccount = gateway.MerchantAccount.Find(merchantAccount.Id);
             Assert.AreEqual(merchantAccount.Id, foundMerchantAccount.Id);
         }
 

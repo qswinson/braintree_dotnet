@@ -25,11 +25,22 @@ namespace Braintree
         protected MerchantAccountStatus(string name) : base(name) {}
     }
 
-    public class MerchantAccount
+    public interface IMerchantAccount
+    {
+        string Id { get; }
+        MerchantAccountStatus Status { get; }
+        IMerchantAccount MasterMerchantAccount { get; }
+        MerchantAccountIndividualDetails IndividualDetails { get; }
+        MerchantAccountBusinessDetails BusinessDetails { get; }
+        MerchantAccountFundingDetails FundingDetails { get; }
+        bool IsSubMerchant { get; }
+    }
+
+    public class MerchantAccount : IMerchantAccount
     {
       public string Id { get; protected set; }
       public MerchantAccountStatus Status { get; protected set; }
-      public MerchantAccount MasterMerchantAccount { get; protected set; }
+      public IMerchantAccount MasterMerchantAccount { get; protected set; }
       public MerchantAccountIndividualDetails IndividualDetails { get; protected set; }
       public MerchantAccountBusinessDetails BusinessDetails { get; protected set; }
       public MerchantAccountFundingDetails FundingDetails { get; protected set; }

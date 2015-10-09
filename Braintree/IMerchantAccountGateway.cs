@@ -4,8 +4,8 @@ namespace Braintree
 {
     public interface IMerchantAccountGateway
     {
-        Result<MerchantAccount> Create(MerchantAccountRequest request);
-        MerchantAccount Find(string id);
-        Result<MerchantAccount> Update(string id, MerchantAccountRequest request);
+        Result<IMerchantAccount> Create(MerchantAccountRequest request);
+        IMerchantAccount Find(string id);
+        Result<IMerchantAccount> Update(string id, MerchantAccountRequest request);
     }
 }
