@@ -374,7 +374,7 @@ namespace Braintree.Tests
             );            
             string code = OAuthTestHelper.CreateGrant(oauthGateway, gateway.Configuration.MerchantId, "read_write");
 
-            ResultImpl<OAuthCredentials> accessTokenResult = oauthGateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
+            ResultImpl<IOAuthCredentials> accessTokenResult = oauthGateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
                 Code = code,
                 Scope = "read_write"
             });

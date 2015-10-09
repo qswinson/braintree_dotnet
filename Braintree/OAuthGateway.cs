@@ -17,20 +17,20 @@ namespace Braintree
             service = new BraintreeService(gateway.Configuration);
         }
 
-        public ResultImpl<OAuthCredentials> CreateTokenFromCode(OAuthCredentialsRequest request)
+        public ResultImpl<IOAuthCredentials> CreateTokenFromCode(OAuthCredentialsRequest request)
         {
             request.GrantType = "authorization_code";
             XmlNode accessTokenXML = service.Post("/oauth/access_tokens", request);
 
-            return new ResultImpl<OAuthCredentials>(new NodeWrapper(accessTokenXML), gateway);
+            return new ResultImpl<IOAuthCredentials>(new NodeWrapper(accessTokenXML), gateway);
         }
 
-        public ResultImpl<OAuthCredentials> CreateTokenFromRefreshToken(OAuthCredentialsRequest request)
+        public ResultImpl<IOAuthCredentials> CreateTokenFromRefreshToken(OAuthCredentialsRequest request)
         {
             request.GrantType = "refresh_token";
             XmlNode accessTokenXML = service.Post("/oauth/access_tokens", request);
 
-            return new ResultImpl<OAuthCredentials>(new NodeWrapper(accessTokenXML), gateway);
+            return new ResultImpl<IOAuthCredentials>(new NodeWrapper(accessTokenXML), gateway);
         }
 
         public string ConnectUrl(OAuthConnectUrlRequest request)

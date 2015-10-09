@@ -27,7 +27,7 @@ namespace Braintree.Tests
         {
             string code = OAuthTestHelper.CreateGrant(gateway, "integration_merchant_id", "read_write");
 
-            ResultImpl<OAuthCredentials> result = gateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
+            ResultImpl<IOAuthCredentials> result = gateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
                 Code = code,
                 Scope = "read_write"
             });
@@ -44,12 +44,12 @@ namespace Braintree.Tests
         {
             string code = OAuthTestHelper.CreateGrant(gateway, "integration_merchant_id", "read_write");
 
-            ResultImpl<OAuthCredentials> accessTokenResult = gateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
+            ResultImpl<IOAuthCredentials> accessTokenResult = gateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
                 Code = code,
                 Scope = "read_write"
             });
 
-            ResultImpl<OAuthCredentials> refreshTokenResult = gateway.OAuth.CreateTokenFromRefreshToken(new OAuthCredentialsRequest {
+            ResultImpl<IOAuthCredentials> refreshTokenResult = gateway.OAuth.CreateTokenFromRefreshToken(new OAuthCredentialsRequest {
                 RefreshToken = accessTokenResult.Target.RefreshToken,
                 Scope = "read_write"
             });
@@ -64,7 +64,7 @@ namespace Braintree.Tests
         [Test]
         public void CreateTokenFromBadCode_ReturnsFailureCode()
         {
-            ResultImpl<OAuthCredentials> result = gateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
+            ResultImpl<IOAuthCredentials> result = gateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
                 Code = "bad_code",
                 Scope = "read_write"
             });

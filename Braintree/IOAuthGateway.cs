@@ -6,7 +6,7 @@ namespace Braintree
     {
         string ComputeSignature(string message);
         string ConnectUrl(OAuthConnectUrlRequest request);
-        ResultImpl<OAuthCredentials> CreateTokenFromCode(OAuthCredentialsRequest request);
-        ResultImpl<OAuthCredentials> CreateTokenFromRefreshToken(OAuthCredentialsRequest request);
+        ResultImpl<IOAuthCredentials> CreateTokenFromCode(OAuthCredentialsRequest request);
+        ResultImpl<IOAuthCredentials> CreateTokenFromRefreshToken(OAuthCredentialsRequest request);
     }
 }

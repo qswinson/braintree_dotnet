@@ -1409,7 +1409,7 @@ namespace Braintree.Tests
                 "client_secret$development$integration_client_secret"
             );
             string code = OAuthTestHelper.CreateGrant(oauthGateway, "integration_merchant_id", "read_write");
-            ResultImpl<OAuthCredentials> accessTokenResult = oauthGateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
+            ResultImpl<IOAuthCredentials> accessTokenResult = oauthGateway.OAuth.CreateTokenFromCode(new OAuthCredentialsRequest {
                 Code = code,
                 Scope = "read_write"
             });

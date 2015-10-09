@@ -32,7 +32,7 @@ namespace Braintree
             Credentials = new OAuthCredentials(node.GetNode("credentials"));
         }
 
-        public OAuthCredentials Credentials;
+        public IOAuthCredentials Credentials;
 
         public string Id
         {

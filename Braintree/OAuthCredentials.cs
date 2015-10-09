@@ -2,7 +2,15 @@ using System;
 
 namespace Braintree
 {
-    public class OAuthCredentials
+    public interface IOAuthCredentials
+    {
+        string AccessToken { get; set; }
+        string RefreshToken { get; set; }
+        string TokenType { get; set; }
+        DateTime? ExpiresAt { get; set; }
+    }
+
+    public class OAuthCredentials : IOAuthCredentials
     {
         public OAuthCredentials(NodeWrapper node)
         {
