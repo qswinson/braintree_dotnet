@@ -23,7 +23,7 @@ namespace Braintree
         DateTime? UpdatedAt { get; }
         CreditCard[] CreditCards { get; }
         PayPalAccount[] PayPalAccounts { get; }
-        ApplePayCard[] ApplePayCards { get; }
+        IApplePayCard[] ApplePayCards { get; }
         IAndroidPayCard[] AndroidPayCards { get; }
         CoinbaseAccount[] CoinbaseAccounts { get; }
         PaymentMethod[] PaymentMethods { get; }
@@ -56,7 +56,7 @@ namespace Braintree
         public DateTime? UpdatedAt { get; protected set; }
         public CreditCard[] CreditCards { get; protected set; }
         public PayPalAccount[] PayPalAccounts { get; protected set; }
-        public ApplePayCard[] ApplePayCards { get; protected set; }
+        public IApplePayCard[] ApplePayCards { get; protected set; }
         public IAndroidPayCard[] AndroidPayCards { get; protected set; }
         public CoinbaseAccount[] CoinbaseAccounts { get; protected set; }
         public PaymentMethod[] PaymentMethods { get; protected set; }

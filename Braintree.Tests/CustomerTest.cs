@@ -98,7 +98,7 @@ namespace Braintree.Tests
             ICustomer customer = gateway.Customer.Find(createdCustomer.Id);
             Assert.IsNotNull(customer.ApplePayCards);
             Assert.IsNotNull(customer.PaymentMethods);
-            ApplePayCard card = customer.ApplePayCards[0];
+            IApplePayCard card = customer.ApplePayCards[0];
             Assert.IsNotNull(card.Token);
             Assert.AreEqual(card, customer.PaymentMethods[0]);
         }

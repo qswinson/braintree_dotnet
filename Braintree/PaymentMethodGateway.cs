@@ -29,7 +29,7 @@ namespace Braintree
             }
             else if (response.GetName() == "apple-pay-card")
             {
-                return new ResultImpl<ApplePayCard>(response, gateway);
+                return new ResultImpl<IApplePayCard>(response, gateway);
             }
             else if (response.GetName() == "android-pay-card")
             {
@@ -59,7 +59,7 @@ namespace Braintree
             }
             else if (response.GetName() == "apple-pay-card")
             {
-                return new ResultImpl<ApplePayCard>(response, gateway);
+                return new ResultImpl<IApplePayCard>(response, gateway);
             }
             else if (response.GetName() == "android-pay-card")
             {

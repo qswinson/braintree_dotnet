@@ -137,7 +137,7 @@ namespace Braintree.Tests
             Assert.IsNotNull(paymentMethodResult.Target.Token);
             Assert.IsNotNull(paymentMethodResult.Target.ImageUrl);
             Assert.IsAssignableFrom(typeof(ApplePayCard), paymentMethodResult.Target);
-            ApplePayCard applePayCard = (ApplePayCard) paymentMethodResult.Target;
+            IApplePayCard applePayCard = (IApplePayCard) paymentMethodResult.Target;
             Assert.IsNotNull(applePayCard.CardType);
             Assert.IsNotNull(applePayCard.ExpirationMonth);
             Assert.IsNotNull(applePayCard.ExpirationYear);

@@ -2,7 +2,20 @@ using System;
 
 namespace Braintree
 {
-    public class ApplePayCard : PaymentMethod
+    public interface IApplePayCard : PaymentMethod
+    {
+        string CardType { get; }
+        string Last4 { get; }
+        string ExpirationMonth { get; }
+        string ExpirationYear { get; }
+        string PaymentInstrumentName { get; }
+        string SourceDescription { get; }
+        DateTime? CreatedAt { get; }
+        DateTime? UpdatedAt { get; }
+        Subscription[] Subscriptions { get; }
+    }
+
+    public class ApplePayCard : IApplePayCard
     {
         public string CardType { get; protected set; }
         public string Last4 { get; protected set; }
