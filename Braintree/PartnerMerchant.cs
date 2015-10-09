@@ -2,7 +2,16 @@ using System;
 
 namespace Braintree
 {
-    public class PartnerMerchant
+    public interface IPartnerMerchant
+    {
+        string MerchantPublicId { get; }
+        string PublicKey { get; }
+        string PrivateKey { get; }
+        string PartnerMerchantId { get; }
+        string ClientSideEncryptionKey { get; }
+    }
+
+    public class PartnerMerchant : IPartnerMerchant
     {
         public string MerchantPublicId { get; protected set; }
         public string PublicKey { get; protected set; }
