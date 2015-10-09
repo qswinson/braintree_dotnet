@@ -4,7 +4,14 @@ using System;
 
 namespace Braintree
 {
-    public class Descriptor
+    public interface IDescriptor
+    {
+        string Name { get; }
+        string Phone { get; }
+        string Url { get; }
+    }
+
+    public class Descriptor : IDescriptor
     {
         public string Name { get; protected set; }
         public string Phone { get; protected set; }

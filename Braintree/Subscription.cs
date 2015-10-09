@@ -95,7 +95,7 @@ namespace Braintree
         public DateTime? BillingPeriodStartDate { get; protected set; }
         public int? CurrentBillingCycle { get; protected set; }
         public int? DaysPastDue { get; protected set; }
-        public Descriptor Descriptor { get; protected set; }
+        public IDescriptor Descriptor { get; protected set; }
         public List<Discount> Discounts { get; protected set; }
         public int? FailureCount { get; protected set; }
         public DateTime? FirstBillingDate { get; protected set; }

@@ -150,7 +150,7 @@ namespace Braintree
         public string CurrencyIsoCode { get; protected set; }
         public ICustomer Customer { get; protected set; }
         public string CvvResponseCode { get; protected set; }
-        public Descriptor Descriptor { get; protected set; }
+        public IDescriptor Descriptor { get; protected set; }
         public List<Discount> Discounts { get; protected set; }
         public List<Dispute> Disputes { get; protected set; }
         public TransactionGatewayRejectionReason GatewayRejectionReason { get; protected set; }
