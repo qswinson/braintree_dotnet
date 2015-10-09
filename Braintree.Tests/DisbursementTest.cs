@@ -59,7 +59,7 @@ namespace Braintree.Tests
         [Test]
         public void Transactions()
         {
-          Disbursement disbursement = new Disbursement(attributes, gateway);
+          IDisbursement disbursement = new Disbursement(attributes, gateway);
           ResourceCollection<Transaction> transactions = disbursement.Transactions();
           Assert.IsNotNull(transactions);
           Assert.AreEqual(1, transactions.MaximumCount);

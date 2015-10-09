@@ -4,7 +4,21 @@ using System.Collections.Generic;
 
 namespace Braintree
 {
-    public class Disbursement
+    public interface IDisbursement
+    {
+        string Id { get; }
+        decimal? Amount { get; }
+        string ExceptionMessage { get; }
+        DateTime? DisbursementDate { get; }
+        string FollowUpAction { get; }
+        MerchantAccount MerchantAccount { get; }
+        List<string> TransactionIds { get; }
+        bool? Success { get; }
+        bool? Retry { get; }
+        ResourceCollection<Transaction> Transactions();
+    }
+
+    public class Disbursement : IDisbursement
     {
         public string Id { get; protected set; }
         public decimal? Amount { get; protected set; }

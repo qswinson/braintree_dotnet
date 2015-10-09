@@ -59,7 +59,7 @@ namespace Braintree
         public string Message { get; protected set; }
         public DateTime? Timestamp { get; protected set; }
         public Transaction Transaction { get; protected set; }
-        public Disbursement Disbursement { get; protected set; }
+        public IDisbursement Disbursement { get; protected set; }
         public Dispute Dispute { get; protected set; }
         public PartnerMerchant PartnerMerchant { get; protected set; }
 
