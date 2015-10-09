@@ -188,7 +188,7 @@ namespace Braintree
         public IDisbursementDetails DisbursementDetails { get; protected set; }
         public IApplePayDetails ApplePayDetails { get; protected set; }
         public IAndroidPayDetails AndroidPayDetails { get; protected set; }
-        public PayPalDetails PayPalDetails { get; protected set; }
+        public IPayPalDetails PayPalDetails { get; protected set; }
         public ICoinbaseDetails CoinbaseDetails { get; protected set; }
         public PaymentInstrumentType PaymentInstrumentType { get; protected set; }
         public RiskData RiskData { get; protected set; }

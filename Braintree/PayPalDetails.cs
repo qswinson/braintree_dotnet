@@ -2,7 +2,28 @@ using System;
 
 namespace Braintree
 {
-    public class PayPalDetails
+    public interface IPayPalDetails
+    {
+        string PayerEmail { get; }
+        string PaymentId { get; }
+        string AuthorizationId { get; }
+        string Token { get; }
+        string ImageUrl { get; }
+        string DebugId { get; }
+        string PayeeEmail { get; }
+        string CustomField { get; }
+        string PayerId { get; }
+        string PayerFirstName { get; }
+        string PayerLastName { get; }
+        string SellerProtectionStatus { get; }
+        string CaptureId { get; }
+        string RefundId { get; }
+        string TransactionFeeAmount { get; }
+        string TransactionFeeCurrencyIsoCode { get; }
+        string Description { get; }
+    }
+
+    public class PayPalDetails : IPayPalDetails
     {
         public string PayerEmail { get; protected set; }
         public string PaymentId { get; protected set; }
