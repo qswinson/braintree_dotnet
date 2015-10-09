@@ -121,7 +121,7 @@ namespace Braintree
         CreditCardCustomerLocation CustomerLocation { get; }
         string LastFour { get; }
         string UniqueNumberIdentifier { get; }
-        Subscription[] Subscriptions { get; }
+        ISubscription[] Subscriptions { get; }
         DateTime? UpdatedAt { get; }
         Address BillingAddress { get; }
         string ExpirationMonth { get; }
@@ -173,7 +173,7 @@ namespace Braintree
         public CreditCardCustomerLocation CustomerLocation { get; protected set; }
         public string LastFour { get; protected set; }
         public string UniqueNumberIdentifier { get; protected set; }
-        public Subscription[] Subscriptions { get; protected set; }
+        public ISubscription[] Subscriptions { get; protected set; }
         public string Token { get; protected set; }
         public DateTime? UpdatedAt { get; protected set; }
         public Address BillingAddress { get; protected set; }

@@ -12,7 +12,7 @@ namespace Braintree
         string SourceDescription { get; }
         DateTime? CreatedAt { get; }
         DateTime? UpdatedAt { get; }
-        Subscription[] Subscriptions { get; }
+        ISubscription[] Subscriptions { get; }
     }
 
     public class ApplePayCard : IApplePayCard
@@ -29,7 +29,7 @@ namespace Braintree
         public string CustomerId { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }
         public DateTime? UpdatedAt { get; protected set; }
-        public Subscription[] Subscriptions { get; protected set; }
+        public ISubscription[] Subscriptions { get; protected set; }
 
         protected internal ApplePayCard(NodeWrapper node, BraintreeGateway gateway)
         {

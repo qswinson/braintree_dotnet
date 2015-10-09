@@ -13,7 +13,7 @@ namespace Braintree
         public string CustomerId { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }
         public DateTime? UpdatedAt { get; protected set; }
-        public Subscription[] Subscriptions { get; protected set; }
+        public ISubscription[] Subscriptions { get; protected set; }
 
         protected internal CoinbaseAccount(NodeWrapper node, BraintreeGateway gateway)
         {

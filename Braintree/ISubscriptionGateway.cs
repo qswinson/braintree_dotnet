@@ -9,13 +9,13 @@ namespace Braintree
     /// </summary>
     public interface ISubscriptionGateway
     {
-        Result<Subscription> Cancel(string id);
+        Result<ISubscription> Cancel(string id);
         Result<Subscription> Create(SubscriptionRequest request);
-        Subscription Find(string id);
+        ISubscription Find(string id);
         Result<Transaction> RetryCharge(string subscriptionId);
         Result<Transaction> RetryCharge(string subscriptionId, decimal amount);
-        ResourceCollection<Subscription> Search(SubscriptionSearchRequest query);
-        ResourceCollection<Subscription> Search(SubscriptionGateway.SearchDelegate searchDelegate);
-        Result<Subscription> Update(string id, SubscriptionRequest request);
+        ResourceCollection<ISubscription> Search(SubscriptionSearchRequest query);
+        ResourceCollection<ISubscription> Search(SubscriptionGateway.SearchDelegate searchDelegate);
+        Result<ISubscription> Update(string id, SubscriptionRequest request);
     }
 }

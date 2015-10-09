@@ -467,7 +467,7 @@ namespace Braintree.Tests
                 ICreditCard creditCard = gateway.CreditCard.Find(originalCreditCard.Token);
                 Assert.IsNotNull(creditCard);
                 Assert.IsNotEmpty(creditCard.Subscriptions);
-                Subscription subscription = creditCard.Subscriptions[0];
+                ISubscription subscription = creditCard.Subscriptions[0];
                 Assert.IsNotNull(subscription);
                 Assert.AreEqual(id, subscription.Id);
                 Assert.AreEqual("integration_trialless_plan", subscription.PlanId);

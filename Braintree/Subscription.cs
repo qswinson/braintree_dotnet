@@ -76,6 +76,40 @@ namespace Braintree
         protected SubscriptionSource(string name) : base(name) {}
     }
 
+    public interface ISubscription
+    {
+        decimal? Balance { get; }
+        List<AddOn> AddOns { get; }
+        int? BillingDayOfMonth { get; }
+        DateTime? BillingPeriodEndDate { get; }
+        DateTime? BillingPeriodStartDate { get; }
+        int? CurrentBillingCycle { get; }
+        int? DaysPastDue { get; }
+        IDescriptor Descriptor { get; }
+        List<Discount> Discounts { get; }
+        int? FailureCount { get; }
+        DateTime? FirstBillingDate { get; }
+        DateTime? CreatedAt { get; }
+        DateTime? UpdatedAt { get; }
+        bool? HasTrialPeriod { get; }
+        string Id { get; }
+        bool? NeverExpires { get; }
+        decimal? NextBillAmount { get; }
+        DateTime? NextBillingDate { get; }
+        decimal? NextBillingPeriodAmount { get; }
+        int? NumberOfBillingCycles { get; }
+        DateTime? PaidThroughDate { get; }
+        string PaymentMethodToken { get; }
+        string PlanId { get; }
+        decimal? Price { get; }
+        SubscriptionStatusEvent[] StatusHistory { get; }
+        SubscriptionStatus Status { get; }
+        List<Transaction> Transactions { get; }
+        int? TrialDuration { get; }
+        SubscriptionDurationUnit TrialDurationUnit { get; }
+        string MerchantAccountId { get; }
+    }
+
     /// <summary>
     /// A subscription returned by the Braintree Gateway
     /// </summary>
@@ -86,7 +120,7 @@ namespace Braintree
     /// </code>
     /// For more information about Subscriptions, see <a href="http://www.braintreepayments.com/gateway/subscription-api" target="_blank">http://www.braintreepaymentsolutions.com/gateway/subscription-api</a>
     /// </example>
-    public class Subscription
+    public class Subscription : ISubscription
     {
         public decimal? Balance { get; protected set; }
         public List<AddOn> AddOns { get; protected set; }

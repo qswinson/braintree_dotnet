@@ -52,7 +52,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(creditCard.Token, subscription.PaymentMethodToken);
             Assert.AreEqual(plan.Id, subscription.PlanId);
@@ -94,7 +94,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
             Transaction transaction = subscription.Transactions[0];
             Assert.AreEqual("424242", transaction.CreditCard.Bin);
         }
@@ -113,7 +113,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(creditCard.Token, subscription.PaymentMethodToken);
             Assert.AreEqual(plan.Id, subscription.PlanId);
@@ -133,7 +133,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
             Transaction transaction = subscription.Transactions[0];
 
             Assert.AreEqual(subscription.BillingPeriodStartDate, transaction.Subscription.BillingPeriodStartDate);
@@ -170,7 +170,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(creditCard.Token, subscription.PaymentMethodToken);
             Assert.AreEqual(plan.Id, subscription.PlanId);
@@ -205,7 +205,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.IsTrue(subscription.HasTrialPeriod.Value);
             Assert.AreEqual(2, subscription.TrialDuration);
@@ -225,7 +225,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.IsFalse(subscription.HasTrialPeriod.Value);
         }
@@ -243,7 +243,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(482.48M, subscription.Price);
         }
@@ -258,7 +258,7 @@ namespace Braintree.Tests
                 PlanId = plan.Id
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             Assert.AreEqual(12, subscription.NumberOfBillingCycles);
 
@@ -269,7 +269,7 @@ namespace Braintree.Tests
                 NumberOfBillingCycles = 10
             };
 
-            Subscription overridenSubscription = gateway.Subscription.Create(overrideRequest).Target;
+            ISubscription overridenSubscription = gateway.Subscription.Create(overrideRequest).Target;
             Assert.AreEqual(10, overridenSubscription.NumberOfBillingCycles);
             Assert.IsFalse(overridenSubscription.NeverExpires.Value);
         }
@@ -285,7 +285,7 @@ namespace Braintree.Tests
                 NeverExpires = true
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             Assert.IsNull(subscription.NumberOfBillingCycles);
             Assert.IsTrue(subscription.NeverExpires.Value);
@@ -302,7 +302,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(5, subscription.BillingDayOfMonth);
         }
@@ -319,7 +319,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(19, subscription.BillingDayOfMonth);
         }
@@ -339,7 +339,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(1, subscription.Transactions.Count);
         }
@@ -356,7 +356,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(DateTime.Now.ToUniversalTime().AddDays(3).ToShortDateString(), subscription.FirstBillingDate.Value.ToShortDateString());
             Assert.AreEqual(SubscriptionStatus.PENDING, subscription.Status);
@@ -394,7 +394,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(newId, subscription.Id);
         }
@@ -412,7 +412,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(MerchantAccountIDs.NON_DEFAULT_MERCHANT_ACCOUNT_ID, subscription.MerchantAccountId);
         }
@@ -430,7 +430,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
             Transaction transaction = subscription.Transactions[0];
 
             Assert.AreEqual(1, subscription.Transactions.Count);
@@ -452,7 +452,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(0, subscription.Transactions.Count);
         }
@@ -473,7 +473,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(0, subscription.AddOns.Count);
             Assert.AreEqual(0, subscription.Discounts.Count);
@@ -490,7 +490,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             List<AddOn> addOns = subscription.AddOns;
             addOns.Sort(TestHelper.CompareModificationsById);
@@ -577,7 +577,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             List<AddOn> addOns = subscription.AddOns;
             addOns.Sort(TestHelper.CompareModificationsById);
@@ -634,7 +634,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(0, subscription.AddOns.Count);
             Assert.AreEqual(1, subscription.Discounts.Count);
@@ -682,7 +682,7 @@ namespace Braintree.Tests
 
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
 
             Assert.AreEqual(1, subscription.AddOns.Count);
 
@@ -749,9 +749,9 @@ namespace Braintree.Tests
                 PlanId = plan.Id
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
-            Subscription foundSubscription = gateway.Subscription.Find(subscription.Id);
+            ISubscription foundSubscription = gateway.Subscription.Find(subscription.Id);
             Assert.AreEqual(subscription.Id, foundSubscription.Id);
             Assert.AreEqual(subscription.PaymentMethodToken, creditCard.Token);
             Assert.AreEqual(subscription.PlanId, plan.Id);
@@ -785,14 +785,14 @@ namespace Braintree.Tests
                 Price = 4M
             };
 
-            Subscription subscription1 = gateway.Subscription.Create(request1).Target;
-            Subscription subscription2 = gateway.Subscription.Create(request2).Target;
+            ISubscription subscription1 = gateway.Subscription.Create(request1).Target;
+            ISubscription subscription2 = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 BillingCyclesRemaining.Is(5).
                 Price.Is(4M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, subscription1));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, subscription2));
@@ -807,16 +807,16 @@ namespace Braintree.Tests
                 PlanId = PlanFixture.PLAN_WITH_TRIAL.Id,
             };
 
-            Subscription subscription = gateway.Subscription.Create(subscriptionRequest).Target;
+            ISubscription subscription = gateway.Subscription.Create(subscriptionRequest).Target;
             MakePastDue(subscription, 3);
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 DaysPastDue.Between(2, 10);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
             Assert.IsTrue(collection.MaximumCount > 0);
 
-            foreach (Subscription foundSubscription in collection) {
+            foreach (ISubscription foundSubscription in collection) {
                 Assert.IsTrue(foundSubscription.DaysPastDue >= 2 && foundSubscription.DaysPastDue <= 10);
             }
         }
@@ -840,14 +840,14 @@ namespace Braintree.Tests
                 Price = 3M
             };
 
-            Subscription subscription1 = gateway.Subscription.Create(request1).Target;
-            Subscription subscription2 = gateway.Subscription.Create(request2).Target;
+            ISubscription subscription1 = gateway.Subscription.Create(request1).Target;
+            ISubscription subscription2 = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 Id.StartsWith("find_me").
                 Price.Is(3M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, subscription1));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, subscription2));
@@ -868,13 +868,13 @@ namespace Braintree.Tests
                 PlanId = PlanFixture.PLAN_WITHOUT_TRIAL.Id
             };
 
-            Subscription trial = gateway.Subscription.Create(request1).Target;
-            Subscription noTrial = gateway.Subscription.Create(request2).Target;
+            ISubscription trial = gateway.Subscription.Create(request1).Target;
+            ISubscription noTrial = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 InTrialPeriod.Is(true);
 
-            ResourceCollection<Subscription> trialResults = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> trialResults = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(trialResults, trial));
             Assert.IsFalse(TestHelper.IncludesSubscription(trialResults, noTrial));
@@ -882,7 +882,7 @@ namespace Braintree.Tests
             request = new SubscriptionSearchRequest().
             InTrialPeriod.Is(false);
 
-            ResourceCollection<Subscription> noTrialResults = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> noTrialResults = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(noTrialResults, noTrial));
             Assert.IsFalse(TestHelper.IncludesSubscription(noTrialResults, trial));
@@ -907,14 +907,14 @@ namespace Braintree.Tests
                 Price = 2M
             };
 
-            Subscription defaultMerchantAccountSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription nonDefaultMerchantAccountSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription defaultMerchantAccountSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription nonDefaultMerchantAccountSubscription = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 MerchantAccountId.Is(MerchantAccountIDs.NON_DEFAULT_MERCHANT_ACCOUNT_ID).
                 Price.Is(2M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, nonDefaultMerchantAccountSubscription));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, defaultMerchantAccountSubscription));
@@ -983,13 +983,13 @@ namespace Braintree.Tests
                 Price = 7M
             };
 
-            Subscription triallessSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription trialSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription triallessSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription trialSubscription = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 NextBillingDate.GreaterThanOrEqualTo(DateTime.Now.AddDays(5));
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, triallessSubscription));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, trialSubscription));
@@ -1013,14 +1013,14 @@ namespace Braintree.Tests
                 Price = 5M
             };
 
-            Subscription trialSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription triallessSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription trialSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription triallessSubscription = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 PlanId.Is(trialPlan.Id).
                 Price.Is(5M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, trialSubscription));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, triallessSubscription));
@@ -1050,14 +1050,14 @@ namespace Braintree.Tests
                 Price = 30M
             };
 
-            Subscription subscription10 = gateway.Subscription.Create(request10).Target;
-            Subscription subscription20 = gateway.Subscription.Create(request20).Target;
-            Subscription subscription30 = gateway.Subscription.Create(request30).Target;
+            ISubscription subscription10 = gateway.Subscription.Create(request10).Target;
+            ISubscription subscription20 = gateway.Subscription.Create(request20).Target;
+            ISubscription subscription30 = gateway.Subscription.Create(request30).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 Price.Between(15M, 20M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, subscription10));
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, subscription20));
@@ -1084,10 +1084,10 @@ namespace Braintree.Tests
                 Price = 6M
             };
 
-            Subscription trialSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription triallessSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription trialSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription triallessSubscription = gateway.Subscription.Create(request2).Target;
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(delegate(SubscriptionSearchRequest search) {
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(delegate(SubscriptionSearchRequest search) {
                 search.PlanId.Is(trialPlan.Id);
                 search.Price.Is(6M);
             });
@@ -1115,14 +1115,14 @@ namespace Braintree.Tests
                 Price = 7M
             };
 
-            Subscription trialSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription triallessSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription trialSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription triallessSubscription = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 PlanId.IsNot(triallessPlan.Id).
                 Price.Is(7M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, trialSubscription));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, triallessSubscription));
@@ -1146,13 +1146,13 @@ namespace Braintree.Tests
                 Price = 7M
             };
 
-            Subscription matchingSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription nonMatchingSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription matchingSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription nonMatchingSubscription = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 TransactionId.Is(matchingSubscription.Transactions[0].Id);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, matchingSubscription));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, nonMatchingSubscription));
@@ -1177,14 +1177,14 @@ namespace Braintree.Tests
                 Price = 8M
             };
 
-            Subscription trialSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription triallessSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription trialSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription triallessSubscription = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 PlanId.StartsWith("integration_trial_p").
                 Price.Is(8M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, trialSubscription));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, triallessSubscription));
@@ -1209,14 +1209,14 @@ namespace Braintree.Tests
                 Price = 9M
             };
 
-            Subscription trialSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription triallessSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription trialSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription triallessSubscription = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 PlanId.EndsWith("trial_plan").
                 Price.Is(9M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, trialSubscription));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, triallessSubscription));
@@ -1241,14 +1241,14 @@ namespace Braintree.Tests
                 Price = 10M
             };
 
-            Subscription trialSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription triallessSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription trialSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription triallessSubscription = gateway.Subscription.Create(request2).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 PlanId.Contains("ion_trial_pl").
                 Price.Is(10M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, trialSubscription));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, triallessSubscription));
@@ -1278,15 +1278,15 @@ namespace Braintree.Tests
                 Price = 5M
             };
 
-            Subscription subscription1 = gateway.Subscription.Create(request1).Target;
-            Subscription subscription2 = gateway.Subscription.Create(request2).Target;
-            Subscription subscription3 = gateway.Subscription.Create(request3).Target;
+            ISubscription subscription1 = gateway.Subscription.Create(request1).Target;
+            ISubscription subscription2 = gateway.Subscription.Create(request2).Target;
+            ISubscription subscription3 = gateway.Subscription.Create(request3).Target;
 
             SubscriptionSearchRequest request = new SubscriptionSearchRequest().
                 PlanId.IncludedIn(PlanFixture.ADD_ON_DISCOUNT_PLAN.Id, PlanFixture.PLAN_WITH_TRIAL.Id).
                 Price.Is(5M);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(request);
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(request);
 
             Assert.IsTrue(TestHelper.IncludesSubscription(collection, subscription1));
             Assert.IsFalse(TestHelper.IncludesSubscription(collection, subscription2));
@@ -1312,11 +1312,11 @@ namespace Braintree.Tests
                 Price = 11M
             };
 
-            Subscription activeSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription canceledSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription activeSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription canceledSubscription = gateway.Subscription.Create(request2).Target;
             gateway.Subscription.Cancel(canceledSubscription.Id);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(delegate(SubscriptionSearchRequest search) {
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(delegate(SubscriptionSearchRequest search) {
                 search.Status.IncludedIn(SubscriptionStatus.ACTIVE);
                 search.Price.Is(11M);
             });
@@ -1328,12 +1328,12 @@ namespace Braintree.Tests
         [Test]
         public void Search_OnStatusExpired()
         {
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(delegate(SubscriptionSearchRequest search) {
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(delegate(SubscriptionSearchRequest search) {
                 search.Status.IncludedIn(SubscriptionStatus.EXPIRED);
             });
 
             Assert.IsTrue(collection.MaximumCount > 0);
-            foreach(Subscription subscription in collection) {
+            foreach(ISubscription subscription in collection) {
                 Assert.AreEqual(SubscriptionStatus.EXPIRED, subscription.Status);
             }
         }
@@ -1357,11 +1357,11 @@ namespace Braintree.Tests
                 Price = 12M
             };
 
-            Subscription activeSubscription = gateway.Subscription.Create(request1).Target;
-            Subscription canceledSubscription = gateway.Subscription.Create(request2).Target;
+            ISubscription activeSubscription = gateway.Subscription.Create(request1).Target;
+            ISubscription canceledSubscription = gateway.Subscription.Create(request2).Target;
             gateway.Subscription.Cancel(canceledSubscription.Id);
 
-            ResourceCollection<Subscription> collection = gateway.Subscription.Search(delegate(SubscriptionSearchRequest search) {
+            ResourceCollection<ISubscription> collection = gateway.Subscription.Search(delegate(SubscriptionSearchRequest search) {
                 search.Status.IncludedIn(SubscriptionStatus.ACTIVE, SubscriptionStatus.CANCELED);
                 search.Price.Is(12M);
             });
@@ -1389,10 +1389,10 @@ namespace Braintree.Tests
             {
                 Id = newId
             };
-            Result<Subscription> result = gateway.Subscription.Update(oldId, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(oldId, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
-            Subscription updatedSubscription = result.Target;
+            ISubscription updatedSubscription = result.Target;
 
             Assert.AreEqual(newId, updatedSubscription.Id);
             Assert.IsNotNull(gateway.Subscription.Find(newId));
@@ -1408,11 +1408,11 @@ namespace Braintree.Tests
                 PlanId = originalPlan.Id,
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             TestPlan newPlan = PlanFixture.PLAN_WITH_TRIAL;
             SubscriptionRequest updateRequest = new SubscriptionRequest { PlanId = newPlan.Id };
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
@@ -1423,7 +1423,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_PaymentMethodToken()
         {
-            Subscription subscription = gateway.Subscription.Create(new SubscriptionRequest
+            ISubscription subscription = gateway.Subscription.Create(new SubscriptionRequest
             {
                 PaymentMethodToken = creditCard.Token,
                 PlanId = PlanFixture.PLAN_WITHOUT_TRIAL.Id,
@@ -1440,7 +1440,7 @@ namespace Braintree.Tests
             }).Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest { PaymentMethodToken = newCreditCard.Token };
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
@@ -1451,7 +1451,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_PaymentMethodWithPaymentMethodNonce()
         {
-            Subscription subscription = gateway.Subscription.Create(new SubscriptionRequest
+            ISubscription subscription = gateway.Subscription.Create(new SubscriptionRequest
             {
                 PaymentMethodToken = creditCard.Token,
                 PlanId = PlanFixture.PLAN_WITHOUT_TRIAL.Id,
@@ -1460,7 +1460,7 @@ namespace Braintree.Tests
             string nonce = TestHelper.GenerateUnlockedNonce(gateway, "4242424242424242", creditCard.CustomerId);
             SubscriptionRequest updateRequest = new SubscriptionRequest { PaymentMethodNonce = nonce };
 
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
 
@@ -1479,12 +1479,12 @@ namespace Braintree.Tests
                 PlanId = originalPlan.Id,
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest {
                 MerchantAccountId = MerchantAccountIDs.NON_DEFAULT_MERCHANT_ACCOUNT_ID
             };
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
@@ -1502,7 +1502,7 @@ namespace Braintree.Tests
                 PlanId = plan.Id
             };
 
-            Subscription subscription = gateway.Subscription.Create(createRequest).Target;
+            ISubscription subscription = gateway.Subscription.Create(createRequest).Target;
 
             SubscriptionRequest request = new SubscriptionRequest
             {
@@ -1548,7 +1548,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, request);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, request);
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
 
@@ -1597,7 +1597,7 @@ namespace Braintree.Tests
                 PlanId = plan.Id
             };
 
-            Subscription subscription = gateway.Subscription.Create(createRequest).Target;
+            ISubscription subscription = gateway.Subscription.Create(createRequest).Target;
 
             SubscriptionRequest request = new SubscriptionRequest
             {
@@ -1629,7 +1629,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, request);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, request);
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
 
@@ -1648,10 +1648,10 @@ namespace Braintree.Tests
                 Price = 1.23M
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest { Price = 4.56M };
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
@@ -1671,7 +1671,7 @@ namespace Braintree.Tests
                 Price = 1.23M
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest
             {
@@ -1682,7 +1682,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
@@ -1702,7 +1702,7 @@ namespace Braintree.Tests
                 Price = 1.23M
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest
             {
@@ -1713,7 +1713,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
@@ -1733,7 +1733,7 @@ namespace Braintree.Tests
                 Price = 1.23M
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest
             {
@@ -1745,7 +1745,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsFalse(result.IsSuccess());
             subscription = result.Subscription;
@@ -1767,7 +1767,7 @@ namespace Braintree.Tests
                 Price = 1.23M
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest
             {
@@ -1779,7 +1779,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
@@ -1800,10 +1800,10 @@ namespace Braintree.Tests
                 PlanId = originalPlan.Id
             };
 
-            Subscription subscription = gateway.Subscription.Create(createRequest).Target;
+            ISubscription subscription = gateway.Subscription.Create(createRequest).Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest { Price = 4.56M };
-            Result<Subscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(subscription.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
@@ -1872,10 +1872,10 @@ namespace Braintree.Tests
 
             Result<Subscription> createResult = gateway.Subscription.Create(request);
             Assert.IsTrue(createResult.IsSuccess());
-            Subscription createdSubscription = createResult.Target;
+            ISubscription createdSubscription = createResult.Target;
 
             SubscriptionRequest updateRequest = new SubscriptionRequest { Id = "invalid id" };
-            Result<Subscription> result = gateway.Subscription.Update(createdSubscription.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(createdSubscription.Id, updateRequest);
 
             Assert.IsFalse(result.IsSuccess());
             Assert.IsNull(result.Target);
@@ -1923,7 +1923,7 @@ namespace Braintree.Tests
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
 
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
             Assert.AreEqual("123*123456789012345678", subscription.Descriptor.Name);
             Assert.AreEqual("3334445555", subscription.Descriptor.Phone);
             Assert.AreEqual("ebay.com", subscription.Descriptor.Url);
@@ -1960,10 +1960,10 @@ namespace Braintree.Tests
                   Url = "ebay.co.uk"
                 }
             };
-            Result<Subscription> result = gateway.Subscription.Update(createResult.Target.Id, updateRequest);
+            Result<ISubscription> result = gateway.Subscription.Update(createResult.Target.Id, updateRequest);
 
             Assert.IsTrue(result.IsSuccess());
-            Subscription subscription = result.Target;
+            ISubscription subscription = result.Target;
             Assert.AreEqual("999*999", subscription.Descriptor.Name);
             Assert.AreEqual("1234567890", subscription.Descriptor.Phone);
             Assert.AreEqual("ebay.co.uk", subscription.Descriptor.Url);
@@ -2035,7 +2035,7 @@ namespace Braintree.Tests
             };
 
             Result<Subscription> createResult = gateway.Subscription.Create(request);
-            Result<Subscription> cancelResult = gateway.Subscription.Cancel(createResult.Target.Id);
+            Result<ISubscription> cancelResult = gateway.Subscription.Cancel(createResult.Target.Id);
 
             Assert.IsTrue(cancelResult.IsSuccess());
             Assert.AreEqual(SubscriptionStatus.CANCELED, cancelResult.Target.Status);
@@ -2051,7 +2051,7 @@ namespace Braintree.Tests
                 PlanId = PlanFixture.PLAN_WITHOUT_TRIAL.Id
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
             MakePastDue(subscription, 1);
 
             Result<Transaction> result = gateway.Subscription.RetryCharge(subscription.Id);
@@ -2074,7 +2074,7 @@ namespace Braintree.Tests
                 PlanId = PlanFixture.PLAN_WITHOUT_TRIAL.Id
             };
 
-            Subscription subscription = gateway.Subscription.Create(request).Target;
+            ISubscription subscription = gateway.Subscription.Create(request).Target;
             MakePastDue(subscription, 1);
 
             Result<Transaction> result = gateway.Subscription.RetryCharge(subscription.Id, SandboxValues.TransactionAmount.AUTHORIZE);
@@ -2107,7 +2107,7 @@ namespace Braintree.Tests
 
                 Result<Subscription> result = gateway.Subscription.Create(request);
                 Assert.IsTrue(result.IsSuccess());
-                Subscription subscription = result.Target;
+                ISubscription subscription = result.Target;
                 Assert.AreEqual(100.00, subscription.Price);
                 Assert.AreEqual("100,00", subscription.Price.ToString());
             }
@@ -2117,7 +2117,7 @@ namespace Braintree.Tests
             }
         }
 
-        private void MakePastDue(Subscription subscription, int numberOfDays)
+        private void MakePastDue(ISubscription subscription, int numberOfDays)
         {
             BraintreeService service = new BraintreeService(gateway.Configuration);
             NodeWrapper response = new NodeWrapper(service.Put(service.MerchantPath() + "/subscriptions/" + subscription.Id + "/make_past_due?days_past_due=" + numberOfDays));

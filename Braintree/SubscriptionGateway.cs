@@ -32,7 +32,7 @@ namespace Braintree
             return new ResultImpl<Subscription>(new NodeWrapper(subscriptionXML), gateway);
         }
 
-        public virtual Subscription Find(string id)
+        public virtual ISubscription Find(string id)
         {
             if(id == null || id.Trim().Equals(""))
                 throw new NotFoundException();
@@ -42,18 +42,18 @@ namespace Braintree
             return new Subscription(new NodeWrapper(subscriptionXML), gateway);
         }
 
-        public virtual Result<Subscription> Update(string id, SubscriptionRequest request)
+        public virtual Result<ISubscription> Update(string id, SubscriptionRequest request)
         {
             XmlNode subscriptionXML = service.Put(service.MerchantPath() + "/subscriptions/" + id, request);
 
-            return new ResultImpl<Subscription>(new NodeWrapper(subscriptionXML), gateway);
+            return new ResultImpl<ISubscription>(new NodeWrapper(subscriptionXML), gateway);
         }
 
-        public virtual Result<Subscription> Cancel(string id)
+        public virtual Result<ISubscription> Cancel(string id)
         {
             XmlNode subscriptionXML = service.Put(service.MerchantPath() + "/subscriptions/" + id + "/cancel");
 
-            return new ResultImpl<Subscription>(new NodeWrapper(subscriptionXML), gateway);
+            return new ResultImpl<ISubscription>(new NodeWrapper(subscriptionXML), gateway);
         }
 
         /// <summary>
@@ -70,22 +70,22 @@ namespace Braintree
         ///     search.Status().IncludedIn(Subscription.Status.ACTIVE, Subscription.Status.CANCELED);
         /// });
         /// </code>
-        public virtual ResourceCollection<Subscription> Search(SubscriptionSearchRequest query)
+        public virtual ResourceCollection<ISubscription> Search(SubscriptionSearchRequest query)
         {
             var response = new NodeWrapper(service.Post(service.MerchantPath() + "/subscriptions/advanced_search_ids", query));
 
-            return new ResourceCollection<Subscription>(response, delegate(string[] ids) {
+            return new ResourceCollection<ISubscription>(response, delegate(string[] ids) {
                 return FetchSubscriptions(query, ids);
             });
         }
 
-        private List<Subscription> FetchSubscriptions(SubscriptionSearchRequest query, string[] ids)
+        private List<ISubscription> FetchSubscriptions(SubscriptionSearchRequest query, string[] ids)
         {
             query.Ids.IncludedIn(ids);
 
             var response = new NodeWrapper(service.Post(service.MerchantPath() + "/subscriptions/advanced_search", query));
 
-            var subscriptions = new List<Subscription>();
+            var subscriptions = new List<ISubscription>();
             foreach (var node in response.GetList("subscription"))
             {
                 subscriptions.Add(new Subscription(node, gateway));
@@ -93,7 +93,7 @@ namespace Braintree
             return subscriptions;
         }
 
-        public virtual ResourceCollection<Subscription> Search(SearchDelegate searchDelegate)
+        public virtual ResourceCollection<ISubscription> Search(SearchDelegate searchDelegate)
         {
             var query = new SubscriptionSearchRequest();
             searchDelegate(query);

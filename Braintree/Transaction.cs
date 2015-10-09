@@ -178,7 +178,7 @@ namespace Braintree
         public TransactionStatus Status { get; protected set; }
         public IStatusEvent[] StatusHistory { get; protected set; }
         public string SubscriptionId { get; protected set; }
-        public Subscription Subscription { get; protected set; }
+        public ISubscription Subscription { get; protected set; }
         public decimal? TaxAmount { get; protected set; }
         public bool? TaxExempt { get; protected set; }
         public TransactionType Type { get; protected set; }

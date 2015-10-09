@@ -53,7 +53,7 @@ namespace Braintree
     public class WebhookNotification
     {
         public WebhookKind Kind { get; protected set; }
-        public Subscription Subscription { get; protected set; }
+        public ISubscription Subscription { get; protected set; }
         public IMerchantAccount MerchantAccount { get; protected set; }
         public ValidationErrors Errors { get; protected set; }
         public string Message { get; protected set; }

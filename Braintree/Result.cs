@@ -10,7 +10,7 @@ namespace Braintree
     {
         ICreditCardVerification CreditCardVerification { get; }
         Transaction Transaction { get; }
-        Subscription Subscription { get; }
+        ISubscription Subscription { get; }
         ValidationErrors Errors { get; }
         Dictionary<string, string> Parameters { get; }
         string Message { get; }
@@ -22,7 +22,7 @@ namespace Braintree
     {
         public ICreditCardVerification CreditCardVerification { get; protected set; }
         public Transaction Transaction { get; protected set; }
-        public Subscription Subscription { get; protected set; }
+        public ISubscription Subscription { get; protected set; }
         public ValidationErrors Errors { get; protected set; }
         public Dictionary<string, string> Parameters { get; protected set; }
         public string Message { get; protected set; }

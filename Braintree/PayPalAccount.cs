@@ -8,7 +8,7 @@ namespace Braintree
         string BillingAgreementId { get; }
         DateTime? CreatedAt { get; }
         DateTime? UpdatedAt { get; }
-        Subscription[] Subscriptions { get; }
+        ISubscription[] Subscriptions { get; }
     }
 
     public class PayPalAccount : IPayPalAccount
@@ -21,7 +21,7 @@ namespace Braintree
         public string CustomerId { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }
         public DateTime? UpdatedAt { get; protected set; }
-        public Subscription[] Subscriptions { get; protected set; }
+        public ISubscription[] Subscriptions { get; protected set; }
 
         protected internal PayPalAccount(NodeWrapper node, BraintreeGateway gateway)
         {
