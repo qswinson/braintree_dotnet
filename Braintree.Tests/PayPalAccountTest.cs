@@ -34,13 +34,13 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
             Assert.IsNotNull(result.Target.ImageUrl);
 
-            PayPalAccount found = gateway.PayPalAccount.Find(result.Target.Token);
+            IPayPalAccount found = gateway.PayPalAccount.Find(result.Target.Token);
             Assert.IsNotNull(found);
             Assert.IsNotNull(found.Email);
             Assert.IsNotNull(found.ImageUrl);
             Assert.IsNotNull(found.CreatedAt);
             Assert.IsNotNull(found.UpdatedAt);
-            Assert.AreEqual(found.Email, ((PayPalAccount) result.Target).Email);
+            Assert.AreEqual(found.Email, ((IPayPalAccount) result.Target).Email);
         }
 
         [Test]

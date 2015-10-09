@@ -6,6 +6,6 @@ namespace Braintree
     {
         void Delete(string token);
         PayPalAccount Find(string token);
-        Result<PayPalAccount> Update(string token, PayPalAccountRequest request);
+        Result<IPayPalAccount> Update(string token, PayPalAccountRequest request);
     }
 }

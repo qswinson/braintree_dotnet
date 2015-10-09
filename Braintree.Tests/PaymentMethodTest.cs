@@ -1097,7 +1097,7 @@ namespace Braintree.Tests
 
             Assert.IsTrue(updatedResult.IsSuccess());
             var updatedPaypalAccount = gateway.PayPalAccount.Find(updatedToken);
-            Assert.AreEqual(((PayPalAccount)originalResult.Target).Email, updatedPaypalAccount.Email);
+            Assert.AreEqual(((IPayPalAccount)originalResult.Target).Email, updatedPaypalAccount.Email);
             try {
                 gateway.PayPalAccount.Find(originalToken);
                 Assert.Fail("Didn't throw");

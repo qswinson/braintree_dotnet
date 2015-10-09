@@ -21,7 +21,7 @@ namespace Braintree
 
             if (response.GetName() == "paypal-account")
             {
-                return new ResultImpl<PayPalAccount>(response, gateway);
+                return new ResultImpl<IPayPalAccount>(response, gateway);
             }
             else if (response.GetName() == "credit-card")
             {
@@ -51,7 +51,7 @@ namespace Braintree
 
             if (response.GetName() == "paypal-account")
             {
-                return new ResultImpl<PayPalAccount>(response, gateway);
+                return new ResultImpl<IPayPalAccount>(response, gateway);
             }
             else if (response.GetName() == "credit-card")
             {

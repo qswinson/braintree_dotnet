@@ -2,7 +2,16 @@ using System;
 
 namespace Braintree
 {
-    public class PayPalAccount : PaymentMethod
+    public interface IPayPalAccount : PaymentMethod
+    {
+        string Email { get; }
+        string BillingAgreementId { get; }
+        DateTime? CreatedAt { get; }
+        DateTime? UpdatedAt { get; }
+        Subscription[] Subscriptions { get; }
+    }
+
+    public class PayPalAccount : IPayPalAccount
     {
         public string Email { get; protected set; }
         public string BillingAgreementId { get; protected set; }

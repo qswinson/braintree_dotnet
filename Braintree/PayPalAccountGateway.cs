@@ -28,10 +28,10 @@ namespace Braintree
             service.Delete(service.MerchantPath() + "/payment_methods/paypal_account/" + token);
         }
 
-        public Result<PayPalAccount> Update(string token, PayPalAccountRequest request)
+        public Result<IPayPalAccount> Update(string token, PayPalAccountRequest request)
         {
             XmlNode xml = service.Put(service.MerchantPath() + "/payment_methods/paypal_account/" + token, request);
-            return new ResultImpl<PayPalAccount>(new NodeWrapper(xml), gateway);
+            return new ResultImpl<IPayPalAccount>(new NodeWrapper(xml), gateway);
         }
     }
 }
