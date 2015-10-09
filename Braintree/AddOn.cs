@@ -2,7 +2,11 @@
 
 namespace Braintree
 {
-    public class AddOn : Modification
+    public interface IAddOn : IModification
+    {
+    }
+
+    public class AddOn : Modification, IAddOn
     {
         protected internal AddOn(NodeWrapper node) : base(node) {
         }

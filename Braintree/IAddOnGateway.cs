@@ -4,6 +4,6 @@ namespace Braintree
 {
     public interface IAddOnGateway
     {
-        List<AddOn> All();
+        List<IAddOn> All();
     }
 }

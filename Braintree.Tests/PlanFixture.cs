@@ -6,7 +6,7 @@ namespace Braintree.Tests
 {
     public class TestPlan : Plan
     {
-        new public List<AddOn> AddOns { get; set; }
+        new public List<IAddOn> AddOns { get; set; }
         new public int? BillingDayOfMonth { get; set; }
         new public int? BillingFrequency { get; set; }
         new public string CurrencyIsoCode { get; set; }

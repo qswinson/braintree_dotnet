@@ -79,7 +79,7 @@ namespace Braintree
     public interface ISubscription
     {
         decimal? Balance { get; }
-        List<AddOn> AddOns { get; }
+        List<IAddOn> AddOns { get; }
         int? BillingDayOfMonth { get; }
         DateTime? BillingPeriodEndDate { get; }
         DateTime? BillingPeriodStartDate { get; }
@@ -123,7 +123,7 @@ namespace Braintree
     public class Subscription : ISubscription
     {
         public decimal? Balance { get; protected set; }
-        public List<AddOn> AddOns { get; protected set; }
+        public List<IAddOn> AddOns { get; protected set; }
         public int? BillingDayOfMonth { get; protected set; }
         public DateTime? BillingPeriodEndDate { get; protected set; }
         public DateTime? BillingPeriodStartDate { get; protected set; }
@@ -191,7 +191,7 @@ namespace Braintree
             }
             MerchantAccountId = node.GetString("merchant-account-id");
 
-            AddOns = new List<AddOn> ();
+            AddOns = new List<IAddOn> ();
             foreach (var addOnResponse in node.GetList("add-ons/add-on")) {
                 AddOns.Add(new AddOn(addOnResponse));
             }

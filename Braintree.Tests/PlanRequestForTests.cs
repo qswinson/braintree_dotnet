@@ -16,7 +16,7 @@ namespace Braintree.Tests
         public bool? TrialPeriod { get; set; }
         public int? TrialDuration { get; set; }
         public PlanDurationUnit TrialDurationUnit { get; set; }
-        public List<AddOn> AddOns { get; set; }
+        public List<IAddOn> AddOns { get; set; }
         public List<Discount> Discounts { get; set; }
 
         public override string ToXml()

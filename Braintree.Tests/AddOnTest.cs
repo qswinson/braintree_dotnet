@@ -34,12 +34,12 @@ namespace Braintree.Tests
                 NumberOfBillingCycles = 12
             });
 
-            List<AddOn> collection = gateway.AddOn.All();
+            List<IAddOn> collection = gateway.AddOn.All();
             Assert.IsNotEmpty(collection);
 
-            AddOn addOn = collection.Find
+            IAddOn addOn = collection.Find
             (
-                delegate(AddOn a)
+                delegate(IAddOn a)
                 {
                     return a.Id == addOnId;
                 }

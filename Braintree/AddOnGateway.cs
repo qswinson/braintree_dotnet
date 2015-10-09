@@ -14,11 +14,11 @@ namespace Braintree
             service = new BraintreeService(gateway.Configuration);
         }
 
-        public virtual List<AddOn> All()
+        public virtual List<IAddOn> All()
         {
             var response = new NodeWrapper(service.Get(service.MerchantPath() + "/add_ons"));
 
-            var addOns = new List<AddOn>();
+            var addOns = new List<IAddOn>();
             foreach (var node in response.GetList("add-on"))
             {
                 addOns.Add(new AddOn(node));

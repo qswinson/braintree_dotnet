@@ -492,7 +492,7 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
             ISubscription subscription = result.Target;
 
-            List<AddOn> addOns = subscription.AddOns;
+            List<IAddOn> addOns = subscription.AddOns;
             addOns.Sort(TestHelper.CompareModificationsById);
 
             Assert.AreEqual(2, addOns.Count);
@@ -579,7 +579,7 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
             ISubscription subscription = result.Target;
 
-            List<AddOn> addOns = subscription.AddOns;
+            List<IAddOn> addOns = subscription.AddOns;
             addOns.Sort(TestHelper.CompareModificationsById);
 
             Assert.AreEqual(2, addOns.Count);
@@ -1552,7 +1552,7 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
             subscription = result.Target;
 
-            List<AddOn> addOns = subscription.AddOns;
+            List<IAddOn> addOns = subscription.AddOns;
             addOns.Sort(TestHelper.CompareModificationsById);
 
             Assert.AreEqual(2, addOns.Count);

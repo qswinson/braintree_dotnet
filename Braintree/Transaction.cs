@@ -128,7 +128,7 @@ namespace Braintree
     public interface ITransaction
     {
         string Id { get; }
-        List<AddOn> AddOns { get; }
+        List<IAddOn> AddOns { get; }
         decimal? Amount { get; }
         string AvsErrorResponseCode { get; }
         string AvsPostalCodeResponseCode { get; }
@@ -296,7 +296,7 @@ namespace Braintree
     public class Transaction : ITransaction
     {
         public string Id { get; protected set; }
-        public List<AddOn> AddOns { get; protected set; }
+        public List<IAddOn> AddOns { get; protected set; }
         public decimal? Amount { get; protected set; }
         public string AvsErrorResponseCode { get; protected set; }
         public string AvsPostalCodeResponseCode { get; protected set; }
@@ -452,7 +452,7 @@ namespace Braintree
             CreatedAt = node.GetDateTime("created-at");
             UpdatedAt = node.GetDateTime("updated-at");
 
-            AddOns = new List<AddOn>();
+            AddOns = new List<IAddOn>();
             foreach (var addOnResponse in node.GetList("add-ons/add-on")) {
                 AddOns.Add(new AddOn(addOnResponse));
             }

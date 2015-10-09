@@ -4070,7 +4070,7 @@ namespace Braintree.Tests
 
             Assert.AreEqual(PlanFixture.PLAN_WITHOUT_TRIAL.Id, transaction.PlanId);
 
-            List<AddOn> addOns = transaction.AddOns;
+            List<IAddOn> addOns = transaction.AddOns;
             addOns.Sort(TestHelper.CompareModificationsById);
 
             Assert.AreEqual(2, addOns.Count);

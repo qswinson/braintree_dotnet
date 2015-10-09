@@ -14,7 +14,7 @@ namespace Braintree
 
     public interface IPlan
     {
-        List<AddOn> AddOns { get; }
+        List<IAddOn> AddOns { get; }
         int? BillingDayOfMonth { get; }
         int? BillingFrequency { get; }
         string CurrencyIsoCode { get; }
@@ -31,7 +31,7 @@ namespace Braintree
 
     public class Plan : IPlan
     {
-        public List<AddOn> AddOns { get; protected set; }
+        public List<IAddOn> AddOns { get; protected set; }
         public int? BillingDayOfMonth { get; protected set; }
         public int? BillingFrequency { get; protected set; }
         public string CurrencyIsoCode { get; protected set; }
@@ -62,7 +62,7 @@ namespace Braintree
             if (trialDurationUnitStr != null) {
                 TrialDurationUnit = (PlanDurationUnit) CollectionUtil.Find(PlanDurationUnit.ALL, trialDurationUnitStr, PlanDurationUnit.UNRECOGNIZED);
             }
-            AddOns = new List<AddOn> ();
+            AddOns = new List<IAddOn> ();
             foreach (var addOnResponse in node.GetList("add-ons/add-on")) {
                 AddOns.Add(new AddOn(addOnResponse));
             }
