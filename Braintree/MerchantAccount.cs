@@ -30,7 +30,7 @@ namespace Braintree
         string Id { get; }
         MerchantAccountStatus Status { get; }
         IMerchantAccount MasterMerchantAccount { get; }
-        MerchantAccountIndividualDetails IndividualDetails { get; }
+        IMerchantAccountIndividualDetails IndividualDetails { get; }
         IMerchantAccountBusinessDetails BusinessDetails { get; }
         IMerchantAccountFundingDetails FundingDetails { get; }
         bool IsSubMerchant { get; }
@@ -41,7 +41,7 @@ namespace Braintree
       public string Id { get; protected set; }
       public MerchantAccountStatus Status { get; protected set; }
       public IMerchantAccount MasterMerchantAccount { get; protected set; }
-      public MerchantAccountIndividualDetails IndividualDetails { get; protected set; }
+      public IMerchantAccountIndividualDetails IndividualDetails { get; protected set; }
       public IMerchantAccountBusinessDetails BusinessDetails { get; protected set; }
       public IMerchantAccountFundingDetails FundingDetails { get; protected set; }
 
