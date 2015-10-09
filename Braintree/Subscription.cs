@@ -86,7 +86,7 @@ namespace Braintree
         int? CurrentBillingCycle { get; }
         int? DaysPastDue { get; }
         IDescriptor Descriptor { get; }
-        List<Discount> Discounts { get; }
+        List<IDiscount> Discounts { get; }
         int? FailureCount { get; }
         DateTime? FirstBillingDate { get; }
         DateTime? CreatedAt { get; }
@@ -130,7 +130,7 @@ namespace Braintree
         public int? CurrentBillingCycle { get; protected set; }
         public int? DaysPastDue { get; protected set; }
         public IDescriptor Descriptor { get; protected set; }
-        public List<Discount> Discounts { get; protected set; }
+        public List<IDiscount> Discounts { get; protected set; }
         public int? FailureCount { get; protected set; }
         public DateTime? FirstBillingDate { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }
@@ -195,7 +195,7 @@ namespace Braintree
             foreach (var addOnResponse in node.GetList("add-ons/add-on")) {
                 AddOns.Add(new AddOn(addOnResponse));
             }
-            Discounts = new List<Discount> ();
+            Discounts = new List<IDiscount> ();
             foreach (var discountResponse in node.GetList("discounts/discount")) {
                 Discounts.Add(new Discount(discountResponse));
             }

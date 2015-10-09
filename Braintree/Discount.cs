@@ -2,7 +2,9 @@
 
 namespace Braintree
 {
-    public class Discount : Modification
+    public interface IDiscount : IModification { }
+
+    public class Discount : Modification, IDiscount
     {
         protected internal Discount(NodeWrapper node) : base(node) {
         }

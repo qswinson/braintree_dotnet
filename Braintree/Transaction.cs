@@ -141,7 +141,7 @@ namespace Braintree
         ICustomer Customer { get; }
         string CvvResponseCode { get; }
         IDescriptor Descriptor { get; }
-        List<Discount> Discounts { get; }
+        List<IDiscount> Discounts { get; }
         List<IDispute> Disputes { get; }
         TransactionGatewayRejectionReason GatewayRejectionReason { get; }
         string MerchantAccountId { get; }
@@ -309,7 +309,7 @@ namespace Braintree
         public ICustomer Customer { get; protected set; }
         public string CvvResponseCode { get; protected set; }
         public IDescriptor Descriptor { get; protected set; }
-        public List<Discount> Discounts { get; protected set; }
+        public List<IDiscount> Discounts { get; protected set; }
         public List<IDispute> Disputes { get; protected set; }
         public TransactionGatewayRejectionReason GatewayRejectionReason { get; protected set; }
         public string MerchantAccountId { get; protected set; }
@@ -456,7 +456,7 @@ namespace Braintree
             foreach (var addOnResponse in node.GetList("add-ons/add-on")) {
                 AddOns.Add(new AddOn(addOnResponse));
             }
-            Discounts = new List<Discount>();
+            Discounts = new List<IDiscount>();
             foreach (var discountResponse in node.GetList("discounts/discount")) {
                 Discounts.Add(new Discount(discountResponse));
             }

@@ -4087,7 +4087,7 @@ namespace Braintree.Tests
             Assert.IsFalse(addOns[1].NeverExpires.Value);
             Assert.AreEqual(6, addOns[1].NumberOfBillingCycles);
 
-            List<Discount> discounts = transaction.Discounts;
+            List<IDiscount> discounts = transaction.Discounts;
             Assert.AreEqual(1, discounts.Count);
 
             Assert.AreEqual("discount_7", discounts[0].Id);

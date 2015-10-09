@@ -5,6 +5,6 @@ namespace Braintree
 {
     public interface IDiscountGateway
     {
-        List<Discount> All();
+        List<IDiscount> All();
     }
 }

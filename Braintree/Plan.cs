@@ -19,7 +19,7 @@ namespace Braintree
         int? BillingFrequency { get; }
         string CurrencyIsoCode { get; }
         string Description { get; }
-        List<Discount> Discounts { get; }
+        List<IDiscount> Discounts { get; }
         string Id { get; }
         string Name { get; }
         int? NumberOfBillingCycles { get; }
@@ -36,7 +36,7 @@ namespace Braintree
         public int? BillingFrequency { get; protected set; }
         public string CurrencyIsoCode { get; protected set; }
         public string Description { get; protected set; }
-        public List<Discount> Discounts { get; protected set; }
+        public List<IDiscount> Discounts { get; protected set; }
         public string Id { get; protected set; }
         public string Name { get; protected set; }
         public int? NumberOfBillingCycles { get; protected set; }
@@ -66,7 +66,7 @@ namespace Braintree
             foreach (var addOnResponse in node.GetList("add-ons/add-on")) {
                 AddOns.Add(new AddOn(addOnResponse));
             }
-            Discounts = new List<Discount> ();
+            Discounts = new List<IDiscount> ();
             foreach (var discountResponse in node.GetList("discounts/discount")) {
                 Discounts.Add(new Discount(discountResponse));
             }

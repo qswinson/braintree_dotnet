@@ -39,12 +39,12 @@ namespace Braintree.Tests
                 NumberOfBillingCycles = 12
             });
 
-            List<Discount> collection = gateway.Discount.All();
+            List<IDiscount> collection = gateway.Discount.All();
             Assert.IsNotEmpty(collection);
 
-            Discount discount = collection.Find
+            IDiscount discount = collection.Find
             (
-                delegate(Discount d)
+                delegate(IDiscount d)
                 {
                     return d.Id == discountId;
                 }

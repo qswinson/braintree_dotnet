@@ -11,7 +11,7 @@ namespace Braintree.Tests
         new public int? BillingFrequency { get; set; }
         new public string CurrencyIsoCode { get; set; }
         new public string Description { get; set; }
-        new public List<Discount> Discounts { get; set; }
+        new public List<IDiscount> Discounts { get; set; }
         new public string Id { get; set; }
         new public string Name { get; set; }
         new public int? NumberOfBillingCycles { get; set; }
