@@ -3,7 +3,12 @@ using System.Collections.Generic;
 
 namespace Braintree
 {
-    public class SettlementBatchSummary
+    public interface ISettlementBatchSummary
+    {
+        IList<IDictionary<string, string>> Records { get; }
+    }
+
+    public class SettlementBatchSummary : ISettlementBatchSummary
     {
         private IList<IDictionary<string, string>> records;
 

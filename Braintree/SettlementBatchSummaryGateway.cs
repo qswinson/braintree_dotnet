@@ -15,7 +15,7 @@ namespace Braintree
             service = new BraintreeService(gateway.Configuration);
         }
 
-        public Result<SettlementBatchSummary> Generate(DateTime settlementDate)
+        public Result<ISettlementBatchSummary> Generate(DateTime settlementDate)
         {
             var request = new SettlementBatchSummaryRequest
             {
@@ -24,7 +24,7 @@ namespace Braintree
             return GetSummary(request);
         }
 
-        public Result<SettlementBatchSummary> Generate(DateTime settlementDate, string groupByCustomField)
+        public Result<ISettlementBatchSummary> Generate(DateTime settlementDate, string groupByCustomField)
         {
             var request = new SettlementBatchSummaryRequest
             {
@@ -34,10 +34,10 @@ namespace Braintree
             return GetSummary(request);
         }
 
-        private Result<SettlementBatchSummary> GetSummary(SettlementBatchSummaryRequest request)
+        private Result<ISettlementBatchSummary> GetSummary(SettlementBatchSummaryRequest request)
         {
             var response = new NodeWrapper(service.Post(service.MerchantPath() + "/settlement_batch_summary", request));
-            return new ResultImpl<SettlementBatchSummary>(response, gateway);
+            return new ResultImpl<ISettlementBatchSummary>(response, gateway);
         }
     }
 }

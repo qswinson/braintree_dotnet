@@ -22,7 +22,7 @@ namespace Braintree.Tests
         [Test]
         public void Generate_ReturnsAnEmptyCollectionIfThereIsNoData()
         {
-            Result<SettlementBatchSummary> result = gateway.SettlementBatchSummary.Generate(DateTime.Parse("1979-01-01"));
+            Result<ISettlementBatchSummary> result = gateway.SettlementBatchSummary.Generate(DateTime.Parse("1979-01-01"));
             Assert.AreEqual(0, result.Target.Records.Count);
         }
 
