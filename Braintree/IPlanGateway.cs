@@ -5,6 +5,6 @@ namespace Braintree
 {
     public interface IPlanGateway
     {
-        List<Plan> All();
+        List<IPlan> All();
     }
 }

@@ -13,11 +13,11 @@ namespace Braintree
             service = new BraintreeService(gateway.Configuration);
         }
 
-        public virtual List<Plan> All()
+        public virtual List<IPlan> All()
         {
             var response = new NodeWrapper(service.Get(service.MerchantPath() + "/plans"));
 
-            var plans = new List<Plan>();
+            var plans = new List<IPlan>();
             foreach (var node in response.GetList("plan"))
             {
                 plans.Add(new Plan(node));

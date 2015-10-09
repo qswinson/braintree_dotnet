@@ -40,12 +40,12 @@ namespace Braintree.Tests
                 TrialPeriod = false,
             });
 
-            List<Plan> collection = gateway.Plan.All();
+            List<IPlan> collection = gateway.Plan.All();
             Assert.IsNotEmpty(collection);
 
-            Plan plan = collection.Find
+            IPlan plan = collection.Find
             (
-                delegate(Plan p)
+                delegate(IPlan p)
                 {
                     return p.Id == planToken;
                 }
@@ -92,12 +92,12 @@ namespace Braintree.Tests
                 PlanId = planToken
             });
 
-            List<Plan> collection = gateway.Plan.All();
+            List<IPlan> collection = gateway.Plan.All();
             Assert.IsNotEmpty(collection);
 
-            Plan plan = collection.Find
+            IPlan plan = collection.Find
             (
-                delegate(Plan p)
+                delegate(IPlan p)
                 {
                     return p.Id == planToken;
                 }

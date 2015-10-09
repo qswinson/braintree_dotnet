@@ -12,7 +12,24 @@ namespace Braintree
         protected PlanDurationUnit(string name) : base(name) {}
     }
 
-    public class Plan
+    public interface IPlan
+    {
+        List<AddOn> AddOns { get; }
+        int? BillingDayOfMonth { get; }
+        int? BillingFrequency { get; }
+        string CurrencyIsoCode { get; }
+        string Description { get; }
+        List<Discount> Discounts { get; }
+        string Id { get; }
+        string Name { get; }
+        int? NumberOfBillingCycles { get; }
+        decimal? Price { get; }
+        bool? TrialPeriod { get; }
+        int? TrialDuration { get; }
+        PlanDurationUnit TrialDurationUnit { get; }
+    }
+
+    public class Plan : IPlan
     {
         public List<AddOn> AddOns { get; protected set; }
         public int? BillingDayOfMonth { get; protected set; }
