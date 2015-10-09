@@ -4,7 +4,17 @@ using System;
 
 namespace Braintree
 {
-    public class MerchantAccountFundingDetails
+    public interface IMerchantAccountFundingDetails
+    {
+        FundingDestination Destination { get; }
+        string RoutingNumber { get; }
+        string AccountNumberLast4 { get; }
+        string Email { get; }
+        string MobilePhone { get; }
+        string Descriptor { get; }
+    }
+
+    public class MerchantAccountFundingDetails : IMerchantAccountFundingDetails
     {
         public FundingDestination Destination { get; protected set; }
         public string RoutingNumber { get; protected set; }
