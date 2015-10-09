@@ -39,7 +39,7 @@ namespace Braintree.Tests
                 CountryName = "United States of America"
             };
 
-            Address address = gateway.Address.Create(customer.Id, addressRequest).Target;
+            IAddress address = gateway.Address.Create(customer.Id, addressRequest).Target;
 
             Assert.AreEqual("Michael", address.FirstName);
             Assert.AreEqual("Angelo", address.LastName);
@@ -75,8 +75,8 @@ namespace Braintree.Tests
                 CountryName = "United States of America"
             };
 
-            Address createdAddress = gateway.Address.Create(customer.Id, addressRequest).Target;
-            Address address = gateway.Address.Find(customer.Id, createdAddress.Id);
+            IAddress createdAddress = gateway.Address.Create(customer.Id, addressRequest).Target;
+            IAddress address = gateway.Address.Find(customer.Id, createdAddress.Id);
 
             Assert.AreEqual("Michael", address.FirstName);
             Assert.AreEqual("Angelo", address.LastName);
@@ -124,7 +124,7 @@ namespace Braintree.Tests
                 CountryCodeNumeric = "124"
             };
 
-            Address originalAddress = gateway.Address.Create(customer.Id, addressCreateRequest).Target;
+            IAddress originalAddress = gateway.Address.Create(customer.Id, addressCreateRequest).Target;
 
             var addressUpdateRequest = new AddressRequest
             {
@@ -142,7 +142,7 @@ namespace Braintree.Tests
                 CountryCodeNumeric = "840"
             };
 
-            Address address = gateway.Address.Update(customer.Id, originalAddress.Id, addressUpdateRequest).Target;
+            IAddress address = gateway.Address.Update(customer.Id, originalAddress.Id, addressUpdateRequest).Target;
 
             Assert.AreEqual("Michael", address.FirstName);
             Assert.AreEqual("Angelo", address.LastName);
@@ -179,7 +179,7 @@ namespace Braintree.Tests
                 CountryCodeNumeric = "124"
             };
 
-            Address originalAddress = gateway.Address.Create(customer.Id, addressCreateRequest).Target;
+            IAddress originalAddress = gateway.Address.Create(customer.Id, addressCreateRequest).Target;
 
             var addressUpdateRequest = new AddressRequest
             {
@@ -195,7 +195,7 @@ namespace Braintree.Tests
                 CountryCodeAlpha3 = "MEX"
             };
 
-            Result<Address> result = gateway.Address.Update(customer.Id, originalAddress.Id, addressUpdateRequest);
+            Result<IAddress> result = gateway.Address.Update(customer.Id, originalAddress.Id, addressUpdateRequest);
 
             Assert.AreEqual(
                 ValidationErrorCode.ADDRESS_INCONSISTENT_COUNTRY,
@@ -214,7 +214,7 @@ namespace Braintree.Tests
                 ExtendedAddress = "Apt 3",
             };
 
-            Address createdAddress = gateway.Address.Create(customer.Id, addressRequest).Target;
+            IAddress createdAddress = gateway.Address.Create(customer.Id, addressRequest).Target;
             Assert.AreEqual(createdAddress.Id, gateway.Address.Find(customer.Id, createdAddress.Id).Id);
             gateway.Address.Delete(customer.Id, createdAddress.Id);
             try

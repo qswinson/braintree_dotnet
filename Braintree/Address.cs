@@ -7,6 +7,26 @@ using System.Xml;
 
 namespace Braintree
 {
+    public interface IAddress
+    {
+        string Id { get; }
+        string CustomerId { get; }
+        string FirstName { get; }
+        string LastName { get; }
+        string Company { get; }
+        string StreetAddress { get; }
+        string ExtendedAddress { get; }
+        string Locality { get; }
+        string Region { get; }
+        string PostalCode { get; }
+        string CountryCodeAlpha2 { get; }
+        string CountryCodeAlpha3 { get; }
+        string CountryCodeNumeric { get; }
+        string CountryName { get; }
+        DateTime? CreatedAt { get; }
+        DateTime? UpdatedAt { get; }
+    }
+
     /// <summary>
     /// An address returned by the Braintree Gateway
     /// </summary>
@@ -24,7 +44,7 @@ namespace Braintree
     ///     Address address = gateway.Address.Find("customerId", "addressId");
     /// </code>
     /// </example>
-    public class Address
+    public class Address : IAddress
     {
         public string Id { get; protected set; }
         public string CustomerId { get; protected set; }

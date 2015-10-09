@@ -37,7 +37,7 @@ namespace Braintree
         public AndroidPayCard[] AndroidPayCards { get; protected set; }
         public CoinbaseAccount[] CoinbaseAccounts { get; protected set; }
         public PaymentMethod[] PaymentMethods { get; protected set; }
-        public Address[] Addresses { get; protected set; }
+        public IAddress[] Addresses { get; protected set; }
         public Dictionary<string, string> CustomFields { get; protected set; }
         public PaymentMethod DefaultPaymentMethod
         {

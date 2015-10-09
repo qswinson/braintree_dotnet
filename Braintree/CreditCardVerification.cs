@@ -34,7 +34,7 @@ namespace Braintree
         public string MerchantAccountId { get; protected set; }
         public VerificationStatus Status { get; protected set; }
         public string Id { get; protected set; }
-        public Address BillingAddress { get; protected set; }
+        public IAddress BillingAddress { get; protected set; }
         public CreditCard CreditCard { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }
         public RiskData RiskData { get; protected set; }

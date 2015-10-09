@@ -11,7 +11,7 @@ namespace Braintree
     {
         Result<Address> Create(string customerId, AddressRequest request);
         void Delete(string customerId, string id);
-        Address Find(string customerId, string id);
-        Result<Address> Update(string customerId, string id, AddressRequest request);
+        IAddress Find(string customerId, string id);
+        Result<IAddress> Update(string customerId, string id, AddressRequest request);
     }
 }

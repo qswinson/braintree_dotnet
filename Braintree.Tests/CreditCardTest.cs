@@ -96,7 +96,7 @@ namespace Braintree.Tests
             Assert.AreEqual(DateTime.Now.Year, creditCard.UpdatedAt.Value.Year);
             Assert.IsNotNull(creditCard.ImageUrl);
 
-            Address billingAddress = creditCard.BillingAddress;
+            IAddress billingAddress = creditCard.BillingAddress;
             Assert.AreEqual("Chad", billingAddress.CountryName);
             Assert.AreEqual("TD", billingAddress.CountryCodeAlpha2);
             Assert.AreEqual("TCD", billingAddress.CountryCodeAlpha3);
@@ -254,7 +254,7 @@ namespace Braintree.Tests
                 CountryCodeNumeric = "148"
             };
 
-            Address address = gateway.Address.Create(customer.Id, addressRequest).Target;
+            IAddress address = gateway.Address.Create(customer.Id, addressRequest).Target;
             var creditCardRequest = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -266,7 +266,7 @@ namespace Braintree.Tests
             };
 
             CreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
-            Address billingAddress = creditCard.BillingAddress;
+            IAddress billingAddress = creditCard.BillingAddress;
             Assert.AreEqual(address.Id, billingAddress.Id);
             Assert.AreEqual("Chad", billingAddress.CountryName);
             Assert.AreEqual("TD", billingAddress.CountryCodeAlpha2);
@@ -307,7 +307,7 @@ namespace Braintree.Tests
             Assert.AreEqual("4444", card.LastFour);
             Assert.IsTrue(card.Token != null);
 
-            Address billingAddress = card.BillingAddress;
+            IAddress billingAddress = card.BillingAddress;
             Assert.AreEqual("Greece", billingAddress.CountryName);
             Assert.AreEqual("GR", billingAddress.CountryCodeAlpha2);
             Assert.AreEqual("GRC", billingAddress.CountryCodeAlpha3);
@@ -673,7 +673,7 @@ namespace Braintree.Tests
             Assert.AreEqual("Jones", updatedCreditCard.BillingAddress.LastName);
             Assert.AreNotEqual(creditCard.BillingAddress.Id, updatedCreditCard.BillingAddress.Id);
 
-            Address billingAddress = updatedCreditCard.BillingAddress;
+            IAddress billingAddress = updatedCreditCard.BillingAddress;
             Assert.AreEqual("El Salvador", billingAddress.CountryName);
             Assert.AreEqual("SV", billingAddress.CountryCodeAlpha2);
             Assert.AreEqual("SLV", billingAddress.CountryCodeAlpha3);

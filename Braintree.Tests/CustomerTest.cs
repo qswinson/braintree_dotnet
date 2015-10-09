@@ -233,7 +233,7 @@ namespace Braintree.Tests
             Assert.AreEqual(DateTime.Now.Year, customer.CreatedAt.Value.Year);
             Assert.AreEqual(DateTime.Now.Year, customer.UpdatedAt.Value.Year);
 
-            Address billingAddress = customer.CreditCards[0].BillingAddress;
+            IAddress billingAddress = customer.CreditCards[0].BillingAddress;
             Assert.AreEqual("Macau", billingAddress.CountryName);
             Assert.AreEqual("MO", billingAddress.CountryCodeAlpha2);
             Assert.AreEqual("MAC", billingAddress.CountryCodeAlpha3);
@@ -579,7 +579,7 @@ namespace Braintree.Tests
             Assert.AreEqual("John Doe", customer.CreditCards[0].CardholderName);
             Assert.AreEqual("a custom value", customer.CustomFields["store_me"]);
 
-            Address address = customer.CreditCards[0].BillingAddress;
+            IAddress address = customer.CreditCards[0].BillingAddress;
             Assert.AreEqual("Mexico", address.CountryName);
             Assert.AreEqual("MX", address.CountryCodeAlpha2);
             Assert.AreEqual("MEX", address.CountryCodeAlpha3);
@@ -639,7 +639,7 @@ namespace Braintree.Tests
 
             Customer customer = gateway.Customer.Create(createRequest).Target;
             CreditCard creditCard = customer.CreditCards[0];
-            Address address = creditCard.BillingAddress;
+            IAddress address = creditCard.BillingAddress;
 
             var trParams = new CustomerRequest()
             {
@@ -672,7 +672,7 @@ namespace Braintree.Tests
             Customer updatedCustomer = gateway.Customer.ConfirmTransparentRedirect(queryString).Target;
             CreditCard updatedCreditCard = gateway.CreditCard.Find(creditCard.Token);
 
-            Address updatedAddress = gateway.Address.Find(customer.Id, address.Id);
+            IAddress updatedAddress = gateway.Address.Find(customer.Id, address.Id);
 
             Assert.AreEqual("New First", updatedCustomer.FirstName);
             Assert.AreEqual("New Last", updatedCustomer.LastName);
@@ -749,7 +749,7 @@ namespace Braintree.Tests
 
             Customer customer = gateway.Customer.Create(createRequest).Target;
             CreditCard creditCard = customer.CreditCards[0];
-            Address address = creditCard.BillingAddress;
+            IAddress address = creditCard.BillingAddress;
 
             var updateRequest = new CustomerRequest()
             {
@@ -779,7 +779,7 @@ namespace Braintree.Tests
 
             Customer updatedCustomer = gateway.Customer.Update(customer.Id, updateRequest).Target;
             CreditCard updatedCreditCard = gateway.CreditCard.Find(creditCard.Token);
-            Address updatedAddress = gateway.Address.Find(customer.Id, address.Id);
+            IAddress updatedAddress = gateway.Address.Find(customer.Id, address.Id);
 
             Assert.AreEqual("New First", updatedCustomer.FirstName);
             Assert.AreEqual("New Last", updatedCustomer.LastName);
@@ -802,7 +802,7 @@ namespace Braintree.Tests
                 LastName = "Doe"
             };
 
-            Address address = gateway.Address.Create(customer.Id, addressRequest).Target;
+            IAddress address = gateway.Address.Create(customer.Id, addressRequest).Target;
 
             var updateRequest = new CustomerRequest
             {
@@ -815,7 +815,7 @@ namespace Braintree.Tests
             };
 
             Customer updatedCustomer = gateway.Customer.Update(customer.Id, updateRequest).Target;
-            Address billingAddress = updatedCustomer.CreditCards[0].BillingAddress;
+            IAddress billingAddress = updatedCustomer.CreditCards[0].BillingAddress;
             Assert.AreEqual(address.Id, billingAddress.Id);
             Assert.AreEqual("John", billingAddress.FirstName);
             Assert.AreEqual("Doe", billingAddress.LastName);

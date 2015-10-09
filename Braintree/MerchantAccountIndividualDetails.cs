@@ -12,7 +12,7 @@ namespace Braintree
         public string Phone { get; protected set; }
         public string DateOfBirth { get; protected set; }
         public string SsnLastFour { get; protected set; }
-        public Address Address { get; protected set; }
+        public IAddress Address { get; protected set; }
 
         protected internal MerchantAccountIndividualDetails(NodeWrapper node)
         {

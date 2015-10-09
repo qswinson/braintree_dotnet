@@ -35,7 +35,7 @@ namespace Braintree
             service.Delete(service.MerchantPath() + "/customers/" + customerId + "/addresses/" + id);
         }
 
-        public virtual Address Find(string customerId, string id)
+        public virtual IAddress Find(string customerId, string id)
         {
             if(customerId == null || customerId.Trim().Equals("") || id == null || id.Trim().Equals(""))
                 throw new NotFoundException();
@@ -45,11 +45,11 @@ namespace Braintree
             return new Address(new NodeWrapper(addressXML));
         }
 
-        public virtual Result<Address> Update(string customerId, string id, AddressRequest request)
+        public virtual Result<IAddress> Update(string customerId, string id, AddressRequest request)
         {
             XmlNode addressXML = service.Put(service.MerchantPath() + "/customers/" + customerId + "/addresses/" + id, request);
 
-            return new ResultImpl<Address>(new NodeWrapper(addressXML), gateway);
+            return new ResultImpl<IAddress>(new NodeWrapper(addressXML), gateway);
         }
     }
 }

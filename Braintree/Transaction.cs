@@ -143,7 +143,7 @@ namespace Braintree
         public string AvsErrorResponseCode { get; protected set; }
         public string AvsPostalCodeResponseCode { get; protected set; }
         public string AvsStreetAddressResponseCode { get; protected set; }
-        public Address BillingAddress { get; protected set; }
+        public IAddress BillingAddress { get; protected set; }
         public string Channel { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }
         public CreditCard CreditCard { get; protected set; }
@@ -173,7 +173,7 @@ namespace Braintree
         public List<string> PartialSettlementTransactionIds { get; protected set; }
         public string AuthorizedTransactionId { get; protected set; }
         public string SettlementBatchId { get; protected set; }
-        public Address ShippingAddress { get; protected set; }
+        public IAddress ShippingAddress { get; protected set; }
         public TransactionEscrowStatus EscrowStatus { get; protected set; }
         public TransactionStatus Status { get; protected set; }
         public StatusEvent[] StatusHistory { get; protected set; }
@@ -404,7 +404,7 @@ namespace Braintree
         ///     Address billingAddress = transaction.GetVaultBillingAddress();
         /// </code>
         /// </example>
-        public virtual Address GetVaultBillingAddress()
+        public virtual IAddress GetVaultBillingAddress()
         {
             if (BillingAddress.Id == null) return null;
 
@@ -429,7 +429,7 @@ namespace Braintree
         ///     Address shippingAddress = transaction.GetVaultShippingAddress();
         /// </code>
         /// </example>
-        public virtual Address GetVaultShippingAddress()
+        public virtual IAddress GetVaultShippingAddress()
         {
             if (ShippingAddress.Id == null) return null;
 

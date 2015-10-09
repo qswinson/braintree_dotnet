@@ -9,7 +9,7 @@ namespace Braintree
         public string DbaName { get; protected set; }
         public string LegalName { get; protected set; }
         public string TaxId { get; protected set; }
-        public Address Address { get; protected set; }
+        public IAddress Address { get; protected set; }
 
         protected internal MerchantAccountBusinessDetails(NodeWrapper node)
         {

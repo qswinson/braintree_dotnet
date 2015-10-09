@@ -1631,7 +1631,7 @@ namespace Braintree.Tests
             Assert.AreEqual("http://braintreepayments.com", customer.Website);
 
             Assert.IsNull(transaction.GetVaultBillingAddress());
-            Address billingAddress = transaction.BillingAddress;
+            IAddress billingAddress = transaction.BillingAddress;
             Assert.AreEqual("Carl", billingAddress.FirstName);
             Assert.AreEqual("Jones", billingAddress.LastName);
             Assert.AreEqual("Braintree", billingAddress.Company);
@@ -1646,7 +1646,7 @@ namespace Braintree.Tests
             Assert.AreEqual("840", billingAddress.CountryCodeNumeric);
 
             Assert.IsNull(transaction.GetVaultShippingAddress());
-            Address shippingAddress = transaction.ShippingAddress;
+            IAddress shippingAddress = transaction.ShippingAddress;
             Assert.AreEqual("Andrew", shippingAddress.FirstName);
             Assert.AreEqual("Mason", shippingAddress.LastName);
             Assert.AreEqual("Braintree Shipping", shippingAddress.Company);
@@ -2486,7 +2486,7 @@ namespace Braintree.Tests
                 ExpirationDate = "05/22"
             });
 
-            Address shippingAddress = gateway.Address.Create(customer.Id, new AddressRequest { FirstName = "Carl" }).Target;
+            IAddress shippingAddress = gateway.Address.Create(customer.Id, new AddressRequest { FirstName = "Carl" }).Target;
 
             TransactionRequest request = new TransactionRequest
             {
@@ -2516,7 +2516,7 @@ namespace Braintree.Tests
                 ExpirationDate = "05/22"
             });
 
-            Address billingAddress = gateway.Address.Create(customer.Id, new AddressRequest { FirstName = "Carl" }).Target;
+            IAddress billingAddress = gateway.Address.Create(customer.Id, new AddressRequest { FirstName = "Carl" }).Target;
 
             TransactionRequest request = new TransactionRequest
             {
@@ -3294,7 +3294,7 @@ namespace Braintree.Tests
             Assert.AreEqual("2009", creditCard.ExpirationYear);
             Assert.AreEqual("05/2009", creditCard.ExpirationDate);
 
-            Address address = transaction.BillingAddress;
+            IAddress address = transaction.BillingAddress;
             Assert.AreEqual("US", address.CountryCodeAlpha2);
             Assert.AreEqual("USA", address.CountryCodeAlpha3);
             Assert.AreEqual("840", address.CountryCodeNumeric);
