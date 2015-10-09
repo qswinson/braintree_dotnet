@@ -41,7 +41,7 @@ namespace Braintree
             }
             else
             {
-                return new ResultImpl<UnknownPaymentMethod>(response, gateway);
+                return new ResultImpl<IUnknownPaymentMethod>(response, gateway);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Braintree
             }
             else
             {
-                return new ResultImpl<UnknownPaymentMethod>(response, gateway);
+                return new ResultImpl<IUnknownPaymentMethod>(response, gateway);
             }
         }
 

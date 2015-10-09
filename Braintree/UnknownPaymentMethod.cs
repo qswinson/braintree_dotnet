@@ -2,7 +2,11 @@ using System;
 
 namespace Braintree
 {
-    public class UnknownPaymentMethod : PaymentMethod
+    public interface IUnknownPaymentMethod : PaymentMethod
+    {
+    }
+
+    public class UnknownPaymentMethod : IUnknownPaymentMethod
     {
         public string Token { get; protected set; }
         public bool? IsDefault { get; protected set; }
