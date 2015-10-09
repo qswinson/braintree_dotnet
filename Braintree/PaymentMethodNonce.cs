@@ -2,7 +2,14 @@ using System;
 
 namespace Braintree
 {
-    public class PaymentMethodNonce
+    public interface IPaymentMethodNonce
+    {
+        string Nonce { get; }
+        string Type { get; }
+        ThreeDSecureInfo ThreeDSecureInfo { get; }
+    }
+
+    public class PaymentMethodNonce : IPaymentMethodNonce
     {
         public string Nonce { get; protected set; }
         public string Type { get; protected set; }

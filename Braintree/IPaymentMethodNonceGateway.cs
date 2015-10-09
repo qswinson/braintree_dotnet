@@ -4,7 +4,7 @@ namespace Braintree
 {
     public interface IPaymentMethodNonceGateway
     {
-        Result<PaymentMethodNonce> Create(string token);
-        PaymentMethodNonce Find(string nonce);
+        Result<IPaymentMethodNonce> Create(string token);
+        IPaymentMethodNonce Find(string nonce);
     }
 }

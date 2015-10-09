@@ -32,7 +32,7 @@ namespace Braintree.Tests
                 PaymentMethodNonce = nonce
             });
 
-            Result<PaymentMethodNonce> result = gateway.PaymentMethodNonce.Create(paymentMethodResult.Target.Token);
+            Result<IPaymentMethodNonce> result = gateway.PaymentMethodNonce.Create(paymentMethodResult.Target.Token);
             Assert.IsTrue(result.IsSuccess());
             Assert.IsNotNull(result.Target);
             Assert.IsNotNull(result.Target.Nonce);
@@ -53,7 +53,7 @@ namespace Braintree.Tests
         public void Find_ExposesThreeDSecureInfo()
         {
             try {
-                PaymentMethodNonce nonce = gateway.PaymentMethodNonce.Find("threedsecurednonce");
+                IPaymentMethodNonce nonce = gateway.PaymentMethodNonce.Find("threedsecurednonce");
                 ThreeDSecureInfo info = nonce.ThreeDSecureInfo;
 
                 Assert.AreEqual(nonce.Nonce, "threedsecurednonce");
@@ -74,7 +74,7 @@ namespace Braintree.Tests
         {
             string nonce = TestHelper.GenerateUnlockedNonce(gateway);
 
-            PaymentMethodNonce foundNonce = gateway.PaymentMethodNonce.Find(nonce);
+            IPaymentMethodNonce foundNonce = gateway.PaymentMethodNonce.Find(nonce);
 
             Assert.IsNull(foundNonce.ThreeDSecureInfo);
         }
