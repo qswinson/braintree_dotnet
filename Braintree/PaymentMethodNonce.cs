@@ -6,14 +6,14 @@ namespace Braintree
     {
         string Nonce { get; }
         string Type { get; }
-        ThreeDSecureInfo ThreeDSecureInfo { get; }
+        IThreeDSecureInfo ThreeDSecureInfo { get; }
     }
 
     public class PaymentMethodNonce : IPaymentMethodNonce
     {
         public string Nonce { get; protected set; }
         public string Type { get; protected set; }
-        public ThreeDSecureInfo ThreeDSecureInfo { get; protected set; }
+        public IThreeDSecureInfo ThreeDSecureInfo { get; protected set; }
 
         protected internal PaymentMethodNonce(NodeWrapper node, BraintreeGateway gateway)
         {

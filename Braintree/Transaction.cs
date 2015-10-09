@@ -181,7 +181,7 @@ namespace Braintree
         ICoinbaseDetails CoinbaseDetails { get; }
         PaymentInstrumentType PaymentInstrumentType { get; }
         IRiskData RiskData { get; }
-        ThreeDSecureInfo ThreeDSecureInfo { get; }
+        IThreeDSecureInfo ThreeDSecureInfo { get; }
 
         /// <summary>
         /// Returns the current <see cref="Transaction.CreditCard"/> associated with this transaction if one exists
@@ -350,7 +350,7 @@ namespace Braintree
         public ICoinbaseDetails CoinbaseDetails { get; protected set; }
         public PaymentInstrumentType PaymentInstrumentType { get; protected set; }
         public IRiskData RiskData { get; protected set; }
-        public ThreeDSecureInfo ThreeDSecureInfo { get; protected set; }
+        public IThreeDSecureInfo ThreeDSecureInfo { get; protected set; }
 
         private BraintreeGateway Gateway;
 

@@ -3,7 +3,15 @@ using System.Collections.Generic;
 
 namespace Braintree
 {
-    public class ThreeDSecureInfo
+    public interface IThreeDSecureInfo
+    {
+        string Status { get; }
+        string Enrolled { get; }
+        bool? LiabilityShifted { get; }
+        bool? LiabilityShiftPossible { get; }
+    }
+
+    public class ThreeDSecureInfo : IThreeDSecureInfo
     {
         public string Status { get; protected set; }
         public string Enrolled { get; protected set; }

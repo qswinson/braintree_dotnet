@@ -54,7 +54,7 @@ namespace Braintree.Tests
         {
             try {
                 IPaymentMethodNonce nonce = gateway.PaymentMethodNonce.Find("threedsecurednonce");
-                ThreeDSecureInfo info = nonce.ThreeDSecureInfo;
+                IThreeDSecureInfo info = nonce.ThreeDSecureInfo;
 
                 Assert.AreEqual(nonce.Nonce, "threedsecurednonce");
                 Assert.AreEqual(nonce.Type, "CreditCard");

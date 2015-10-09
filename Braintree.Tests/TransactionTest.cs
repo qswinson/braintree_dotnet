@@ -3515,7 +3515,7 @@ namespace Braintree.Tests
         {
             ITransaction transaction = gateway.Transaction.Find("threedsecuredtransaction");
 
-            ThreeDSecureInfo info = transaction.ThreeDSecureInfo;
+            IThreeDSecureInfo info = transaction.ThreeDSecureInfo;
             Assert.AreEqual(info.Enrolled, "Y");
             Assert.AreEqual(info.Status, "authenticate_successful");
             Assert.AreEqual(info.LiabilityShifted, true);
