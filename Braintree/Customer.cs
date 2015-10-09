@@ -24,7 +24,7 @@ namespace Braintree
         CreditCard[] CreditCards { get; }
         PayPalAccount[] PayPalAccounts { get; }
         ApplePayCard[] ApplePayCards { get; }
-        AndroidPayCard[] AndroidPayCards { get; }
+        IAndroidPayCard[] AndroidPayCards { get; }
         CoinbaseAccount[] CoinbaseAccounts { get; }
         PaymentMethod[] PaymentMethods { get; }
         IAddress[] Addresses { get; }
@@ -57,7 +57,7 @@ namespace Braintree
         public CreditCard[] CreditCards { get; protected set; }
         public PayPalAccount[] PayPalAccounts { get; protected set; }
         public ApplePayCard[] ApplePayCards { get; protected set; }
-        public AndroidPayCard[] AndroidPayCards { get; protected set; }
+        public IAndroidPayCard[] AndroidPayCards { get; protected set; }
         public CoinbaseAccount[] CoinbaseAccounts { get; protected set; }
         public PaymentMethod[] PaymentMethods { get; protected set; }
         public IAddress[] Addresses { get; protected set; }

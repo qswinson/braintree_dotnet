@@ -2,7 +2,25 @@ using System;
 
 namespace Braintree
 {
-    public class AndroidPayCard : PaymentMethod
+    public interface IAndroidPayCard : PaymentMethod
+    {
+        string CardType { get; }
+        string Last4 { get; }
+        string SourceCardType { get; }
+        string SourceCardLast4 { get; }
+        string SourceDescription { get; }
+        string VirtualCardType { get; }
+        string VirtualCardLast4 { get; }
+        string ExpirationMonth { get; }
+        string ExpirationYear { get; }
+        string GoogleTransactionId { get; }
+        string Bin { get; }
+        DateTime? CreatedAt { get; }
+        DateTime? UpdatedAt { get; }
+        Subscription[] Subscriptions { get; }
+    }
+
+    public class AndroidPayCard : IAndroidPayCard
     {
         public string CardType { get; protected set; }
         public string Last4 { get; protected set; }

@@ -118,7 +118,7 @@ namespace Braintree.Tests
                 ICustomer customer = gateway.Customer.Find(createdCustomer.Id);
                 Assert.IsNotNull(customer.AndroidPayCards);
                 Assert.IsNotNull(customer.PaymentMethods);
-                AndroidPayCard card = customer.AndroidPayCards[0];
+                IAndroidPayCard card = customer.AndroidPayCards[0];
                 Assert.IsNotNull(card.Token);
                 Assert.IsNotNull(card.GoogleTransactionId);
                 Assert.AreEqual(card, customer.PaymentMethods[0]);
@@ -142,7 +142,7 @@ namespace Braintree.Tests
                 ICustomer customer = gateway.Customer.Find(createdCustomer.Id);
                 Assert.IsNotNull(customer.AndroidPayCards);
                 Assert.IsNotNull(customer.PaymentMethods);
-                AndroidPayCard card = customer.AndroidPayCards[0];
+                IAndroidPayCard card = customer.AndroidPayCards[0];
                 Assert.IsNotNull(card.Token);
                 Assert.IsNotNull(card.GoogleTransactionId);
                 Assert.AreEqual(card, customer.PaymentMethods[0]);

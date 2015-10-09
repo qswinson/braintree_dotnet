@@ -166,7 +166,7 @@ namespace Braintree.Tests
                 Assert.IsNotNull(paymentMethodResult.Target.Token);
                 Assert.IsNotNull(paymentMethodResult.Target.ImageUrl);
                 Assert.IsAssignableFrom(typeof(AndroidPayCard), paymentMethodResult.Target);
-                AndroidPayCard androidPayCard = (AndroidPayCard)paymentMethodResult.Target;
+                IAndroidPayCard androidPayCard = (IAndroidPayCard)paymentMethodResult.Target;
                 Assert.IsNotNull(androidPayCard.IsDefault);
                 Assert.IsNotNull(androidPayCard.CardType);
                 Assert.IsNotNull(androidPayCard.VirtualCardType);
@@ -204,7 +204,7 @@ namespace Braintree.Tests
                 Assert.IsNotNull(paymentMethodResult.Target.Token);
                 Assert.IsNotNull(paymentMethodResult.Target.ImageUrl);
                 Assert.IsAssignableFrom(typeof(AndroidPayCard), paymentMethodResult.Target);
-                AndroidPayCard androidPayCard = (AndroidPayCard)paymentMethodResult.Target;
+                IAndroidPayCard androidPayCard = (IAndroidPayCard)paymentMethodResult.Target;
                 Assert.IsNotNull(androidPayCard.IsDefault);
                 Assert.IsNotNull(androidPayCard.CardType);
                 Assert.IsNotNull(androidPayCard.VirtualCardType);

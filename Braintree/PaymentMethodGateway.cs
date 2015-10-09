@@ -33,7 +33,7 @@ namespace Braintree
             }
             else if (response.GetName() == "android-pay-card")
             {
-                return new ResultImpl<AndroidPayCard>(response, gateway);
+                return new ResultImpl<IAndroidPayCard>(response, gateway);
             }
             else if (response.GetName() == "coinbase-account")
             {
@@ -63,7 +63,7 @@ namespace Braintree
             }
             else if (response.GetName() == "android-pay-card")
             {
-                return new ResultImpl<AndroidPayCard>(response, gateway);
+                return new ResultImpl<IAndroidPayCard>(response, gateway);
             }
             else
             {
