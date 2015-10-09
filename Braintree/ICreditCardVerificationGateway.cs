@@ -9,7 +9,7 @@ namespace Braintree
     /// </summary>
     public interface ICreditCardVerificationGateway
     {
-        CreditCardVerification Find(string Id);
-        ResourceCollection<CreditCardVerification> Search(CreditCardVerificationSearchRequest query);
+        ICreditCardVerification Find(string Id);
+        ResourceCollection<ICreditCardVerification> Search(CreditCardVerificationSearchRequest query);
     }
 }

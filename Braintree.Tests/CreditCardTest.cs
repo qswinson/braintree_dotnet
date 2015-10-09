@@ -915,7 +915,7 @@ namespace Braintree.Tests
 
             CreditCard card = result.Target;
 
-            CreditCardVerification verification = card.Verification;
+            ICreditCardVerification verification = card.Verification;
             Assert.IsNotNull(verification);
 
             Assert.IsNotNull(verification.RiskData);
@@ -995,7 +995,7 @@ namespace Braintree.Tests
 
             Result<CreditCard> result = gateway.CreditCard.Create(request);
             Assert.IsFalse(result.IsSuccess());
-            CreditCardVerification verification = result.CreditCardVerification;
+            ICreditCardVerification verification = result.CreditCardVerification;
             Assert.AreEqual(VerificationStatus.PROCESSOR_DECLINED, verification.Status);
             Assert.IsNull(verification.GatewayRejectionReason);
         }
@@ -1019,7 +1019,7 @@ namespace Braintree.Tests
 
             Result<CreditCard> result = gateway.CreditCard.Create(request);
             Assert.IsFalse(result.IsSuccess());
-            CreditCardVerification verification = result.CreditCardVerification;
+            ICreditCardVerification verification = result.CreditCardVerification;
 
             Assert.AreEqual(TransactionGatewayRejectionReason.CVV, verification.GatewayRejectionReason);
         }

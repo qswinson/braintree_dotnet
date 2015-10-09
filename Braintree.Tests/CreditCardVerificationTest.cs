@@ -41,7 +41,7 @@ namespace Braintree.Tests
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
 
-            CreditCardVerification verification = new CreditCardVerification(new NodeWrapper(doc).GetNode("//verification"), gateway);
+            ICreditCardVerification verification = new CreditCardVerification(new NodeWrapper(doc).GetNode("//verification"), gateway);
             Assert.AreEqual(null, verification.AvsErrorResponseCode);
             Assert.AreEqual("I", verification.AvsPostalCodeResponseCode);
             Assert.AreEqual(VerificationStatus.PROCESSOR_DECLINED, verification.Status);
@@ -65,7 +65,7 @@ namespace Braintree.Tests
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
 
-            CreditCardVerification verification = new CreditCardVerification(new NodeWrapper(doc).GetNode("//verification"), gateway);
+            ICreditCardVerification verification = new CreditCardVerification(new NodeWrapper(doc).GetNode("//verification"), gateway);
             Assert.AreEqual(null, verification.AvsErrorResponseCode);
             Assert.AreEqual(null, verification.AvsPostalCodeResponseCode);
             Assert.AreEqual(null, verification.Status);
@@ -92,7 +92,7 @@ namespace Braintree.Tests
             };
 
             Result<Customer> result = gateway.Customer.Create(createRequest);
-            CreditCardVerification verification1 = gateway.CreditCardVerification.Find(result.CreditCardVerification.Id);
+            ICreditCardVerification verification1 = gateway.CreditCardVerification.Find(result.CreditCardVerification.Id);
 
             createRequest = new CustomerRequest
             {
@@ -108,14 +108,14 @@ namespace Braintree.Tests
             };
 
             result = gateway.Customer.Create(createRequest);
-            CreditCardVerification verification2 = gateway.CreditCardVerification.Find(result.CreditCardVerification.Id);
+            ICreditCardVerification verification2 = gateway.CreditCardVerification.Find(result.CreditCardVerification.Id);
 
             CreditCardVerificationSearchRequest searchRequest = new CreditCardVerificationSearchRequest().
                 CreditCardCardType.IncludedIn(CreditCardCardType.VISA, CreditCardCardType.MASTER_CARD).
                 Ids.IncludedIn(verification1.Id, verification2.Id).
                 Status.IncludedIn(verification1.Status);
 
-            ResourceCollection<CreditCardVerification> collection = gateway.CreditCardVerification.Search(searchRequest);
+            ResourceCollection<ICreditCardVerification> collection = gateway.CreditCardVerification.Search(searchRequest);
 
             Assert.AreEqual(2, collection.MaximumCount);
         }
@@ -143,9 +143,9 @@ namespace Braintree.Tests
             CreditCardVerificationSearchRequest searchRequest = new CreditCardVerificationSearchRequest().
                 CreditCardCardholderName.Is(name);
 
-            ResourceCollection<CreditCardVerification> collection = gateway.CreditCardVerification.Search(searchRequest);
+            ResourceCollection<ICreditCardVerification> collection = gateway.CreditCardVerification.Search(searchRequest);
 
-            CreditCardVerification verification = collection.FirstItem;
+            ICreditCardVerification verification = collection.FirstItem;
 
             Assert.AreEqual(verification.CreditCard.Prepaid, Braintree.CreditCardPrepaid.UNKNOWN);
             Assert.AreEqual(verification.CreditCard.Debit, Braintree.CreditCardDebit.UNKNOWN);
@@ -189,8 +189,8 @@ namespace Braintree.Tests
                 CustomerId.Is(customerId).
                 CustomerEmail.Is(customerEmail);
 
-            ResourceCollection<CreditCardVerification> collection = gateway.CreditCardVerification.Search(searchRequest);
-            CreditCardVerification verification = collection.FirstItem;
+            ResourceCollection<ICreditCardVerification> collection = gateway.CreditCardVerification.Search(searchRequest);
+            ICreditCardVerification verification = collection.FirstItem;
 
             Assert.AreEqual(1, collection.MaximumCount);
             Assert.AreEqual(token, verification.CreditCard.Token);

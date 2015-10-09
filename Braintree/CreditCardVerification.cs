@@ -22,7 +22,25 @@ namespace Braintree
         protected VerificationStatus(string name) : base(name) {}
     }
 
-    public class CreditCardVerification
+    public interface ICreditCardVerification
+    {
+        string AvsErrorResponseCode { get; }
+        string AvsPostalCodeResponseCode { get; }
+        string AvsStreetAddressResponseCode { get; }
+        string CvvResponseCode { get; }
+        TransactionGatewayRejectionReason GatewayRejectionReason { get; }
+        string ProcessorResponseCode { get; }
+        string ProcessorResponseText { get; }
+        string MerchantAccountId { get; }
+        VerificationStatus Status { get; }
+        string Id { get; }
+        IAddress BillingAddress { get; }
+        CreditCard CreditCard { get; }
+        DateTime? CreatedAt { get; }
+        RiskData RiskData { get; }
+    }
+
+    public class CreditCardVerification : ICreditCardVerification
     {
         public string AvsErrorResponseCode { get; protected set; }
         public string AvsPostalCodeResponseCode { get; protected set; }

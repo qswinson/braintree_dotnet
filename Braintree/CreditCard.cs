@@ -157,7 +157,7 @@ namespace Braintree
         public CreditCardHealthcare Healthcare { get; protected set; }
         public CreditCardDurbinRegulated DurbinRegulated { get; protected set; }
         public string ImageUrl { get; protected set; }
-        public CreditCardVerification Verification { get; protected set; }
+        public ICreditCardVerification Verification { get; protected set; }
 
         private string _CountryOfIssuance;
 
@@ -255,7 +255,7 @@ namespace Braintree
             Verification = FindLatestVerification(verificationNodes, gateway);
         }
 
-        private CreditCardVerification FindLatestVerification(List<NodeWrapper> verificationNodes, BraintreeGateway gateway) {
+        private ICreditCardVerification FindLatestVerification(List<NodeWrapper> verificationNodes, BraintreeGateway gateway) {
             if(verificationNodes.Count > 0)
             {
                 verificationNodes.Sort(delegate(NodeWrapper first, NodeWrapper second) {
