@@ -4,7 +4,16 @@ using System;
 
 namespace Braintree
 {
-    public class StatusEvent
+    public interface IStatusEvent
+    {
+        decimal? Amount { get; }
+        TransactionStatus Status { get; }
+        DateTime? Timestamp { get; }
+        TransactionSource Source { get; }
+        string User { get; }
+    }
+
+    public class StatusEvent : IStatusEvent
     {
         public decimal? Amount { get; protected set; }
         public TransactionStatus Status { get; protected set; }

@@ -176,7 +176,7 @@ namespace Braintree
         public IAddress ShippingAddress { get; protected set; }
         public TransactionEscrowStatus EscrowStatus { get; protected set; }
         public TransactionStatus Status { get; protected set; }
-        public StatusEvent[] StatusHistory { get; protected set; }
+        public IStatusEvent[] StatusHistory { get; protected set; }
         public string SubscriptionId { get; protected set; }
         public Subscription Subscription { get; protected set; }
         public decimal? TaxAmount { get; protected set; }
