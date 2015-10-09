@@ -2,7 +2,13 @@ using System;
 
 namespace Braintree
 {
-    public class TransactionDetails
+    public interface ITransactionDetails
+    {
+        string Id { get; }
+        string Amount { get; }
+    }
+
+    public class TransactionDetails : ITransactionDetails
     {
         public string Id { get; protected set; }
         public string Amount { get; protected set; }

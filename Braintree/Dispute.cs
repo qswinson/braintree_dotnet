@@ -49,7 +49,7 @@ namespace Braintree
         DisputeStatus Status { get; }
         string CurrencyIsoCode { get; }
         string Id { get; }
-        TransactionDetails TransactionDetails { get; }
+        ITransactionDetails TransactionDetails { get; }
     }
 
     public class Dispute : IDispute
@@ -61,7 +61,7 @@ namespace Braintree
         public DisputeStatus Status { get; protected set; }
         public string CurrencyIsoCode { get; protected set; }
         public string Id { get; protected set; }
-        public TransactionDetails TransactionDetails { get; protected set; }
+        public ITransactionDetails TransactionDetails { get; protected set; }
 
         public Dispute(NodeWrapper node)
         {
