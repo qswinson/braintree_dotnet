@@ -2117,7 +2117,7 @@ namespace Braintree.Tests
             Assert.IsNotNull(result.Target.AndroidPayDetails);
 
             Assert.IsAssignableFrom(typeof(AndroidPayDetails), result.Target.AndroidPayDetails);
-            AndroidPayDetails androidPayDetails = (AndroidPayDetails) result.Target.AndroidPayDetails;
+            IAndroidPayDetails androidPayDetails = (IAndroidPayDetails) result.Target.AndroidPayDetails;
 
             Assert.IsNull(androidPayDetails.Token);
             Assert.IsNotNull(androidPayDetails.ImageUrl);
@@ -2148,7 +2148,7 @@ namespace Braintree.Tests
             Assert.IsNotNull(result.Target.AndroidPayDetails);
 
             Assert.IsAssignableFrom(typeof(AndroidPayDetails), result.Target.AndroidPayDetails);
-            AndroidPayDetails androidPayDetails = (AndroidPayDetails) result.Target.AndroidPayDetails;
+            IAndroidPayDetails androidPayDetails = (IAndroidPayDetails) result.Target.AndroidPayDetails;
 
             Assert.IsNull(androidPayDetails.Token);
             Assert.IsNotNull(androidPayDetails.ImageUrl);
