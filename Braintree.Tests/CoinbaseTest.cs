@@ -26,7 +26,7 @@ namespace Braintree.Tests
             Result<Transaction> result = gateway.Transaction.Sale(request);
             if (result.IsSuccess())
             {
-                CoinbaseDetails details = result.Target.CoinbaseDetails;
+                ICoinbaseDetails details = result.Target.CoinbaseDetails;
                 Assert.IsNotNull(details);
 
                 Assert.AreNotEqual("", details.UserEmail);

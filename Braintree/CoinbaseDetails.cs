@@ -2,7 +2,15 @@ using System;
 
 namespace Braintree
 {
-    public class CoinbaseDetails
+    public interface ICoinbaseDetails
+    {
+        string UserId { get; }
+        string UserEmail { get; }
+        string UserName { get; }
+        string Token { get; }
+    }
+
+    public class CoinbaseDetails : ICoinbaseDetails
     {
         public string UserId { get; protected set; }
         public string UserEmail { get; protected set; }
