@@ -9,15 +9,15 @@ namespace Braintree
     /// </summary>
     public interface ICreditCardGateway
     {
-        Result<CreditCard> ConfirmTransparentRedirect(string queryString);
+        Result<ICreditCard> ConfirmTransparentRedirect(string queryString);
         Result<CreditCard> Create(CreditCardRequest request);
         void Delete(string token);
-        ResourceCollection<CreditCard> Expired();
-        ResourceCollection<CreditCard> ExpiringBetween(DateTime start, DateTime end);
+        ResourceCollection<ICreditCard> Expired();
+        ResourceCollection<ICreditCard> ExpiringBetween(DateTime start, DateTime end);
         CreditCard Find(string token);
-        CreditCard FromNonce(string nonce);
+        ICreditCard FromNonce(string nonce);
         string TransparentRedirectURLForCreate();
         string TransparentRedirectURLForUpdate();
-        Result<CreditCard> Update(string token, CreditCardRequest request);
+        Result<ICreditCard> Update(string token, CreditCardRequest request);
     }
 }

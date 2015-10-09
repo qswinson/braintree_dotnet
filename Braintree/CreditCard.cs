@@ -110,6 +110,35 @@ namespace Braintree
         protected CreditCardCardType(string name) : base(name) {}
     }
 
+    public interface ICreditCard : PaymentMethod
+    {
+        string Bin { get; }
+        string CardholderName { get; }
+        CreditCardCardType CardType { get; }
+        DateTime? CreatedAt { get; }
+        bool? IsVenmoSdk { get; }
+        bool? IsExpired { get; }
+        CreditCardCustomerLocation CustomerLocation { get; }
+        string LastFour { get; }
+        string UniqueNumberIdentifier { get; }
+        Subscription[] Subscriptions { get; }
+        DateTime? UpdatedAt { get; }
+        Address BillingAddress { get; }
+        string ExpirationMonth { get; }
+        string ExpirationYear { get; }
+        CreditCardPrepaid Prepaid { get; }
+        CreditCardPayroll Payroll { get; }
+        CreditCardDebit Debit { get; }
+        CreditCardCommercial Commercial { get; }
+        CreditCardHealthcare Healthcare { get; }
+        CreditCardDurbinRegulated DurbinRegulated { get; }
+        ICreditCardVerification Verification { get; }
+        string CountryOfIssuance { get; }
+        string IssuingBank { get; }
+        string ExpirationDate { get; }
+        string MaskedNumber { get; }
+    }
+
     /// <summary>
     /// A credit card returned by the Braintree Gateway
     /// </summary>
@@ -128,7 +157,7 @@ namespace Braintree
     /// For more information about Credit Cards, see <a href="http://www.braintreepayments.com/gateway/credit-card-api" target="_blank">http://www.braintreepaymentsolutions.com/gateway/credit-card-api</a><br />
     /// For more information about Credit Card Verifications, see <a href="http://www.braintreepayments.com/gateway/credit-card-verification-api" target="_blank">http://www.braintreepaymentsolutions.com/gateway/credit-card-verification-api</a>
     /// </example>
-    public class CreditCard : PaymentMethod
+    public class CreditCard : ICreditCard
     {
         public static readonly string CountryOfIssuanceUnknown = "Unknown";
         public static readonly string IssuingBankUnknown = "Unknown";

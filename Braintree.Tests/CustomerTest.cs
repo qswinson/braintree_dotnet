@@ -638,7 +638,7 @@ namespace Braintree.Tests
             };
 
             ICustomer customer = gateway.Customer.Create(createRequest).Target;
-            CreditCard creditCard = customer.CreditCards[0];
+            ICreditCard creditCard = customer.CreditCards[0];
             IAddress address = creditCard.BillingAddress;
 
             var trParams = new CustomerRequest()
@@ -670,7 +670,7 @@ namespace Braintree.Tests
 
             string queryString = TestHelper.QueryStringForTR(trParams, new CustomerRequest(), gateway.Customer.TransparentRedirectURLForUpdate(), service);
             ICustomer updatedCustomer = gateway.Customer.ConfirmTransparentRedirect(queryString).Target;
-            CreditCard updatedCreditCard = gateway.CreditCard.Find(creditCard.Token);
+            ICreditCard updatedCreditCard = gateway.CreditCard.Find(creditCard.Token);
 
             IAddress updatedAddress = gateway.Address.Find(customer.Id, address.Id);
 
@@ -748,7 +748,7 @@ namespace Braintree.Tests
             };
 
             ICustomer customer = gateway.Customer.Create(createRequest).Target;
-            CreditCard creditCard = customer.CreditCards[0];
+            ICreditCard creditCard = customer.CreditCards[0];
             IAddress address = creditCard.BillingAddress;
 
             var updateRequest = new CustomerRequest()
@@ -778,7 +778,7 @@ namespace Braintree.Tests
             };
 
             ICustomer updatedCustomer = gateway.Customer.Update(customer.Id, updateRequest).Target;
-            CreditCard updatedCreditCard = gateway.CreditCard.Find(creditCard.Token);
+            ICreditCard updatedCreditCard = gateway.CreditCard.Find(creditCard.Token);
             IAddress updatedAddress = gateway.Address.Find(customer.Id, address.Id);
 
             Assert.AreEqual("New First", updatedCustomer.FirstName);

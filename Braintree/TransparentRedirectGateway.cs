@@ -49,12 +49,12 @@ namespace Braintree
             return new ResultImpl<ICustomer>(new NodeWrapper(node), gateway);
         }
 
-        public virtual Result<CreditCard> ConfirmCreditCard(string queryString)
+        public virtual Result<ICreditCard> ConfirmCreditCard(string queryString)
         {
             var trRequest = new TransparentRedirectRequest(queryString, service);
             XmlNode node = service.Post(service.MerchantPath() + "/transparent_redirect_requests/" + trRequest.Id + "/confirm", trRequest);
 
-            return new ResultImpl<CreditCard>(new NodeWrapper(node), gateway);
+            return new ResultImpl<ICreditCard>(new NodeWrapper(node), gateway);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Braintree.Tests
     {
         private BraintreeGateway gateway;
         private ICustomer customer;
-        private CreditCard creditCard;
+        private ICreditCard creditCard;
 
         [SetUp]
         public void Setup()
@@ -1429,7 +1429,7 @@ namespace Braintree.Tests
                 PlanId = PlanFixture.PLAN_WITHOUT_TRIAL.Id,
             }).Target;
 
-            CreditCard newCreditCard = gateway.CreditCard.Create(new CreditCardRequest
+            ICreditCard newCreditCard = gateway.CreditCard.Create(new CreditCardRequest
             {
                 CustomerId = creditCard.CustomerId,
                 Number = "5555555555554444",
@@ -1465,7 +1465,7 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
 
             subscription = result.Target;
-            CreditCard newCreditCard = gateway.CreditCard.Find(subscription.PaymentMethodToken);
+            ICreditCard newCreditCard = gateway.CreditCard.Find(subscription.PaymentMethodToken);
             Assert.AreEqual("424242", newCreditCard.Bin);
         }
 

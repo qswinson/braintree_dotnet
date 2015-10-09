@@ -140,7 +140,7 @@ namespace Braintree.Tests
                 Number = "5555555555554444",
                 ExpirationDate = "05/22"
             };
-            CreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
             Assert.IsTrue(creditCard.IsDefault.Value);
 
             var request = new PaymentMethodRequest

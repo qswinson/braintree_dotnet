@@ -1203,7 +1203,7 @@ namespace Braintree.Tests
             Assert.IsNotNull(transaction.ProcessorAuthorizationCode);
             Assert.AreEqual(TransactionGatewayRejectionReason.UNRECOGNIZED, transaction.GatewayRejectionReason);
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.AreEqual("05", creditCard.ExpirationMonth);
@@ -1474,7 +1474,7 @@ namespace Braintree.Tests
             Assert.IsNotNull(transaction.ProcessorAuthorizationCode);
             Assert.AreEqual(TransactionGatewayRejectionReason.UNRECOGNIZED, transaction.GatewayRejectionReason);
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.AreEqual("05", creditCard.ExpirationMonth);
@@ -1612,7 +1612,7 @@ namespace Braintree.Tests
             Assert.AreEqual("USD", transaction.CurrencyIsoCode);
 
             Assert.IsNull(transaction.GetVaultCreditCard());
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.AreEqual("05", creditCard.ExpirationMonth);
@@ -1751,7 +1751,7 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
             Transaction transaction = result.Target;
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual(paymentToken, creditCard.Token);
             Assert.AreEqual("05/2009", transaction.GetVaultCreditCard().ExpirationDate);
 
@@ -1857,7 +1857,7 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
             Transaction transaction = result.Target;
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.IsNotNull(creditCard.Token);
             Assert.AreEqual("05/2009", transaction.GetVaultCreditCard().ExpirationDate);
 
@@ -1891,7 +1891,7 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
             Transaction transaction = result.Target;
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.IsNotNull(creditCard.Token);
             Assert.AreEqual("05/2009", transaction.GetVaultCreditCard().ExpirationDate);
 
@@ -1927,7 +1927,7 @@ namespace Braintree.Tests
             Assert.IsFalse(result.IsSuccess());
             Transaction transaction = result.Transaction;
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.IsNull(creditCard.Token);
             Assert.IsNull(transaction.GetVaultCreditCard());
 
@@ -1967,7 +1967,7 @@ namespace Braintree.Tests
             Assert.IsTrue(result.IsSuccess());
             Transaction transaction = result.Target;
 
-            CreditCard creditCard = transaction.GetVaultCreditCard();
+            ICreditCard creditCard = transaction.GetVaultCreditCard();
             Assert.AreEqual("Carl", creditCard.BillingAddress.FirstName);
             Assert.AreEqual("Carl", transaction.GetVaultBillingAddress().FirstName);
             Assert.AreEqual("Andrew", transaction.GetVaultShippingAddress().FirstName);
@@ -2189,7 +2189,7 @@ namespace Braintree.Tests
             Assert.IsNotNull(transaction.ProcessorResponseText);
             Assert.IsNull(transaction.VoiceReferralNumber);
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.AreEqual("05", creditCard.ExpirationMonth);
@@ -2423,7 +2423,7 @@ namespace Braintree.Tests
                 ExpirationDate = "05/22"
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
 
             TransactionRequest request = new TransactionRequest
             {
@@ -2451,7 +2451,7 @@ namespace Braintree.Tests
                 ExpirationDate = "05/12"
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
 
             TransactionRequest request = new TransactionRequest
             {
@@ -3287,7 +3287,7 @@ namespace Braintree.Tests
             Assert.AreEqual(DateTime.Now.Year, transaction.CreatedAt.Value.Year);
             Assert.AreEqual(DateTime.Now.Year, transaction.UpdatedAt.Value.Year);
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.AreEqual("05", creditCard.ExpirationMonth);
@@ -3352,7 +3352,7 @@ namespace Braintree.Tests
             Assert.AreEqual(TransactionType.CREDIT, transaction.Type);
             Assert.AreEqual(TransactionStatus.SUBMITTED_FOR_SETTLEMENT, transaction.Status);
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.AreEqual("05", creditCard.ExpirationMonth);
@@ -4025,7 +4025,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.Customer.Create(customerRequest).Target.CreditCards[0];
+            ICreditCard creditCard = gateway.Customer.Create(customerRequest).Target.CreditCards[0];
 
             SubscriptionRequest request = new SubscriptionRequest
             {
@@ -4149,7 +4149,7 @@ namespace Braintree.Tests
             Assert.IsNull(cloneTransaction.GetVaultBillingAddress());
             Assert.IsNull(cloneTransaction.GetVaultShippingAddress());
 
-            CreditCard creditCard = cloneTransaction.CreditCard;
+            ICreditCard creditCard = cloneTransaction.CreditCard;
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.AreEqual("05/2009", creditCard.ExpirationDate);

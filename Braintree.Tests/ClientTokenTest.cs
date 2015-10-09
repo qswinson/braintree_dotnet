@@ -256,7 +256,7 @@ namespace Braintree.Tests
 
             ICustomer customer = gateway.Customer.Find(customerId);
             Assert.AreEqual(2, customer.CreditCards.Length);
-            foreach (CreditCard creditCard in customer.CreditCards)
+            foreach (ICreditCard creditCard in customer.CreditCards)
             {
                 if (creditCard.LastFour == "1111") {
                     Assert.IsTrue(creditCard.IsDefault.Value);

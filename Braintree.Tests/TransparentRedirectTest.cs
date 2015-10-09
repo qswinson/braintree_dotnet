@@ -68,7 +68,7 @@ namespace Braintree.Tests
             Assert.AreEqual(DateTime.Now.Year, transaction.CreatedAt.Value.Year);
             Assert.AreEqual(DateTime.Now.Year, transaction.UpdatedAt.Value.Year);
 
-            CreditCard creditCard = transaction.CreditCard;
+            ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.AreEqual("05", creditCard.ExpirationMonth);
@@ -146,9 +146,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.TransparentRedirect.Url, service);
-            Result<CreditCard> result = gateway.TransparentRedirect.ConfirmCreditCard(queryString);
+            Result<ICreditCard> result = gateway.TransparentRedirect.ConfirmCreditCard(queryString);
             Assert.IsTrue(result.IsSuccess());
-            CreditCard creditCard = result.Target;
+            ICreditCard creditCard = result.Target;
 
             Assert.AreEqual("John Doe", creditCard.CardholderName);
             Assert.AreEqual("411111", creditCard.Bin);
@@ -170,7 +170,7 @@ namespace Braintree.Tests
                 CardholderName = "Beverly D'angelo"
             };
 
-            CreditCard createdCreditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard createdCreditCard = gateway.CreditCard.Create(creditCardRequest).Target;
 
 
             CreditCardRequest trParams = new CreditCardRequest
@@ -186,9 +186,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.TransparentRedirect.Url, service);
-            Result<CreditCard> result = gateway.TransparentRedirect.ConfirmCreditCard(queryString);
+            Result<ICreditCard> result = gateway.TransparentRedirect.ConfirmCreditCard(queryString);
             Assert.IsTrue(result.IsSuccess());
-            CreditCard creditCard = gateway.CreditCard.Find(createdCreditCard.Token);
+            ICreditCard creditCard = gateway.CreditCard.Find(createdCreditCard.Token);
 
             Assert.AreEqual("Sampsonite", creditCard.CardholderName);
             Assert.AreEqual("411111", creditCard.Bin);

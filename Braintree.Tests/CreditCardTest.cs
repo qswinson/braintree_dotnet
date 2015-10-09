@@ -82,7 +82,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
 
             Assert.AreEqual("555555", creditCard.Bin);
             Assert.AreEqual("4444", creditCard.LastFour);
@@ -118,7 +118,7 @@ namespace Braintree.Tests
             Result<CreditCard> result = gateway.CreditCard.Create(creditCardRequest);
             Assert.IsTrue(result.IsSuccess());
 
-            CreditCard creditCard = result.Target;
+            ICreditCard creditCard = result.Target;
             Assert.AreEqual("1111", creditCard.LastFour);
             Assert.IsTrue(creditCard.IsVenmoSdk.Value);
         }
@@ -211,7 +211,7 @@ namespace Braintree.Tests
             };
 
             Result<CreditCard> result = gateway.CreditCard.Create(creditCardRequest);
-            CreditCard card = result.Target;
+            ICreditCard card = result.Target;
 
             Assert.IsTrue(result.IsSuccess());
             Assert.IsTrue(card.IsVenmoSdk.Value);
@@ -234,7 +234,7 @@ namespace Braintree.Tests
             };
 
             Result<CreditCard> result = gateway.CreditCard.Create(creditCardRequest);
-            CreditCard card = result.Target;
+            ICreditCard card = result.Target;
 
             Assert.IsTrue(result.IsSuccess());
             Assert.IsFalse(card.IsVenmoSdk.Value);
@@ -265,7 +265,7 @@ namespace Braintree.Tests
                 BillingAddressId = address.Id,
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
             IAddress billingAddress = creditCard.BillingAddress;
             Assert.AreEqual(address.Id, billingAddress.Id);
             Assert.AreEqual("Chad", billingAddress.CountryName);
@@ -296,9 +296,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.CreditCard.TransparentRedirectURLForCreate(), service);
-            Result<CreditCard> result = gateway.CreditCard.ConfirmTransparentRedirect(queryString);
+            Result<ICreditCard> result = gateway.CreditCard.ConfirmTransparentRedirect(queryString);
             Assert.IsTrue(result.IsSuccess());
-            CreditCard card = result.Target;
+            ICreditCard card = result.Target;
             Assert.AreEqual("John Doe", card.CardholderName);
             Assert.AreEqual("555555", card.Bin);
             Assert.AreEqual(EXP_MONTH, card.ExpirationMonth);
@@ -328,7 +328,7 @@ namespace Braintree.Tests
                 ExpirationDate = EXP_MONTH_YEAR
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.IsTrue(creditCard.IsDefault.Value);
 
             CreditCardRequest trParams = new CreditCardRequest
@@ -342,7 +342,7 @@ namespace Braintree.Tests
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.CreditCard.TransparentRedirectURLForCreate(), service);
 
-            CreditCard card = gateway.CreditCard.ConfirmTransparentRedirect(queryString).Target;
+            ICreditCard card = gateway.CreditCard.ConfirmTransparentRedirect(queryString).Target;
             Assert.IsTrue(card.IsDefault.Value);
         }
         #pragma warning restore 0618
@@ -364,7 +364,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.IsTrue(creditCard.IsDefault.Value);
 
             CreditCardRequest trParams = new CreditCardRequest
@@ -374,7 +374,7 @@ namespace Braintree.Tests
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.CreditCard.TransparentRedirectURLForCreate(), service);
 
-            CreditCard card = gateway.CreditCard.ConfirmTransparentRedirect(queryString).Target;
+            ICreditCard card = gateway.CreditCard.ConfirmTransparentRedirect(queryString).Target;
             Assert.IsTrue(card.IsDefault.Value);
         }
         #pragma warning restore 0618
@@ -400,7 +400,7 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.CreditCard.TransparentRedirectURLForCreate(), service);
-            Result<CreditCard> result = gateway.CreditCard.ConfirmTransparentRedirect(queryString);
+            Result<ICreditCard> result = gateway.CreditCard.ConfirmTransparentRedirect(queryString);
             Assert.IsFalse(result.IsSuccess());
 
             Assert.AreEqual(
@@ -424,8 +424,8 @@ namespace Braintree.Tests
                 CardholderName = "Michael Angelo"
             };
 
-            CreditCard originalCreditCard = gateway.CreditCard.Create(creditCardRequest).Target;
-            CreditCard creditCard = gateway.CreditCard.Find(originalCreditCard.Token);
+            ICreditCard originalCreditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Find(originalCreditCard.Token);
 
             Assert.AreEqual("555555", creditCard.Bin);
             Assert.AreEqual("4444", creditCard.LastFour);
@@ -449,7 +449,7 @@ namespace Braintree.Tests
                 CVV = "123"
             };
 
-            CreditCard originalCreditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard originalCreditCard = gateway.CreditCard.Create(creditCardRequest).Target;
             string id = Guid.NewGuid().ToString();
             var subscriptionRequest = new SubscriptionRequest
             {
@@ -464,7 +464,7 @@ namespace Braintree.Tests
                 Assert.Inconclusive(resp.Message);
             else
             {
-                CreditCard creditCard = gateway.CreditCard.Find(originalCreditCard.Token);
+                ICreditCard creditCard = gateway.CreditCard.Find(originalCreditCard.Token);
                 Assert.IsNotNull(creditCard);
                 Assert.IsNotEmpty(creditCard.Subscriptions);
                 Subscription subscription = creditCard.Subscriptions[0];
@@ -489,7 +489,7 @@ namespace Braintree.Tests
         {
           ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
           string nonce = TestHelper.GenerateUnlockedNonce(gateway, "4012888888881881", customer.Id);
-          CreditCard card = gateway.CreditCard.FromNonce(nonce);
+          ICreditCard card = gateway.CreditCard.FromNonce(nonce);
           Assert.AreEqual("401288******1881", card.MaskedNumber);
         }
 
@@ -534,7 +534,7 @@ namespace Braintree.Tests
                 CardholderName = "Michael Angelo"
             };
 
-            CreditCard originalCreditCard = gateway.CreditCard.Create(creditCardCreateRequest).Target;
+            ICreditCard originalCreditCard = gateway.CreditCard.Create(creditCardCreateRequest).Target;
 
             var creditCardUpdateRequest = new CreditCardRequest
             {
@@ -545,7 +545,7 @@ namespace Braintree.Tests
                 CardholderName = "Dave Inchy"
             };
 
-            CreditCard creditCard = gateway.CreditCard.Update(originalCreditCard.Token, creditCardUpdateRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Update(originalCreditCard.Token, creditCardUpdateRequest).Target;
 
             Assert.AreEqual("411111", creditCard.Bin);
             Assert.AreEqual("1111", creditCard.LastFour);
@@ -583,8 +583,8 @@ namespace Braintree.Tests
                 },
             };
 
-            CreditCard card1 = gateway.CreditCard.Create(request1).Target;
-            CreditCard card2 = gateway.CreditCard.Create(request2).Target;
+            ICreditCard card1 = gateway.CreditCard.Create(request1).Target;
+            ICreditCard card2 = gateway.CreditCard.Create(request2).Target;
 
             Assert.IsFalse(gateway.CreditCard.Find(card1.Token).IsDefault.Value);
             Assert.IsTrue(gateway.CreditCard.Find(card2.Token).IsDefault.Value);
@@ -604,8 +604,8 @@ namespace Braintree.Tests
                 CardholderName = "Michael Angelo"
             };
 
-            CreditCard card1 = gateway.CreditCard.Create(creditCardCreateRequest).Target;
-            CreditCard card2 = gateway.CreditCard.Create(creditCardCreateRequest).Target;
+            ICreditCard card1 = gateway.CreditCard.Create(creditCardCreateRequest).Target;
+            ICreditCard card2 = gateway.CreditCard.Create(creditCardCreateRequest).Target;
 
             Assert.IsTrue(card1.IsDefault.Value);
             Assert.IsFalse(card2.IsDefault.Value);
@@ -646,7 +646,7 @@ namespace Braintree.Tests
 
             var resp = gateway.CreditCard.Create(request);
             Assert.IsNotNull(resp);
-            CreditCard creditCard = resp.Target;
+            ICreditCard creditCard = resp.Target;
             Assert.IsNotNull(creditCard, resp.Message);
 
             var updateRequest = new CreditCardRequest
@@ -666,7 +666,7 @@ namespace Braintree.Tests
 
             var uresp = gateway.CreditCard.Update(creditCard.Token, updateRequest);
             Assert.IsNotNull(uresp);
-            CreditCard updatedCreditCard = uresp.Target;
+            ICreditCard updatedCreditCard = uresp.Target;
             Assert.IsNotNull(updatedCreditCard, uresp.Message);
 
             Assert.IsNull(updatedCreditCard.BillingAddress.FirstName);
@@ -699,7 +699,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
 
             var updateRequest = new CreditCardRequest
             {
@@ -718,7 +718,7 @@ namespace Braintree.Tests
 
             var uresp = gateway.CreditCard.Update(creditCard.Token, updateRequest);
             Assert.IsNotNull(uresp);
-            CreditCard updatedCreditCard = uresp.Target;
+            ICreditCard updatedCreditCard = uresp.Target;
             Assert.IsNotNull(updatedCreditCard, uresp.Message);
 
             Assert.AreEqual("John", updatedCreditCard.BillingAddress.FirstName);
@@ -745,7 +745,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             CreditCardRequest trParams = new CreditCardRequest
             {
                 PaymentMethodToken = creditCard.Token,
@@ -770,7 +770,7 @@ namespace Braintree.Tests
             string queryString = TestHelper.QueryStringForTR(trParams, updateRequest, gateway.CreditCard.TransparentRedirectURLForUpdate(), service);
             var resp = gateway.CreditCard.ConfirmTransparentRedirect(queryString);
             Assert.IsNotNull(resp);
-            CreditCard updatedCreditCard = resp.Target;
+            ICreditCard updatedCreditCard = resp.Target;
             Assert.IsNotNull(updatedCreditCard, resp.Message);
 
             Assert.AreEqual("John", updatedCreditCard.BillingAddress.FirstName);
@@ -796,7 +796,7 @@ namespace Braintree.Tests
                     PostalCode = "44444"
                 }
             };
-            CreditCard createdCard = gateway.CreditCard.Create(createRequest).Target;
+            ICreditCard createdCard = gateway.CreditCard.Create(createRequest).Target;
 
             CreditCardRequest trParams = new CreditCardRequest
             {
@@ -809,9 +809,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.CreditCard.TransparentRedirectURLForUpdate(), service);
-            Result<CreditCard> result = gateway.CreditCard.ConfirmTransparentRedirect(queryString);
+            Result<ICreditCard> result = gateway.CreditCard.ConfirmTransparentRedirect(queryString);
             Assert.IsTrue(result.IsSuccess());
-            CreditCard card = result.Target;
+            ICreditCard card = result.Target;
             Assert.AreEqual("Joe Cool", card.CardholderName);
             Assert.AreEqual("44444", card.BillingAddress.PostalCode);
         }
@@ -831,7 +831,7 @@ namespace Braintree.Tests
                 CardholderName = "Michael Angelo"
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
 
             Assert.AreEqual(creditCard.Token, gateway.CreditCard.Find(creditCard.Token).Token);
             gateway.CreditCard.Delete(creditCard.Token);
@@ -913,7 +913,7 @@ namespace Braintree.Tests
             Result<CreditCard> result = gateway.CreditCard.Create(request);
             Assert.IsTrue(result.IsSuccess());
 
-            CreditCard card = result.Target;
+            ICreditCard card = result.Target;
 
             ICreditCardVerification verification = card.Verification;
             Assert.IsNotNull(verification);
@@ -1027,12 +1027,12 @@ namespace Braintree.Tests
         [Test]
         public void Expired()
         {
-            ResourceCollection<CreditCard> collection = gateway.CreditCard.Expired();
+            ResourceCollection<ICreditCard> collection = gateway.CreditCard.Expired();
 
             Assert.IsTrue(collection.MaximumCount > 1);
 
             List<string> cards = new List<string>();
-            foreach (CreditCard card in collection) {
+            foreach (ICreditCard card in collection) {
                 Assert.IsTrue(card.IsExpired.Value);
                 cards.Add(card.Token);
             }
@@ -1048,11 +1048,11 @@ namespace Braintree.Tests
             DateTime beginning = new DateTime(year, 1, 1);
             DateTime end = new DateTime(year, 12, 31);
 
-            ResourceCollection<CreditCard> collection = gateway.CreditCard.ExpiringBetween(beginning, end);
+            ResourceCollection<ICreditCard> collection = gateway.CreditCard.ExpiringBetween(beginning, end);
             Assert.IsTrue(collection.MaximumCount > 1);
 
             List<string> cards = new List<string>();
-            foreach (CreditCard card in collection) {
+            foreach (ICreditCard card in collection) {
                 Assert.AreEqual(year.ToString(), card.ExpirationYear);
                 cards.Add(card.Token);
             }
@@ -1078,7 +1078,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.CreditCardPrepaid.YES, creditCard.Prepaid);
         }
 
@@ -1099,7 +1099,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.CreditCardCommercial.YES, creditCard.Commercial);
         }
 
@@ -1120,7 +1120,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.CreditCardDebit.YES, creditCard.Debit);
         }
 
@@ -1141,7 +1141,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.CreditCardHealthcare.YES, creditCard.Healthcare);
         }
 
@@ -1162,7 +1162,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.CreditCardPayroll.YES, creditCard.Payroll);
         }
 
@@ -1183,7 +1183,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.CreditCardDurbinRegulated.YES, creditCard.DurbinRegulated);
         }
 
@@ -1204,7 +1204,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.Tests.CreditCardDefaults.CountryOfIssuance, creditCard.CountryOfIssuance);
         }
 
@@ -1225,7 +1225,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.Tests.CreditCardDefaults.IssuingBank, creditCard.IssuingBank);
         }
 
@@ -1246,7 +1246,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.CreditCardPrepaid.NO, creditCard.Prepaid);
             Assert.AreEqual(Braintree.CreditCardCommercial.NO, creditCard.Commercial);
             Assert.AreEqual(Braintree.CreditCardHealthcare.NO, creditCard.Healthcare);
@@ -1272,7 +1272,7 @@ namespace Braintree.Tests
                 }
             };
 
-            CreditCard creditCard = gateway.CreditCard.Create(request).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(request).Target;
             Assert.AreEqual(Braintree.CreditCardPrepaid.UNKNOWN, creditCard.Prepaid);
             Assert.AreEqual(Braintree.CreditCardCommercial.UNKNOWN, creditCard.Commercial);
             Assert.AreEqual(Braintree.CreditCardHealthcare.UNKNOWN, creditCard.Healthcare);
@@ -1324,7 +1324,7 @@ namespace Braintree.Tests
 
             var node = new NodeWrapper(newNode);
 
-            var result = new ResultImpl<CreditCard>(node, gateway);
+            var result = new ResultImpl<ICreditCard>(node, gateway);
 
             Assert.AreEqual("932", result.Target.Verification.Id);
         }

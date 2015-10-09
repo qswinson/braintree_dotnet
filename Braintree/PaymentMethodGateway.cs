@@ -25,7 +25,7 @@ namespace Braintree
             }
             else if (response.GetName() == "credit-card")
             {
-                return new ResultImpl<CreditCard>(response, gateway);
+                return new ResultImpl<ICreditCard>(response, gateway);
             }
             else if (response.GetName() == "apple-pay-card")
             {
@@ -55,7 +55,7 @@ namespace Braintree
             }
             else if (response.GetName() == "credit-card")
             {
-                return new ResultImpl<CreditCard>(response, gateway);
+                return new ResultImpl<ICreditCard>(response, gateway);
             }
             else if (response.GetName() == "apple-pay-card")
             {

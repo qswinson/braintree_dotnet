@@ -146,7 +146,7 @@ namespace Braintree
         public IAddress BillingAddress { get; protected set; }
         public string Channel { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }
-        public CreditCard CreditCard { get; protected set; }
+        public ICreditCard CreditCard { get; protected set; }
         public string CurrencyIsoCode { get; protected set; }
         public ICustomer Customer { get; protected set; }
         public string CvvResponseCode { get; protected set; }
@@ -354,7 +354,7 @@ namespace Braintree
         ///     Result&lt;Transaction&gt; result = gateway.Transaction.Sale(request);
         /// </code>
         /// </example>
-        public virtual CreditCard GetVaultCreditCard()
+        public virtual ICreditCard GetVaultCreditCard()
         {
             if (CreditCard.Token == null) return null;
 

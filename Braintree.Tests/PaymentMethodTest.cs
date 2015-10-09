@@ -254,7 +254,7 @@ namespace Braintree.Tests
                 Number = "5555555555554444",
                 ExpirationDate = "05/22"
             };
-            CreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
+            ICreditCard creditCard = gateway.CreditCard.Create(creditCardRequest).Target;
             Assert.IsTrue(creditCard.IsDefault.Value);
 
             string nonce = TestHelper.GenerateUnlockedNonce(gateway);
@@ -999,7 +999,7 @@ namespace Braintree.Tests
 
             Assert.IsTrue(result.IsSuccess());
             Assert.That(result.Target, Is.InstanceOf(typeof(CreditCard)));
-            var address = ((CreditCard)result.Target).BillingAddress;
+            var address = ((ICreditCard)result.Target).BillingAddress;
             Assert.AreEqual("New First Name", address.FirstName);
             Assert.AreEqual("New Last Name", address.LastName);
             Assert.AreEqual("New Company", address.Company);

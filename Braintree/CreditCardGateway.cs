@@ -44,25 +44,25 @@ namespace Braintree
         }
 
         [Obsolete("Use gateway.TransparentRedirect.Confirm()")]
-        public virtual Result<CreditCard> ConfirmTransparentRedirect(string queryString)
+        public virtual Result<ICreditCard> ConfirmTransparentRedirect(string queryString)
         {
             TransparentRedirectRequest trRequest = new TransparentRedirectRequest(queryString, service);
             XmlNode creditCardXML = service.Post(service.MerchantPath() + "/payment_methods/all/confirm_transparent_redirect_request", trRequest);
 
-            return new ResultImpl<CreditCard>(new NodeWrapper(creditCardXML), gateway);
+            return new ResultImpl<ICreditCard>(new NodeWrapper(creditCardXML), gateway);
         }
 
-        public virtual ResourceCollection<CreditCard> Expired()
+        public virtual ResourceCollection<ICreditCard> Expired()
         {
             var response = new NodeWrapper(service.Post(service.MerchantPath() + "/payment_methods/all/expired_ids"));
 
-            return new ResourceCollection<CreditCard>(response, delegate(string[] ids) {
+            return new ResourceCollection<ICreditCard>(response, delegate(string[] ids) {
                 var query = new IdsSearchRequest().
                     Ids.IncludedIn(ids);
 
                 var fetchResponse = new NodeWrapper(service.Post(service.MerchantPath() + "/payment_methods/all/expired", query));
 
-                var creditCards = new List<CreditCard>();
+                var creditCards = new List<ICreditCard>();
                 foreach (var node in fetchResponse.GetList("credit-card"))
                 {
                     creditCards.Add(new CreditCard(node, gateway));
@@ -71,19 +71,19 @@ namespace Braintree
             });
         }
 
-        public virtual ResourceCollection<CreditCard> ExpiringBetween(DateTime start, DateTime end)
+        public virtual ResourceCollection<ICreditCard> ExpiringBetween(DateTime start, DateTime end)
         {
             string queryString = string.Format("start={0:MMyyyy}&end={1:MMyyyy}", start, end);
 
             var response = new NodeWrapper(service.Post(service.MerchantPath() + "/payment_methods/all/expiring_ids?" + queryString));
 
-            return new ResourceCollection<CreditCard>(response, delegate(string[] ids) {
+            return new ResourceCollection<ICreditCard>(response, delegate(string[] ids) {
                 var query = new IdsSearchRequest().
                     Ids.IncludedIn(ids);
 
                 var fetchResponse = new NodeWrapper(service.Post(service.MerchantPath() + "/payment_methods/all/expiring?" + queryString, query));
 
-                var creditCards = new List<CreditCard>();
+                var creditCards = new List<ICreditCard>();
                 foreach (var node in fetchResponse.GetList("credit-card"))
                 {
                     creditCards.Add(new CreditCard(node, gateway));
@@ -102,7 +102,7 @@ namespace Braintree
             return new CreditCard(new NodeWrapper(creditCardXML), gateway);
         }
 
-        public virtual CreditCard FromNonce(string nonce)
+        public virtual ICreditCard FromNonce(string nonce)
         {
             if(nonce == null || nonce.Trim().Equals(""))
                 throw new NotFoundException();
@@ -120,11 +120,11 @@ namespace Braintree
             service.Delete(service.MerchantPath() + "/payment_methods/credit_card/" + token);
         }
 
-        public virtual Result<CreditCard> Update(string token, CreditCardRequest request)
+        public virtual Result<ICreditCard> Update(string token, CreditCardRequest request)
         {
             XmlNode creditCardXML = service.Put(service.MerchantPath() + "/payment_methods/credit_card/" + token, request);
 
-            return new ResultImpl<CreditCard>(new NodeWrapper(creditCardXML), gateway);
+            return new ResultImpl<ICreditCard>(new NodeWrapper(creditCardXML), gateway);
         }
     }
 }
