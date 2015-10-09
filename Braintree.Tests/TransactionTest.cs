@@ -3551,8 +3551,8 @@ namespace Braintree.Tests
         {
             Transaction transaction = gateway.Transaction.Find("disputedtransaction");
 
-            List<Dispute> disputes = transaction.Disputes;
-            Dispute dispute = disputes[0];
+            List<IDispute> disputes = transaction.Disputes;
+            IDispute dispute = disputes[0];
 
             Assert.AreEqual(dispute.ReceivedDate, DateTime.Parse("2014-03-01"));
             Assert.AreEqual(dispute.ReplyByDate, DateTime.Parse("2014-03-21"));
@@ -3567,8 +3567,8 @@ namespace Braintree.Tests
         {
             Transaction transaction = gateway.Transaction.Find("retrievaltransaction");
 
-            List<Dispute> disputes = transaction.Disputes;
-            Dispute dispute = disputes[0];
+            List<IDispute> disputes = transaction.Disputes;
+            IDispute dispute = disputes[0];
 
             Assert.AreEqual(dispute.Amount, decimal.Parse("1000.00"));
             Assert.AreEqual(dispute.CurrencyIsoCode, "USD");

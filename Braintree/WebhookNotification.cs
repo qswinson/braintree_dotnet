@@ -60,7 +60,7 @@ namespace Braintree
         public DateTime? Timestamp { get; protected set; }
         public Transaction Transaction { get; protected set; }
         public IDisbursement Disbursement { get; protected set; }
-        public Dispute Dispute { get; protected set; }
+        public IDispute Dispute { get; protected set; }
         public PartnerMerchant PartnerMerchant { get; protected set; }
 
         public WebhookNotification(NodeWrapper node, BraintreeGateway gateway)

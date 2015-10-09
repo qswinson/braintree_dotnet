@@ -40,7 +40,19 @@ namespace Braintree
         protected DisputeReason(string name) : base(name) {}
     }
 
-    public class Dispute
+    public interface IDispute
+    {
+        decimal? Amount { get; }
+        DateTime? ReceivedDate { get; }
+        DateTime? ReplyByDate { get; }
+        DisputeReason Reason { get; }
+        DisputeStatus Status { get; }
+        string CurrencyIsoCode { get; }
+        string Id { get; }
+        TransactionDetails TransactionDetails { get; }
+    }
+
+    public class Dispute : IDispute
     {
         public decimal? Amount { get; protected set; }
         public DateTime? ReceivedDate { get; protected set; }
