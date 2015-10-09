@@ -2,7 +2,18 @@ using System;
 
 namespace Braintree
 {
-    public class Merchant
+    public interface IMerchant
+    {
+        string Id { get; set; }
+        string Email { get; set; }
+        string CompanyName { get; set; }
+        string CountryCodeAlpha3 { get; set; }
+        string CountryCodeAlpha2 { get; set; }
+        string CountryCodeNumeric { get; set; }
+        string CountryName { get; set; }
+    }
+
+    public class Merchant : IMerchant
     {
         public Merchant(NodeWrapper node)
         {
