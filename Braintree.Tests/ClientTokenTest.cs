@@ -161,7 +161,7 @@ namespace Braintree.Tests
             Assert.AreEqual(422, (int)response.StatusCode);
             response.Close();
 
-            Customer customer = gateway.Customer.Find(customerId);
+            ICustomer customer = gateway.Customer.Find(customerId);
             Assert.AreEqual(0, customer.CreditCards.Length);
         }
 
@@ -209,7 +209,7 @@ namespace Braintree.Tests
             Assert.AreEqual(422, (int)response.StatusCode);
             response.Close();
 
-            Customer customer = gateway.Customer.Find(customerId);
+            ICustomer customer = gateway.Customer.Find(customerId);
             Assert.AreEqual(1, customer.CreditCards.Length);
         }
 
@@ -254,7 +254,7 @@ namespace Braintree.Tests
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
             response.Close();
 
-            Customer customer = gateway.Customer.Find(customerId);
+            ICustomer customer = gateway.Customer.Find(customerId);
             Assert.AreEqual(2, customer.CreditCards.Length);
             foreach (CreditCard creditCard in customer.CreditCards)
             {

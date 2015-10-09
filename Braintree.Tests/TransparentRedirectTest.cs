@@ -90,9 +90,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.TransparentRedirect.Url, service);
-            Result<Customer> result = gateway.TransparentRedirect.ConfirmCustomer(queryString);
+            Result<ICustomer> result = gateway.TransparentRedirect.ConfirmCustomer(queryString);
             Assert.IsTrue(result.IsSuccess());
-            Customer customer = result.Target;
+            ICustomer customer = result.Target;
 
             Assert.AreEqual("John", customer.FirstName);
             Assert.AreEqual("Doe", customer.LastName);
@@ -107,7 +107,7 @@ namespace Braintree.Tests
                 LastName = "Higgenbottom"
             };
 
-            Customer createdCustomer = gateway.Customer.Create(createRequest).Target;
+            ICustomer createdCustomer = gateway.Customer.Create(createRequest).Target;
 
             CustomerRequest trParams = new CustomerRequest
             {
@@ -121,9 +121,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.TransparentRedirect.Url, service);
-            Result<Customer> result = gateway.TransparentRedirect.ConfirmCustomer(queryString);
+            Result<ICustomer> result = gateway.TransparentRedirect.ConfirmCustomer(queryString);
             Assert.IsTrue(result.IsSuccess());
-            Customer updatedCustomer = gateway.Customer.Find(createdCustomer.Id);
+            ICustomer updatedCustomer = gateway.Customer.Find(createdCustomer.Id);
 
             Assert.AreEqual("Penelope", updatedCustomer.FirstName);
             Assert.AreEqual("Lambert", updatedCustomer.LastName);
@@ -132,7 +132,7 @@ namespace Braintree.Tests
         [Test]
         public void CreateCreditCardFromTransparentRedirect()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest trParams = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -160,7 +160,7 @@ namespace Braintree.Tests
         [Test]
         public void UpdateCreditCardFromTransparentRedirect()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {

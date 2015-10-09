@@ -63,7 +63,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_CreatesCreditCardForGivenCustomerId()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -107,7 +107,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_CreatesCreditCardWithAVenmoSdkPaymentMethodCode()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -126,7 +126,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_CreatesCreditCardWithSecurityParams()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -152,7 +152,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_CreatesCreditCardWithDeviceData()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -177,7 +177,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_FailsToCreateCreditCardWithInvalidVenmoSdkPaymentMethodCode()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -197,7 +197,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_AddsCardToVenmoSdkWithValidSession()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -220,7 +220,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_DoesNotAddCardToVenmoSdkWithInvalidSession()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -244,7 +244,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_AcceptsBillingAddressId()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             AddressRequest addressRequest = new AddressRequest
             {
                 FirstName = "John",
@@ -278,7 +278,7 @@ namespace Braintree.Tests
         [Test]
         public void ConfirmTransparentRedirectCreate_CreatesTheCreditCard()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             CreditCardRequest trParams = new CreditCardRequest { CustomerId = customer.Id };
             CreditCardRequest request = new CreditCardRequest
@@ -319,7 +319,7 @@ namespace Braintree.Tests
         [Test]
         public void ConfirmTransparentRedirectCreate_CreatesTheCreditCardObservingMakeDefaultInTRParams()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             CreditCardRequest request = new CreditCardRequest
             {
@@ -351,7 +351,7 @@ namespace Braintree.Tests
         [Test]
         public void ConfirmTransparentRedirectCreate_CreatesTheCreditCardObservingMakeDefaultInRequest()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             CreditCardRequest request = new CreditCardRequest
             {
@@ -383,7 +383,7 @@ namespace Braintree.Tests
         [Test]
         public void ConfirmTransparentRedirectCreate_WithErrors()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             CreditCardRequest trParams = new CreditCardRequest { CustomerId = customer.Id };
 
@@ -413,7 +413,7 @@ namespace Braintree.Tests
         [Test]
         public void Find_FindsCreditCardByToken()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -439,7 +439,7 @@ namespace Braintree.Tests
         [Test]
         public void Find_FindsAssociatedSubscriptions()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -487,7 +487,7 @@ namespace Braintree.Tests
         [Test]
         public void FromNonce_ExchangesANonceForACreditCard()
         {
-          Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+          ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
           string nonce = TestHelper.GenerateUnlockedNonce(gateway, "4012888888881881", customer.Id);
           CreditCard card = gateway.CreditCard.FromNonce(nonce);
           Assert.AreEqual("401288******1881", card.MaskedNumber);
@@ -508,7 +508,7 @@ namespace Braintree.Tests
         [Test]
         public void FromNonce_ReturnsErrorWhenProvidedConsumedNonce()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             string nonce = TestHelper.GenerateUnlockedNonce(gateway, "4012888888881881", customer.Id);
             gateway.CreditCard.FromNonce(nonce);
             try {
@@ -523,7 +523,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_UpdatesCreditCardByToken()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardCreateRequest = new CreditCardRequest
             {
@@ -559,7 +559,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_SetsDefaultIfSpecified()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var request1 = new CreditCardRequest
             {
@@ -593,7 +593,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_UpdatesDefaultIfSpecified()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardCreateRequest = new CreditCardRequest
             {
@@ -628,7 +628,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_CreatesNewBillingAddressByDefault()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             Assert.IsNotNull(customer);
             var request = new CreditCardRequest
             {
@@ -683,7 +683,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_UpdatesExistingBillingAddressWhenUpdateExistingIsTrue()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var request = new CreditCardRequest
             {
@@ -730,7 +730,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_UpdatesExistingBillingAddressWhenUpdateExistingIsTrueViaTransparentRedirect()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             var request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -783,7 +783,7 @@ namespace Braintree.Tests
         [Test]
         public void UpdateViaTransparentRedirect()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest createRequest = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -820,7 +820,7 @@ namespace Braintree.Tests
         [Test]
         public void Delete_DeletesTheCreditCard()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var creditCardRequest = new CreditCardRequest
             {
@@ -849,7 +849,7 @@ namespace Braintree.Tests
         [Test]
         public void CheckDuplicateCreditCard()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -875,7 +875,7 @@ namespace Braintree.Tests
         [Test]
         public void VerifyValidCreditCard()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -896,7 +896,7 @@ namespace Braintree.Tests
         [Test]
         public void VerifyValidCreditCardWithVerificationRiskData()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -924,7 +924,7 @@ namespace Braintree.Tests
         [Test]
         public void VerifyValidCreditCardWithVerificationAmount()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -951,7 +951,7 @@ namespace Braintree.Tests
         [Test]
         public void VerifyValidCreditCardSpecifyingMerhantAccount()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -979,7 +979,7 @@ namespace Braintree.Tests
         [Test]
         public void VerifyInvalidCreditCard()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1003,7 +1003,7 @@ namespace Braintree.Tests
         [Test]
         public void GatewayRejectionReason_ExposedOnVerification()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1064,7 +1064,7 @@ namespace Braintree.Tests
         [Test]
         public void Prepaid()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1085,7 +1085,7 @@ namespace Braintree.Tests
         [Test]
         public void Commercial()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1106,7 +1106,7 @@ namespace Braintree.Tests
         [Test]
         public void Debit()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1127,7 +1127,7 @@ namespace Braintree.Tests
         [Test]
         public void Healthcare()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1148,7 +1148,7 @@ namespace Braintree.Tests
         [Test]
         public void Payroll()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1169,7 +1169,7 @@ namespace Braintree.Tests
         [Test]
         public void DurbinRegulated()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1190,7 +1190,7 @@ namespace Braintree.Tests
         [Test]
         public void CountryOfIssuance()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1211,7 +1211,7 @@ namespace Braintree.Tests
         [Test]
         public void IssuingBank()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1232,7 +1232,7 @@ namespace Braintree.Tests
         [Test]
         public void NegativeCardTypeIndicators()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1258,7 +1258,7 @@ namespace Braintree.Tests
         [Test]
         public void MissingCardTypeIndicators()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest request = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -1287,7 +1287,7 @@ namespace Braintree.Tests
         public void CreateWithPaymentMethodNonce()
         {
           string nonce = TestHelper.GenerateUnlockedNonce(gateway);
-          Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+          ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
           CreditCardRequest request = new CreditCardRequest
           {
             CustomerId = customer.Id,

@@ -67,7 +67,7 @@ namespace Braintree.Tests
 
             var resp = gateway.Customer.Create(createRequest);
             Assert.IsNotNull(resp);
-            Customer customer = resp.Target;
+            ICustomer customer = resp.Target;
             Assert.IsNotNull(customer, resp.Message);
             try {
                 gateway.PayPalAccount.Find(customer.CreditCards[0].Token);

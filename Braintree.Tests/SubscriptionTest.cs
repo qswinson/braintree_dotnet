@@ -11,7 +11,7 @@ namespace Braintree.Tests
     public class SubscriptionTest
     {
         private BraintreeGateway gateway;
-        private Customer customer;
+        private ICustomer customer;
         private CreditCard creditCard;
 
         [SetUp]

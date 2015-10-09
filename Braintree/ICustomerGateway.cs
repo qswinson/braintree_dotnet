@@ -9,13 +9,13 @@ namespace Braintree
     /// </summary>
     public interface ICustomerGateway
     {
-        ResourceCollection<Customer> All();
-        Result<Customer> ConfirmTransparentRedirect(string queryString);
+        ResourceCollection<ICustomer> All();
+        Result<ICustomer> ConfirmTransparentRedirect(string queryString);
         Result<Customer> Create();
         Result<Customer> Create(CustomerRequest request);
         void Delete(string Id);
         Customer Find(string Id);
-        ResourceCollection<Customer> Search(CustomerSearchRequest query);
+        ResourceCollection<ICustomer> Search(CustomerSearchRequest query);
         string TransparentRedirectURLForCreate();
         string TransparentRedirectURLForUpdate();
         Result<Customer> Update(string Id, CustomerRequest request);

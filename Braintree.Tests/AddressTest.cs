@@ -21,7 +21,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_CreatesAddressForGivenCustomerId()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var addressRequest = new AddressRequest
             {
@@ -60,7 +60,7 @@ namespace Braintree.Tests
         [Test]
         public void Find_FindsAddress()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var addressRequest = new AddressRequest
             {
@@ -106,7 +106,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_UpdatesAddressForGivenCustomerIdAndAddressId()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var addressCreateRequest = new AddressRequest
             {
@@ -161,7 +161,7 @@ namespace Braintree.Tests
         [Test]
         public void Update_UpdatesAddress_WithInconsistenCounty()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var addressCreateRequest = new AddressRequest
             {
@@ -206,7 +206,7 @@ namespace Braintree.Tests
         [Test]
         public void Delete_DeletesTheAddress()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             var addressRequest = new AddressRequest
             {
@@ -231,7 +231,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_ReturnsAnErrorResult()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             AddressRequest request = new AddressRequest() { CountryName = "United States of Hammer" };
 
             Result<Address> createResult = gateway.Address.Create(customer.Id, request);
@@ -245,7 +245,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_ReturnsAnErrorResult_ForInconsistentCountry()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             AddressRequest request = new AddressRequest()
             {
                 CountryName = "United States of America",
@@ -263,7 +263,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_ReturnsAnErrorResult_ForIncorrectAlpha2()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             AddressRequest request = new AddressRequest()
             {
                 CountryCodeAlpha2 = "ZZ"
@@ -280,7 +280,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_ReturnsAnErrorResult_ForIncorrectAlpha3()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             AddressRequest request = new AddressRequest()
             {
                 CountryCodeAlpha3 = "ZZZ"
@@ -297,7 +297,7 @@ namespace Braintree.Tests
         [Test]
         public void Create_ReturnsAnErrorResult_ForIncorrectNumeric()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             AddressRequest request = new AddressRequest()
             {
                 CountryCodeNumeric = "000"

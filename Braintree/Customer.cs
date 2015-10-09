@@ -9,6 +9,29 @@ using System.Xml.Serialization;
 
 namespace Braintree
 {
+    public interface ICustomer
+    {
+        string Id { get; }
+        string FirstName { get; }
+        string LastName { get; }
+        string Company { get; }
+        string Email { get; }
+        string Phone { get; }
+        string Fax { get; }
+        string Website { get; }
+        DateTime? CreatedAt { get; }
+        DateTime? UpdatedAt { get; }
+        CreditCard[] CreditCards { get; }
+        PayPalAccount[] PayPalAccounts { get; }
+        ApplePayCard[] ApplePayCards { get; }
+        AndroidPayCard[] AndroidPayCards { get; }
+        CoinbaseAccount[] CoinbaseAccounts { get; }
+        PaymentMethod[] PaymentMethods { get; }
+        IAddress[] Addresses { get; }
+        Dictionary<string, string> CustomFields { get; }
+        PaymentMethod DefaultPaymentMethod { get; }
+    }
+
     /// <summary>
     /// A customer returned by the Braintree Gateway
     /// </summary>
@@ -19,7 +42,7 @@ namespace Braintree
     /// </code>
     /// For more information about Customers, see <a href="http://www.braintreepayments.com/gateway/customer-api" target="_blank">http://www.braintreepaymentsolutions.com/gateway/customer-api</a>
     /// </example>
-    public class Customer
+    public class Customer : ICustomer
     {
         public string Id { get; protected set; }
         public string FirstName { get; protected set; }

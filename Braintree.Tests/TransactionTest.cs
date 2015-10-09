@@ -1621,7 +1621,7 @@ namespace Braintree.Tests
             Assert.AreEqual("John Doe", creditCard.CardholderName);
 
             Assert.IsNull(transaction.GetVaultCustomer());
-            Customer customer = transaction.Customer;
+            ICustomer customer = transaction.Customer;
             Assert.AreEqual("Dan", customer.FirstName);
             Assert.AreEqual("Smith", customer.LastName);
             Assert.AreEqual("Braintree", customer.Company);
@@ -1755,7 +1755,7 @@ namespace Braintree.Tests
             Assert.AreEqual(paymentToken, creditCard.Token);
             Assert.AreEqual("05/2009", transaction.GetVaultCreditCard().ExpirationDate);
 
-            Customer customer = transaction.Customer;
+            ICustomer customer = transaction.Customer;
             Assert.AreEqual(customerId, customer.Id);
             Assert.AreEqual("Jane", transaction.GetVaultCustomer().FirstName);
         }
@@ -1763,7 +1763,7 @@ namespace Braintree.Tests
         [Test]
         public void Sale_WithVaultCustomerAndNewCreditCard()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()
             {
                 FirstName = "Michael",
                 LastName = "Angelo",
@@ -1797,7 +1797,7 @@ namespace Braintree.Tests
         [Test]
         public void Sale_WithVaultCustomerAndNewCreditCardStoresInVault()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()
             {
                 FirstName = "Michael",
                 LastName = "Angelo",
@@ -1861,7 +1861,7 @@ namespace Braintree.Tests
             Assert.IsNotNull(creditCard.Token);
             Assert.AreEqual("05/2009", transaction.GetVaultCreditCard().ExpirationDate);
 
-            Customer customer = transaction.Customer;
+            ICustomer customer = transaction.Customer;
             Assert.IsNotNull(customer.Id);
             Assert.AreEqual("Jane", transaction.GetVaultCustomer().FirstName);
         }
@@ -1895,7 +1895,7 @@ namespace Braintree.Tests
             Assert.IsNotNull(creditCard.Token);
             Assert.AreEqual("05/2009", transaction.GetVaultCreditCard().ExpirationDate);
 
-            Customer customer = transaction.Customer;
+            ICustomer customer = transaction.Customer;
             Assert.IsNotNull(customer.Id);
             Assert.AreEqual("Jane", transaction.GetVaultCustomer().FirstName);
         }
@@ -1931,7 +1931,7 @@ namespace Braintree.Tests
             Assert.IsNull(creditCard.Token);
             Assert.IsNull(transaction.GetVaultCreditCard());
 
-            Customer customer = transaction.Customer;
+            ICustomer customer = transaction.Customer;
             Assert.IsNull(customer.Id);
             Assert.IsNull(transaction.GetVaultCustomer());
         }
@@ -1972,7 +1972,7 @@ namespace Braintree.Tests
             Assert.AreEqual("Carl", transaction.GetVaultBillingAddress().FirstName);
             Assert.AreEqual("Andrew", transaction.GetVaultShippingAddress().FirstName);
 
-            Customer customer = transaction.GetVaultCustomer();
+            ICustomer customer = transaction.GetVaultCustomer();
             Assert.AreEqual(2, customer.Addresses.Length);
 
             Assert.AreEqual("Carl", customer.Addresses[0].FirstName);
@@ -2414,7 +2414,7 @@ namespace Braintree.Tests
         [Test]
         public void Sale_WithPaymentMethodToken()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest creditCardRequest = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -2443,7 +2443,7 @@ namespace Braintree.Tests
         [Test]
         public void Sale_WithPaymentMethodTokenAndCvv()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
             CreditCardRequest creditCardRequest = new CreditCardRequest
             {
                 CustomerId = customer.Id,
@@ -2476,7 +2476,7 @@ namespace Braintree.Tests
         [Test]
         public void Sale_UsesShippingAddressFromVault()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             gateway.CreditCard.Create(new CreditCardRequest
             {
@@ -2506,7 +2506,7 @@ namespace Braintree.Tests
         [Test]
         public void Sale_UsesBillingAddressFromVault()
         {
-            Customer customer = gateway.Customer.Create(new CustomerRequest()).Target;
+            ICustomer customer = gateway.Customer.Create(new CustomerRequest()).Target;
 
             gateway.CreditCard.Create(new CreditCardRequest
             {

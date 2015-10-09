@@ -57,12 +57,12 @@ namespace Braintree
         }
 
         [Obsolete("Use gateway.TransparentRedirect.Confirm()")]
-        public virtual Result<Customer> ConfirmTransparentRedirect(string queryString)
+        public virtual Result<ICustomer> ConfirmTransparentRedirect(string queryString)
         {
             var trRequest = new TransparentRedirectRequest(queryString, service);
             XmlNode node = service.Post(service.MerchantPath() + "/customers/all/confirm_transparent_redirect_request", trRequest);
 
-            return new ResultImpl<Customer>(new NodeWrapper(node), gateway);
+            return new ResultImpl<ICustomer>(new NodeWrapper(node), gateway);
         }
 
         [Obsolete("Use gateway.TransparentRedirect.Url")]
@@ -77,32 +77,32 @@ namespace Braintree
             return service.BaseMerchantURL() + "/customers/all/update_via_transparent_redirect_request";
         }
 
-        public virtual ResourceCollection<Customer> All()
+        public virtual ResourceCollection<ICustomer> All()
         {
             var response = new NodeWrapper(service.Post(service.MerchantPath() + "/customers/advanced_search_ids"));
             var query = new CustomerSearchRequest();
 
-            return new ResourceCollection<Customer>(response, delegate(string[] ids) {
+            return new ResourceCollection<ICustomer>(response, delegate(string[] ids) {
                 return FetchCustomers(query, ids);
             });
         }
 
-        public virtual ResourceCollection<Customer> Search(CustomerSearchRequest query)
+        public virtual ResourceCollection<ICustomer> Search(CustomerSearchRequest query)
         {
             var response = new NodeWrapper(service.Post(service.MerchantPath() + "/customers/advanced_search_ids", query));
 
-            return new ResourceCollection<Customer>(response, delegate(string[] ids) {
+            return new ResourceCollection<ICustomer>(response, delegate(string[] ids) {
                 return FetchCustomers(query, ids);
             });
         }
 
-        private List<Customer> FetchCustomers(CustomerSearchRequest query, string[] ids)
+        private List<ICustomer> FetchCustomers(CustomerSearchRequest query, string[] ids)
         {
             query.Ids.IncludedIn(ids);
 
             var response = new NodeWrapper(service.Post(service.MerchantPath() + "/customers/advanced_search", query));
 
-            var customers = new List<Customer>();
+            var customers = new List<ICustomer>();
             foreach (var node in response.GetList("customer"))
             {
                 customers.Add(new Customer(node, gateway));

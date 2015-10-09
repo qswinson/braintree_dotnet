@@ -148,7 +148,7 @@ namespace Braintree
         public DateTime? CreatedAt { get; protected set; }
         public CreditCard CreditCard { get; protected set; }
         public string CurrencyIsoCode { get; protected set; }
-        public Customer Customer { get; protected set; }
+        public ICustomer Customer { get; protected set; }
         public string CvvResponseCode { get; protected set; }
         public Descriptor Descriptor { get; protected set; }
         public List<Discount> Discounts { get; protected set; }
@@ -379,7 +379,7 @@ namespace Braintree
         ///     Customer customer = transaction.GetVaultCustomer();
         /// </code>
         /// </example>
-        public virtual Customer GetVaultCustomer()
+        public virtual ICustomer GetVaultCustomer()
         {
             if (Customer.Id == null) return null;
 
