@@ -186,7 +186,7 @@ namespace Braintree
         public Dictionary<string, string> CustomFields { get; protected set; }
         public decimal? ServiceFeeAmount { get; protected set; }
         public DisbursementDetails DisbursementDetails { get; protected set; }
-        public ApplePayDetails ApplePayDetails { get; protected set; }
+        public IApplePayDetails ApplePayDetails { get; protected set; }
         public IAndroidPayDetails AndroidPayDetails { get; protected set; }
         public PayPalDetails PayPalDetails { get; protected set; }
         public CoinbaseDetails CoinbaseDetails { get; protected set; }
