@@ -191,7 +191,7 @@ namespace Braintree
         public IPayPalDetails PayPalDetails { get; protected set; }
         public ICoinbaseDetails CoinbaseDetails { get; protected set; }
         public PaymentInstrumentType PaymentInstrumentType { get; protected set; }
-        public RiskData RiskData { get; protected set; }
+        public IRiskData RiskData { get; protected set; }
         public ThreeDSecureInfo ThreeDSecureInfo { get; protected set; }
 
         private BraintreeGateway Gateway;

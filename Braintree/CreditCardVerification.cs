@@ -37,7 +37,7 @@ namespace Braintree
         IAddress BillingAddress { get; }
         ICreditCard CreditCard { get; }
         DateTime? CreatedAt { get; }
-        RiskData RiskData { get; }
+        IRiskData RiskData { get; }
     }
 
     public class CreditCardVerification : ICreditCardVerification
@@ -55,7 +55,7 @@ namespace Braintree
         public IAddress BillingAddress { get; protected set; }
         public ICreditCard CreditCard { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }
-        public RiskData RiskData { get; protected set; }
+        public IRiskData RiskData { get; protected set; }
 
         public CreditCardVerification(NodeWrapper node, BraintreeGateway gateway)
         {
