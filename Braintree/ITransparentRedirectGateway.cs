@@ -11,6 +11,6 @@ namespace Braintree
         string BuildTrData(Request request, string redirectURL);
         Result<ICreditCard> ConfirmCreditCard(string queryString);
         Result<ICustomer> ConfirmCustomer(string queryString);
-        Result<Transaction> ConfirmTransaction(string queryString);
+        Result<ITransaction> ConfirmTransaction(string queryString);
     }
 }

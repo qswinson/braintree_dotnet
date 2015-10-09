@@ -125,6 +125,164 @@ namespace Braintree
         protected PaymentInstrumentType(string name) : base(name) {}
     }
 
+    public interface ITransaction
+    {
+        string Id { get; }
+        List<AddOn> AddOns { get; }
+        decimal? Amount { get; }
+        string AvsErrorResponseCode { get; }
+        string AvsPostalCodeResponseCode { get; }
+        string AvsStreetAddressResponseCode { get; }
+        IAddress BillingAddress { get; }
+        string Channel { get; }
+        DateTime? CreatedAt { get; }
+        ICreditCard CreditCard { get; }
+        string CurrencyIsoCode { get; }
+        ICustomer Customer { get; }
+        string CvvResponseCode { get; }
+        IDescriptor Descriptor { get; }
+        List<Discount> Discounts { get; }
+        List<IDispute> Disputes { get; }
+        TransactionGatewayRejectionReason GatewayRejectionReason { get; }
+        string MerchantAccountId { get; }
+        string OrderId { get; }
+        string PlanId { get; }
+        string ProcessorAuthorizationCode { get; }
+        string ProcessorResponseCode { get; }
+        string ProcessorResponseText { get; }
+        string ProcessorSettlementResponseCode { get; }
+        string ProcessorSettlementResponseText { get; }
+        string AdditionalProcessorResponse { get; }
+        string VoiceReferralNumber { get; }
+        string PurchaseOrderNumber { get; }
+        bool? Recurring { get; }
+        string RefundedTransactionId { get; }
+        string RefundId { get; }
+        List<string> RefundIds { get; }
+        List<string> PartialSettlementTransactionIds { get; }
+        string AuthorizedTransactionId { get; }
+        string SettlementBatchId { get; }
+        IAddress ShippingAddress { get; }
+        TransactionEscrowStatus EscrowStatus { get; }
+        TransactionStatus Status { get; }
+        IStatusEvent[] StatusHistory { get; }
+        string SubscriptionId { get; }
+        ISubscription Subscription { get; }
+        decimal? TaxAmount { get; }
+        bool? TaxExempt { get; }
+        TransactionType Type { get; }
+        DateTime? UpdatedAt { get; }
+        Dictionary<string, string> CustomFields { get; }
+        decimal? ServiceFeeAmount { get; }
+        IDisbursementDetails DisbursementDetails { get; }
+        IApplePayDetails ApplePayDetails { get; }
+        IAndroidPayDetails AndroidPayDetails { get; }
+        IPayPalDetails PayPalDetails { get; }
+        ICoinbaseDetails CoinbaseDetails { get; }
+        PaymentInstrumentType PaymentInstrumentType { get; }
+        IRiskData RiskData { get; }
+        ThreeDSecureInfo ThreeDSecureInfo { get; }
+
+        /// <summary>
+        /// Returns the current <see cref="Transaction.CreditCard"/> associated with this transaction if one exists
+        /// </summary>
+        /// <returns>
+        /// The current <see cref="Transaction.CreditCard"/> associated with this transaction if one exists
+        /// </returns>
+        /// <remarks>
+        /// When retrieving a transaction from the gateway, the credit card used in the transaction is returned in the response.
+        /// If the credit card record has been updated in the vault since the transaction occurred, this method can be used to
+        /// retrieve the updated credit card information.  This is typically useful in situations where a transaction fails, for
+        /// example when a credit card expires, and a new transaction needs to be submitted once the new credit card information
+        /// has been submitted.
+        /// </remarks>
+        /// <example>
+        /// The vault <see cref="Transaction.CreditCard"/> can be retrieved from the transaction directly:
+        /// <code>
+        ///     Transaction transaction = gateway.Transaction.Find("transactionId");
+        ///     CreditCard creditCard = transaction.GetVaultCreditCard();
+        /// </code>
+        /// </example>
+        /// <example>
+        /// Failed transactions can be resubmitted with updated <see cref="Transaction.CreditCard"/> information:
+        /// <code>
+        ///     Transaction failedTransaction = gateway.Transaction.Find("transactionId");
+        ///     CreditCard updatedCreditCard = transaction.GetVaultCreditCard();
+        ///
+        ///     TransactionRequest request = new TransactionRequest
+        ///     {
+        ///         Amount = failedTransaction.Amount,
+        ///         PaymentMethodToken = updatedCreditCard.Token
+        ///     };
+        ///
+        ///     Result&lt;Transaction&gt; result = gateway.Transaction.Sale(request);
+        /// </code>
+        /// </example>
+        ICreditCard GetVaultCreditCard();
+
+        /// <summary>
+        /// Returns the current <see cref="Transaction.Customer"/> associated with this transaction if one exists
+        /// </summary>
+        /// <returns>
+        /// The current <see cref="Transaction.Customer"/> associated with this transaction if one exists
+        /// </returns>
+        /// <remarks>
+        /// When retrieving a transaction from the gateway, the customer associated with the transaction is returned in the response.
+        /// If the customer record has been updated in the vault since the transaction occurred, this method can be used to
+        /// retrieve the updated customer information.
+        /// </remarks>
+        /// <example>
+        /// The vault <see cref="Transaction.Customer"/> can be retrieved from the transaction directly:
+        /// <code>
+        ///     Transaction transaction = gateway.Transaction.Find("transactionId");
+        ///     Customer customer = transaction.GetVaultCustomer();
+        /// </code>
+        /// </example>
+        ICustomer GetVaultCustomer();
+
+        /// <summary>
+        /// Returns the current billing <see cref="Address"/> associated with this transaction if one exists
+        /// </summary>
+        /// <returns>
+        /// The current billing <see cref="Address"/> associated with this transaction if one exists
+        /// </returns>
+        /// <remarks>
+        /// When retrieving a transaction from the gateway, the billing address associated with the transaction is returned in the response.
+        /// If the billing address has been updated in the vault since the transaction occurred, this method can be used to
+        /// retrieve the updated billing address.
+        /// </remarks>
+        /// <example>
+        /// The vault billing <see cref="Address"/> can be retrieved from the transaction directly:
+        /// <code>
+        ///     Transaction transaction = gateway.Transaction.Find("transactionId");
+        ///     Address billingAddress = transaction.GetVaultBillingAddress();
+        /// </code>
+        /// </example>
+        IAddress GetVaultBillingAddress();
+
+        /// <summary>
+        /// Returns the current shipping <see cref="Address"/> associated with this transaction if one exists
+        /// </summary>
+        /// <returns>
+        /// The current shipping <see cref="Address"/> associated with this transaction if one exists
+        /// </returns>
+        /// <remarks>
+        /// When retrieving a transaction from the gateway, the shipping address associated with the transaction is returned in the response.
+        /// If the shipping address has been updated in the vault since the transaction occurred, this method can be used to
+        /// retrieve the updated shipping address.
+        /// </remarks>
+        /// <example>
+        /// The vault shipping <see cref="Address"/> can be retrieved from the transaction directly:
+        /// <code>
+        ///     Transaction transaction = gateway.Transaction.Find("transactionId");
+        ///     Address shippingAddress = transaction.GetVaultShippingAddress();
+        /// </code>
+        /// </example>
+        IAddress GetVaultShippingAddress();
+
+        bool IsDisbursed();
+    }
+
     /// <summary>
     /// A transaction returned by the Braintree Gateway
     /// </summary>
@@ -135,7 +293,7 @@ namespace Braintree
     /// </code>
     /// For more information about Transactions, see <a href="http://www.braintreepayments.com/gateway/transaction-api" target="_blank">http://www.braintreepaymentsolutions.com/gateway/transaction-api</a>
     /// </example>
-    public class Transaction
+    public class Transaction : ITransaction
     {
         public string Id { get; protected set; }
         public List<AddOn> AddOns { get; protected set; }

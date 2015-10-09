@@ -58,9 +58,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.TransparentRedirect.Url, service);
-            Result<Transaction> result = gateway.TransparentRedirect.ConfirmTransaction(queryString);
+            Result<ITransaction> result = gateway.TransparentRedirect.ConfirmTransaction(queryString);
             Assert.IsTrue(result.IsSuccess(), result.Message);
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);

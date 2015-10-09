@@ -9,23 +9,23 @@ namespace Braintree
     /// </summary>
     public interface ITransactionGateway
     {
-        Result<Transaction> CancelRelease(string id);
-        Result<Transaction> CloneTransaction(string id, TransactionCloneRequest cloneRequest);
-        Result<Transaction> ConfirmTransparentRedirect(string queryString);
-        Result<Transaction> Credit(TransactionRequest request);
+        Result<ITransaction> CancelRelease(string id);
+        Result<ITransaction> CloneTransaction(string id, TransactionCloneRequest cloneRequest);
+        Result<ITransaction> ConfirmTransparentRedirect(string queryString);
+        Result<ITransaction> Credit(TransactionRequest request);
         string CreditTrData(TransactionRequest trData, string redirectURL);
         Transaction Find(string id);
-        Result<Transaction> HoldInEscrow(string id);
+        Result<ITransaction> HoldInEscrow(string id);
         Result<Transaction> Refund(string id);
-        Result<Transaction> Refund(string id, decimal amount);
-        Result<Transaction> ReleaseFromEscrow(string id);
-        Result<Transaction> Sale(TransactionRequest request);
+        Result<ITransaction> Refund(string id, decimal amount);
+        Result<ITransaction> ReleaseFromEscrow(string id);
+        Result<ITransaction> Sale(TransactionRequest request);
         string SaleTrData(TransactionRequest trData, string redirectURL);
-        ResourceCollection<Transaction> Search(TransactionSearchRequest query);
+        ResourceCollection<ITransaction> Search(TransactionSearchRequest query);
         Result<Transaction> SubmitForPartialSettlement(string id, decimal amount);
-        Result<Transaction> SubmitForSettlement(string id);
-        Result<Transaction> SubmitForSettlement(string id, decimal amount);
+        Result<ITransaction> SubmitForSettlement(string id);
+        Result<ITransaction> SubmitForSettlement(string id, decimal amount);
         string TransparentRedirectURLForCreate();
-        Result<Transaction> Void(string id);
+        Result<ITransaction> Void(string id);
     }
 }

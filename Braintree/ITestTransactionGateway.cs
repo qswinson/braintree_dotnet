@@ -9,9 +9,9 @@ namespace Braintree
     /// </summary>
     public interface ITestTransactionGateway
     {
-        Transaction Settle(string id);
-        Transaction SettlementConfirm(string id);
-        Transaction SettlementDecline(string id);
-        Transaction SettlementPending(string id);
+        ITransaction Settle(string id);
+        ITransaction SettlementConfirm(string id);
+        ITransaction SettlementDecline(string id);
+        ITransaction SettlementPending(string id);
     }
 }

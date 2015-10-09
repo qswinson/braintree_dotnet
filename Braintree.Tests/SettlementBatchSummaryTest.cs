@@ -52,10 +52,10 @@ namespace Braintree.Tests
 
             var trsp = gateway.Transaction.Sale(request);
             Assert.IsNotNull(trsp);
-            Transaction transaction = trsp.Target;
+            ITransaction transaction = trsp.Target;
             if (transaction != null)
             {
-                Transaction settlementResult = gateway.TestTransaction.Settle(transaction.Id);
+                ITransaction settlementResult = gateway.TestTransaction.Settle(transaction.Id);
                 var settlementDate = settlementResult.SettlementBatchId.Substring(0, 10);
                 transaction = gateway.Transaction.Find(transaction.Id);
                 var result = gateway.SettlementBatchSummary.Generate(System.DateTime.Parse(settlementDate));
@@ -121,9 +121,9 @@ namespace Braintree.Tests
 
             var trsp = gateway.Transaction.Sale(request);
             Assert.IsNotNull(trsp);
-            Transaction transaction = trsp.Target;
+            ITransaction transaction = trsp.Target;
             Assert.IsNotNull(transaction, trsp.Message);
-            Transaction settlementResult = gateway.TestTransaction.Settle(transaction.Id);
+            ITransaction settlementResult = gateway.TestTransaction.Settle(transaction.Id);
             var settlementDate = settlementResult.SettlementBatchId.Substring(0,10);
             transaction = gateway.Transaction.Find(transaction.Id);
 

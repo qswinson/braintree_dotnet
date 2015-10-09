@@ -33,12 +33,12 @@ namespace Braintree
             return TrUtil.BuildTrData(request, redirectURL, service);
         }
 
-        public virtual Result<Transaction> ConfirmTransaction(string queryString)
+        public virtual Result<ITransaction> ConfirmTransaction(string queryString)
         {
             var trRequest = new TransparentRedirectRequest(queryString, service);
             XmlNode node = service.Post(service.MerchantPath() + "/transparent_redirect_requests/" + trRequest.Id + "/confirm", trRequest);
 
-            return new ResultImpl<Transaction>(new NodeWrapper(node), gateway);
+            return new ResultImpl<ITransaction>(new NodeWrapper(node), gateway);
         }
 
         public virtual Result<ICustomer> ConfirmCustomer(string queryString)

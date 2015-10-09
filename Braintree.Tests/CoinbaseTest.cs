@@ -23,7 +23,7 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = Nonce.Coinbase
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             if (result.IsSuccess())
             {
                 ICoinbaseDetails details = result.Target.CoinbaseDetails;

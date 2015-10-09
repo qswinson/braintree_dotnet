@@ -95,7 +95,7 @@ namespace Braintree.Tests
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
             ISubscription subscription = result.Target;
-            Transaction transaction = subscription.Transactions[0];
+            ITransaction transaction = subscription.Transactions[0];
             Assert.AreEqual("424242", transaction.CreditCard.Bin);
         }
 
@@ -134,7 +134,7 @@ namespace Braintree.Tests
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
             ISubscription subscription = result.Target;
-            Transaction transaction = subscription.Transactions[0];
+            ITransaction transaction = subscription.Transactions[0];
 
             Assert.AreEqual(subscription.BillingPeriodStartDate, transaction.Subscription.BillingPeriodStartDate);
             Assert.AreEqual(subscription.BillingPeriodEndDate, transaction.Subscription.BillingPeriodEndDate);
@@ -431,7 +431,7 @@ namespace Braintree.Tests
             Result<Subscription> result = gateway.Subscription.Create(request);
             Assert.IsTrue(result.IsSuccess());
             ISubscription subscription = result.Target;
-            Transaction transaction = subscription.Transactions[0];
+            ITransaction transaction = subscription.Transactions[0];
 
             Assert.AreEqual(1, subscription.Transactions.Count);
             Assert.AreEqual(482.48M, transaction.Amount);
@@ -2054,11 +2054,11 @@ namespace Braintree.Tests
             ISubscription subscription = gateway.Subscription.Create(request).Target;
             MakePastDue(subscription, 1);
 
-            Result<Transaction> result = gateway.Subscription.RetryCharge(subscription.Id);
+            Result<ITransaction> result = gateway.Subscription.RetryCharge(subscription.Id);
 
             Assert.IsTrue(result.IsSuccess());
 
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.AreEqual(subscription.Price, transaction.Amount);
             Assert.IsNotNull(transaction.ProcessorAuthorizationCode);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);
@@ -2077,11 +2077,11 @@ namespace Braintree.Tests
             ISubscription subscription = gateway.Subscription.Create(request).Target;
             MakePastDue(subscription, 1);
 
-            Result<Transaction> result = gateway.Subscription.RetryCharge(subscription.Id, SandboxValues.TransactionAmount.AUTHORIZE);
+            Result<ITransaction> result = gateway.Subscription.RetryCharge(subscription.Id, SandboxValues.TransactionAmount.AUTHORIZE);
 
             Assert.IsTrue(result.IsSuccess());
 
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.AreEqual(SandboxValues.TransactionAmount.AUTHORIZE, transaction.Amount);
             Assert.IsNotNull(transaction.ProcessorAuthorizationCode);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);

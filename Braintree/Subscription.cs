@@ -104,7 +104,7 @@ namespace Braintree
         decimal? Price { get; }
         ISubscriptionStatusEvent[] StatusHistory { get; }
         SubscriptionStatus Status { get; }
-        List<Transaction> Transactions { get; }
+        List<ITransaction> Transactions { get; }
         int? TrialDuration { get; }
         SubscriptionDurationUnit TrialDurationUnit { get; }
         string MerchantAccountId { get; }
@@ -148,7 +148,7 @@ namespace Braintree
         public decimal? Price { get; protected set; }
         public ISubscriptionStatusEvent[] StatusHistory { get; protected set; }
         public SubscriptionStatus Status { get; protected set; }
-        public List<Transaction> Transactions { get; protected set; }
+        public List<ITransaction> Transactions { get; protected set; }
         public int? TrialDuration { get; protected set; }
         public SubscriptionDurationUnit TrialDurationUnit { get; protected set; }
         public string MerchantAccountId { get; protected set; }
@@ -199,7 +199,7 @@ namespace Braintree
             foreach (var discountResponse in node.GetList("discounts/discount")) {
                 Discounts.Add(new Discount(discountResponse));
             }
-            Transactions = new List<Transaction> ();
+            Transactions = new List<ITransaction> ();
             foreach (var transactionResponse in node.GetList("transactions/transaction")) {
                 Transactions.Add(new Transaction(transactionResponse, gateway));
             }

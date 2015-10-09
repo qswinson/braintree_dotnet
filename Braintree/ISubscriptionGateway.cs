@@ -12,8 +12,8 @@ namespace Braintree
         Result<ISubscription> Cancel(string id);
         Result<Subscription> Create(SubscriptionRequest request);
         ISubscription Find(string id);
-        Result<Transaction> RetryCharge(string subscriptionId);
-        Result<Transaction> RetryCharge(string subscriptionId, decimal amount);
+        Result<ITransaction> RetryCharge(string subscriptionId);
+        Result<ITransaction> RetryCharge(string subscriptionId, decimal amount);
         ResourceCollection<ISubscription> Search(SubscriptionSearchRequest query);
         ResourceCollection<ISubscription> Search(SubscriptionGateway.SearchDelegate searchDelegate);
         Result<ISubscription> Update(string id, SubscriptionRequest request);

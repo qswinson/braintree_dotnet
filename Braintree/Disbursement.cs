@@ -15,7 +15,7 @@ namespace Braintree
         List<string> TransactionIds { get; }
         bool? Success { get; }
         bool? Retry { get; }
-        ResourceCollection<Transaction> Transactions();
+        ResourceCollection<ITransaction> Transactions();
     }
 
     public class Disbursement : IDisbursement
@@ -50,7 +50,7 @@ namespace Braintree
             this.gateway = gateway;
         }
 
-        public ResourceCollection<Transaction> Transactions()
+        public ResourceCollection<ITransaction> Transactions()
         {
             var gateway = new TransactionGateway(this.gateway);
 

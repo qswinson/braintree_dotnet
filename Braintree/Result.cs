@@ -9,7 +9,7 @@ namespace Braintree
     public interface Result<out T>
     {
         ICreditCardVerification CreditCardVerification { get; }
-        Transaction Transaction { get; }
+        ITransaction Transaction { get; }
         ISubscription Subscription { get; }
         ValidationErrors Errors { get; }
         Dictionary<string, string> Parameters { get; }
@@ -21,7 +21,7 @@ namespace Braintree
     public class ResultImpl<T> : Result<T> where T : class
     {
         public ICreditCardVerification CreditCardVerification { get; protected set; }
-        public Transaction Transaction { get; protected set; }
+        public ITransaction Transaction { get; protected set; }
         public ISubscription Subscription { get; protected set; }
         public ValidationErrors Errors { get; protected set; }
         public Dictionary<string, string> Parameters { get; protected set; }

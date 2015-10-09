@@ -129,7 +129,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
             gateway.TestTransaction.Settle(transaction.Id);
             transaction = gateway.Transaction.Find(transaction.Id);
 
@@ -172,7 +172,7 @@ namespace Braintree.Tests
                 User.Is("integration_user_public_id").
                 CreditCardUniqueIdentifier.Is(transaction.CreditCard.UniqueNumberIdentifier);
 
-            ResourceCollection<Transaction> collection = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> collection = gateway.Transaction.Search(searchRequest);
 
             Assert.AreEqual(1, collection.MaximumCount);
             Assert.AreEqual(transaction.Id, collection.FirstItem.Id);
@@ -191,13 +191,13 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             var searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
                 CreditCardCardholderName.StartsWith("Tom");
 
-            ResourceCollection<Transaction> collection = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> collection = gateway.Transaction.Search(searchRequest);
             Assert.AreEqual(1, collection.MaximumCount);
 
             searchRequest = new TransactionSearchRequest().
@@ -235,13 +235,13 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
                 PaymentInstrumentType.Is("CreditCardDetail");
 
-            ResourceCollection<Transaction> collection = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> collection = gateway.Transaction.Search(searchRequest);
 
             Assert.AreEqual(collection.FirstItem.PaymentInstrumentType,PaymentInstrumentType.CREDIT_CARD);
         }
@@ -255,13 +255,13 @@ namespace Braintree.Tests
                 PaymentMethodNonce = Nonce.PayPalOneTimePayment
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
                 PaymentInstrumentType.Is("PayPalDetail");
 
-            ResourceCollection<Transaction> collection = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> collection = gateway.Transaction.Search(searchRequest);
 
             Assert.AreEqual(collection.FirstItem.PaymentInstrumentType, PaymentInstrumentType.PAYPAL_ACCOUNT);
         }
@@ -275,13 +275,13 @@ namespace Braintree.Tests
                 PaymentMethodNonce = Nonce.ApplePayVisa
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
                 PaymentInstrumentType.Is("ApplePayDetail");
 
-            ResourceCollection<Transaction> collection = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> collection = gateway.Transaction.Search(searchRequest);
 
             Assert.AreEqual(collection.FirstItem.PaymentInstrumentType, PaymentInstrumentType.APPLE_PAY_CARD);
         }
@@ -295,13 +295,13 @@ namespace Braintree.Tests
                 PaymentMethodNonce = Nonce.Transactable
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
                 PaymentInstrumentType.Is("EuropeBankAccountDetail");
 
-            ResourceCollection<Transaction> collection = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> collection = gateway.Transaction.Search(searchRequest);
 
             Assert.AreEqual(0, collection.MaximumCount);
         }
@@ -319,13 +319,13 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
                 CreatedUsing.Is(TransactionCreatedUsing.FULL_INFORMATION);
 
-            ResourceCollection<Transaction> collection = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> collection = gateway.Transaction.Search(searchRequest);
 
             Assert.AreEqual(1, collection.MaximumCount);
 
@@ -359,7 +359,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
@@ -393,7 +393,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
@@ -427,7 +427,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
@@ -467,7 +467,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
@@ -494,7 +494,7 @@ namespace Braintree.Tests
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Status.Is(TransactionStatus.AUTHORIZATION_EXPIRED);
 
-            ResourceCollection<Transaction> results = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> results = gateway.Transaction.Search(searchRequest);
 
             Assert.IsTrue(results.MaximumCount > 0);
             Assert.AreEqual(TransactionStatus.AUTHORIZATION_EXPIRED, results.FirstItem.Status);
@@ -513,7 +513,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
@@ -553,12 +553,12 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction creditTransaction = gateway.Transaction.Credit(request).Target;
+            ITransaction creditTransaction = gateway.Transaction.Credit(request).Target;
 
-            Transaction saleTransaction = gateway.Transaction.Sale(request).Target;
+            ITransaction saleTransaction = gateway.Transaction.Sale(request).Target;
 
             gateway.TestTransaction.Settle(saleTransaction.Id);
-            Transaction refundTransaction = gateway.Transaction.Refund(saleTransaction.Id).Target;
+            ITransaction refundTransaction = gateway.Transaction.Refund(saleTransaction.Id).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 CreditCardCardholderName.Is(name).
@@ -571,7 +571,7 @@ namespace Braintree.Tests
                 Type.Is(TransactionType.CREDIT).
                 Refund.Is(true);
 
-            ResourceCollection<Transaction> collection = gateway.Transaction.Search(searchRequest);
+            ResourceCollection<ITransaction> collection = gateway.Transaction.Search(searchRequest);
 
             Assert.AreEqual(1, collection.MaximumCount);
             Assert.AreEqual(refundTransaction.Id, collection.FirstItem.Id);
@@ -600,7 +600,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             TransactionSearchRequest searchRequest = new TransactionSearchRequest().
                 Id.Is(transaction.Id).
@@ -640,7 +640,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             DateTime createdAt = transaction.CreatedAt.Value;
             DateTime threeDaysEarlier = createdAt.AddDays(-3);
@@ -685,7 +685,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             DateTime oneDayEarlier = DateTime.Now.AddDays(-1);
             DateTime oneDayLater = DateTime.Now.AddDays(1);
@@ -776,7 +776,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             DateTime threeDaysEarlier = DateTime.Now.AddDays(-3);
             DateTime oneDayEarlier = DateTime.Now.AddDays(-1);
@@ -840,7 +840,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Transaction;
+            ITransaction transaction = gateway.Transaction.Sale(request).Transaction;
 
             DateTime threeDaysEarlier = DateTime.Now.AddDays(-3);
             DateTime oneDayEarlier = DateTime.Now.AddDays(-1);
@@ -893,7 +893,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = processingRulesGateway.Transaction.Sale(request).Transaction;
+            ITransaction transaction = processingRulesGateway.Transaction.Sale(request).Transaction;
 
             DateTime threeDaysEarlier = DateTime.Now.AddDays(-3);
             DateTime oneDayEarlier = DateTime.Now.AddDays(-1);
@@ -937,7 +937,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Transaction;
+            ITransaction transaction = gateway.Transaction.Sale(request).Transaction;
 
             DateTime threeDaysEarlier = DateTime.Now.AddDays(-3);
             DateTime oneDayEarlier = DateTime.Now.AddDays(-1);
@@ -985,7 +985,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
             gateway.TestTransaction.Settle(transaction.Id);
             transaction = gateway.Transaction.Find(transaction.Id);
 
@@ -1035,7 +1035,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             DateTime threeDaysEarlier = DateTime.Now.AddDays(-3);
             DateTime oneDayEarlier = DateTime.Now.AddDays(-1);
@@ -1079,7 +1079,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
             transaction = gateway.Transaction.Void(transaction.Id).Target;
 
             DateTime threeDaysEarlier = DateTime.Now.AddDays(-3);
@@ -1128,7 +1128,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             DateTime threeDaysEarlier = DateTime.Now.AddDays(-3);
             DateTime oneDayEarlier = DateTime.Now.AddDays(-1);
@@ -1191,9 +1191,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);
@@ -1224,9 +1224,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> authorizationResult = gateway.Transaction.Sale(request);
+            Result<ITransaction> authorizationResult = gateway.Transaction.Sale(request);
             Assert.IsTrue(authorizationResult.IsSuccess());
-            Transaction authorizedTransaction = authorizationResult.Target;
+            ITransaction authorizedTransaction = authorizationResult.Target;
 
             Assert.AreEqual(1000.00, authorizedTransaction.Amount); // check authorization amount. not settlement amount
             Assert.AreEqual(TransactionType.SALE, authorizedTransaction.Type);
@@ -1264,9 +1264,9 @@ namespace Braintree.Tests
                 PaymentMethodNonce = Nonce.ApplePayAmex
             };
 
-            Result<Transaction> authorizationResult = gateway.Transaction.Sale(request);
+            Result<ITransaction> authorizationResult = gateway.Transaction.Sale(request);
             Assert.IsTrue(authorizationResult.IsSuccess());
-            Transaction authorizedTransaction = authorizationResult.Target;
+            ITransaction authorizedTransaction = authorizationResult.Target;
 
             var partialSettlementResult1 = gateway.Transaction.SubmitForPartialSettlement(authorizedTransaction.Id, 400);
             var partialSettlementTransaction1 = partialSettlementResult1.Target;
@@ -1286,9 +1286,9 @@ namespace Braintree.Tests
                 PaymentMethodNonce = Nonce.ApplePayAmex
             };
 
-            Result<Transaction> authorizationResult = gateway.Transaction.Sale(request);
+            Result<ITransaction> authorizationResult = gateway.Transaction.Sale(request);
             Assert.IsTrue(authorizationResult.IsSuccess());
-            Transaction authorizedTransaction = authorizationResult.Target;
+            ITransaction authorizedTransaction = authorizationResult.Target;
 
             var partialSettlementResult = gateway.Transaction.SubmitForPartialSettlement(authorizedTransaction.Id, 400);
             Assert.IsFalse(partialSettlementResult.IsSuccess());
@@ -1318,9 +1318,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);
@@ -1350,9 +1350,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);
@@ -1382,9 +1382,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);
@@ -1416,9 +1416,9 @@ namespace Braintree.Tests
 
             gateway = new BraintreeGateway(accessTokenResult.Target.AccessToken);
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);
@@ -1441,9 +1441,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.IsNotNull(transaction.RiskData);
         }
@@ -1462,9 +1462,9 @@ namespace Braintree.Tests
                 DeviceData = "{\"device_session_id\":\"my_dsid\", \"fraud_merchant_id\":\"7\"}"
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);
@@ -1495,9 +1495,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(PaymentInstrumentType.CREDIT_CARD, transaction.PaymentInstrumentType);
         }
@@ -1511,9 +1511,9 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = nonce
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(PaymentInstrumentType.PAYPAL_ACCOUNT, transaction.PaymentInstrumentType);
         }
@@ -1527,9 +1527,9 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = nonce
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.IsNotNull(transaction.PayPalDetails);
             Assert.IsNotNull(transaction.PayPalDetails.DebugId);
@@ -1593,9 +1593,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionStatus.AUTHORIZED, transaction.Status);
@@ -1676,7 +1676,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
         }
 
@@ -1694,9 +1694,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(MerchantAccountIDs.NON_DEFAULT_MERCHANT_ACCOUNT_ID, transaction.MerchantAccountId);
         }
@@ -1714,9 +1714,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(MerchantAccountIDs.DEFAULT_MERCHANT_ACCOUNT_ID, transaction.MerchantAccountId);
         }
@@ -1747,9 +1747,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             ICreditCard creditCard = transaction.CreditCard;
             Assert.AreEqual(paymentToken, creditCard.Token);
@@ -1786,9 +1786,9 @@ namespace Braintree.Tests
                 CustomerId = customer.Id
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual("Bob the Builder", transaction.CreditCard.CardholderName);
             Assert.IsNull(transaction.GetVaultCreditCard());
@@ -1824,9 +1824,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual("Bob the Builder", transaction.CreditCard.CardholderName);
             Assert.AreEqual("Bob the Builder", transaction.GetVaultCreditCard().CardholderName);
@@ -1853,9 +1853,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             ICreditCard creditCard = transaction.CreditCard;
             Assert.IsNotNull(creditCard.Token);
@@ -1887,9 +1887,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             ICreditCard creditCard = transaction.CreditCard;
             Assert.IsNotNull(creditCard.Token);
@@ -1923,9 +1923,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
-            Transaction transaction = result.Transaction;
+            ITransaction transaction = result.Transaction;
 
             ICreditCard creditCard = transaction.CreditCard;
             Assert.IsNull(creditCard.Token);
@@ -1963,9 +1963,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             ICreditCard creditCard = transaction.GetVaultCreditCard();
             Assert.AreEqual("Carl", creditCard.BillingAddress.FirstName);
@@ -2000,9 +2000,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
-            Transaction transaction = result.Transaction;
+            ITransaction transaction = result.Transaction;
 
             Assert.AreEqual(TransactionGatewayRejectionReason.THREE_D_SECURE, transaction.GatewayRejectionReason);
         }
@@ -2028,9 +2028,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(TransactionStatus.AUTHORIZED, transaction.Status);
         }
@@ -2056,7 +2056,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(ValidationErrorCode.TRANSACTION_THREE_D_SECURE_TRANSACTION_DATA_DOESNT_MATCH_VERIFY, result.Errors.ForObject("Transaction").OnField("Three-D-Secure-Token")[0].Code);
         }
@@ -2078,7 +2078,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(ValidationErrorCode.TRANSACTION_THREE_D_SECURE_TOKEN_IS_INVALID, result.Errors.ForObject("Transaction").OnField("Three-D-Secure-Token")[0].Code);
         }
@@ -2091,7 +2091,7 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = Nonce.ApplePayAmex
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
             Assert.IsNotNull(result.Target.ApplePayDetails);
@@ -2111,7 +2111,7 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = Nonce.AndroidPay
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
             Assert.IsNotNull(result.Target.AndroidPayDetails);
@@ -2142,7 +2142,7 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = Nonce.AndroidPayDiscover
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
             Assert.IsNotNull(result.Target.AndroidPayDetails);
@@ -2178,9 +2178,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
-            Transaction transaction = result.Transaction;
+            ITransaction transaction = result.Transaction;
 
             Assert.AreEqual(2000.00, transaction.Amount);
             Assert.AreEqual(TransactionStatus.PROCESSOR_DECLINED, transaction.Status);
@@ -2223,9 +2223,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
-            Transaction transaction = result.Transaction;
+            ITransaction transaction = result.Transaction;
 
             Assert.AreEqual(TransactionGatewayRejectionReason.APPLICATION_INCOMPLETE, transaction.GatewayRejectionReason);
         }
@@ -2255,9 +2255,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = processingRulesGateway.Transaction.Sale(request);
+            Result<ITransaction> result = processingRulesGateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
-            Transaction transaction = result.Transaction;
+            ITransaction transaction = result.Transaction;
 
             Assert.AreEqual(TransactionGatewayRejectionReason.AVS, transaction.GatewayRejectionReason);
         }
@@ -2288,9 +2288,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = processingRulesGateway.Transaction.Sale(request);
+            Result<ITransaction> result = processingRulesGateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
-            Transaction transaction = result.Transaction;
+            ITransaction transaction = result.Transaction;
 
             Assert.AreEqual(TransactionGatewayRejectionReason.AVS_AND_CVV, transaction.GatewayRejectionReason);
         }
@@ -2317,9 +2317,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = processingRulesGateway.Transaction.Sale(request);
+            Result<ITransaction> result = processingRulesGateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
-            Transaction transaction = result.Transaction;
+            ITransaction transaction = result.Transaction;
 
             Assert.AreEqual(TransactionGatewayRejectionReason.CVV, transaction.GatewayRejectionReason);
         }
@@ -2346,9 +2346,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = processingRulesGateway.Transaction.Sale(request);
+            Result<ITransaction> result = processingRulesGateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
-            Transaction transaction = result.Transaction;
+            ITransaction transaction = result.Transaction;
 
             Assert.AreEqual(TransactionGatewayRejectionReason.FRAUD, transaction.GatewayRejectionReason);
         }
@@ -2356,7 +2356,7 @@ namespace Braintree.Tests
         [Test]
         public void UnrecognizedValuesAreCategorizedAsSuch()
         {
-          Transaction transaction = gateway.Transaction.Find("unrecognized_transaction_id");
+          ITransaction transaction = gateway.Transaction.Find("unrecognized_transaction_id");
 
           Assert.AreEqual(TransactionGatewayRejectionReason.UNRECOGNIZED, transaction.GatewayRejectionReason);
           Assert.AreEqual(TransactionEscrowStatus.UNRECOGNIZED, transaction.EscrowStatus);
@@ -2381,9 +2381,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual("custom value", transaction.CustomFields["store_me"]);
             Assert.AreEqual("custom value2", transaction.CustomFields["another_stored_field"]);
@@ -2406,7 +2406,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(ValidationErrorCode.TRANSACTION_CUSTOM_FIELD_IS_INVALID, result.Errors.ForObject("Transaction").OnField("CustomFields")[0].Code);
         }
@@ -2431,9 +2431,9 @@ namespace Braintree.Tests
                 PaymentMethodToken = creditCard.Token
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(creditCard.Token, transaction.CreditCard.Token);
             Assert.AreEqual("555555", transaction.CreditCard.Bin);
@@ -2463,9 +2463,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual("S", transaction.CvvResponseCode);
             Assert.AreEqual(creditCard.Token, transaction.CreditCard.Token);
@@ -2495,9 +2495,9 @@ namespace Braintree.Tests
                 ShippingAddressId = shippingAddress.Id
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(shippingAddress.Id, transaction.ShippingAddress.Id);
             Assert.AreEqual("Carl", transaction.ShippingAddress.FirstName);
@@ -2525,9 +2525,9 @@ namespace Braintree.Tests
                 BillingAddressId = billingAddress.Id
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(billingAddress.Id, transaction.BillingAddress.Id);
             Assert.AreEqual("Carl", transaction.BillingAddress.FirstName);
@@ -2559,7 +2559,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.IsNull(result.Target);
             Assert.IsNull(result.Transaction);
@@ -2605,7 +2605,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
 
             Assert.AreEqual(
@@ -2630,7 +2630,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
 
             Assert.AreEqual(
@@ -2654,9 +2654,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.IsTrue(transaction.TaxExempt.Value);
             Assert.AreEqual(10M, transaction.TaxAmount.Value);
@@ -2678,10 +2678,10 @@ namespace Braintree.Tests
                 ServiceFeeAmount = 1M
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.AreEqual(1M, transaction.ServiceFeeAmount);
         }
 
@@ -2700,10 +2700,10 @@ namespace Braintree.Tests
                 ServiceFeeAmount = 0M
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.AreEqual(0M, transaction.ServiceFeeAmount);
         }
 
@@ -2722,7 +2722,7 @@ namespace Braintree.Tests
                 ServiceFeeAmount = 2M
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(ValidationErrorCode.TRANSACTION_SERVICE_FEE_AMOUNT_IS_TOO_LARGE, result.Errors.ForObject("Transaction").OnField("ServiceFeeAmount")[0].Code);
         }
@@ -2741,7 +2741,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(ValidationErrorCode.TRANSACTION_SUB_MERCHANT_ACCOUNT_REQUIRES_SERVICE_FEE_AMOUNT, result.Errors.ForObject("Transaction").OnField("MerchantAccountId")[0].Code);
         }
@@ -2760,7 +2760,7 @@ namespace Braintree.Tests
                 ServiceFeeAmount = 2M
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(ValidationErrorCode.TRANSACTION_SERVICE_FEE_AMOUNT_NOT_ALLOWED_ON_MASTER_MERCHANT_ACCOUNT , result.Errors.ForObject("Transaction").OnField("ServiceFeeAmount")[0].Code);
         }
@@ -2783,9 +2783,9 @@ namespace Braintree.Tests
                     HoldInEscrow = true
                 }
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.AreEqual(TransactionEscrowStatus.HOLD_PENDING, transaction.EscrowStatus);
         }
 
@@ -2806,7 +2806,7 @@ namespace Braintree.Tests
                     HoldInEscrow = true
                 }
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(
                 ValidationErrorCode.TRANSACTION_CANNOT_HOLD_IN_ESCROW,
@@ -2828,11 +2828,11 @@ namespace Braintree.Tests
                 },
                 ServiceFeeAmount = 1M
             };
-            Result<Transaction> saleResult = gateway.Transaction.Sale(request);
-            Transaction saleTransaction = saleResult.Target;
-            Result<Transaction> result = gateway.Transaction.HoldInEscrow(saleTransaction.Id);
+            Result<ITransaction> saleResult = gateway.Transaction.Sale(request);
+            ITransaction saleTransaction = saleResult.Target;
+            Result<ITransaction> result = gateway.Transaction.HoldInEscrow(saleTransaction.Id);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.AreEqual(
                 TransactionEscrowStatus.HOLD_PENDING,
                 transaction.EscrowStatus
@@ -2852,9 +2852,9 @@ namespace Braintree.Tests
                     ExpirationDate = "05/2009",
                 },
             };
-            Result<Transaction> saleResult = gateway.Transaction.Sale(request);
-            Transaction saleTransaction = saleResult.Target;
-            Result<Transaction> result = gateway.Transaction.HoldInEscrow(saleTransaction.Id);
+            Result<ITransaction> saleResult = gateway.Transaction.Sale(request);
+            ITransaction saleTransaction = saleResult.Target;
+            Result<ITransaction> result = gateway.Transaction.HoldInEscrow(saleTransaction.Id);
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(
                 ValidationErrorCode.TRANSACTION_CANNOT_HOLD_IN_ESCROW,
@@ -2880,14 +2880,14 @@ namespace Braintree.Tests
                 },
                 ServiceFeeAmount = 1M
             };
-            Result<Transaction> saleResult = gateway.Transaction.Sale(request);
-            Transaction saleTransaction = saleResult.Target;
+            Result<ITransaction> saleResult = gateway.Transaction.Sale(request);
+            ITransaction saleTransaction = saleResult.Target;
             Assert.IsTrue(saleResult.IsSuccess());
             TestHelper.Escrow(service, saleTransaction.Id);
-            Result<Transaction> result = gateway.Transaction.ReleaseFromEscrow(saleTransaction.Id);
+            Result<ITransaction> result = gateway.Transaction.ReleaseFromEscrow(saleTransaction.Id);
 
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.AreEqual(
                 TransactionEscrowStatus.RELEASE_PENDING,
                 transaction.EscrowStatus
@@ -2907,10 +2907,10 @@ namespace Braintree.Tests
                     ExpirationDate = "05/2009",
                 }
             };
-            Result<Transaction> saleResult = gateway.Transaction.Sale(request);
-            Transaction saleTransaction = saleResult.Target;
+            Result<ITransaction> saleResult = gateway.Transaction.Sale(request);
+            ITransaction saleTransaction = saleResult.Target;
 
-            Result<Transaction> result = gateway.Transaction.ReleaseFromEscrow(saleTransaction.Id);
+            Result<ITransaction> result = gateway.Transaction.ReleaseFromEscrow(saleTransaction.Id);
 
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(
@@ -2937,18 +2937,18 @@ namespace Braintree.Tests
                 },
                 ServiceFeeAmount = 1M
             };
-            Result<Transaction> saleResult = gateway.Transaction.Sale(request);
-            Transaction saleTransaction = saleResult.Target;
+            Result<ITransaction> saleResult = gateway.Transaction.Sale(request);
+            ITransaction saleTransaction = saleResult.Target;
             Assert.IsTrue(saleResult.IsSuccess());
             TestHelper.Escrow(service, saleTransaction.Id);
-            Result<Transaction> result = gateway.Transaction.ReleaseFromEscrow(saleTransaction.Id);
+            Result<ITransaction> result = gateway.Transaction.ReleaseFromEscrow(saleTransaction.Id);
             Assert.IsTrue(result.IsSuccess());
 
-            Transaction releasedTransaction = result.Target;
+            ITransaction releasedTransaction = result.Target;
 
-            Result<Transaction> cancelResult = gateway.Transaction.CancelRelease(releasedTransaction.Id);
+            Result<ITransaction> cancelResult = gateway.Transaction.CancelRelease(releasedTransaction.Id);
             Assert.IsTrue(cancelResult.IsSuccess());
-            Transaction transaction = cancelResult.Target;
+            ITransaction transaction = cancelResult.Target;
             Assert.AreEqual(
                 TransactionEscrowStatus.HELD,
                 transaction.EscrowStatus
@@ -2973,12 +2973,12 @@ namespace Braintree.Tests
                 },
                 ServiceFeeAmount = 1M
             };
-            Result<Transaction> saleResult = gateway.Transaction.Sale(request);
-            Transaction saleTransaction = saleResult.Target;
+            Result<ITransaction> saleResult = gateway.Transaction.Sale(request);
+            ITransaction saleTransaction = saleResult.Target;
             Assert.IsTrue(saleResult.IsSuccess());
             TestHelper.Escrow(service, saleTransaction.Id);
 
-            Result<Transaction> cancelResult = gateway.Transaction.CancelRelease(saleTransaction.Id);
+            Result<ITransaction> cancelResult = gateway.Transaction.CancelRelease(saleTransaction.Id);
             Assert.IsFalse(cancelResult.IsSuccess());
             Assert.AreEqual(
                 ValidationErrorCode.TRANSACTION_CANNOT_CANCEL_RELEASE,
@@ -3005,9 +3005,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual("123*123456789012345678", transaction.Descriptor.Name);
             Assert.AreEqual("3334445555", transaction.Descriptor.Phone);
@@ -3039,9 +3039,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.TransparentRedirect.Url, service);
-            Result<Transaction> result = gateway.TransparentRedirect.ConfirmTransaction(queryString);
+            Result<ITransaction> result = gateway.TransparentRedirect.ConfirmTransaction(queryString);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual("123*123456789012345678", transaction.Descriptor.Name);
             Assert.AreEqual("3334445555", transaction.Descriptor.Phone);
@@ -3067,7 +3067,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
 
             Assert.AreEqual(
@@ -3109,7 +3109,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
         }
 
@@ -3137,7 +3137,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
 
             Assert.AreEqual(
@@ -3171,7 +3171,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
         }
 
@@ -3200,7 +3200,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsFalse(result.IsSuccess());
 
             Assert.AreEqual(
@@ -3219,10 +3219,10 @@ namespace Braintree.Tests
                 VenmoSdkPaymentMethodCode = SandboxValues.VenmoSdk.VISA_PAYMENT_METHOD_CODE
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.AreEqual("1111", transaction.CreditCard.LastFour);
         }
 
@@ -3243,10 +3243,10 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
             Assert.IsTrue(transaction.CreditCard.IsVenmoSdk.Value);
         }
 
@@ -3277,9 +3277,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.Transaction.TransparentRedirectURLForCreate(), service);
-            Result<Transaction> result = gateway.Transaction.ConfirmTransparentRedirect(queryString);
+            Result<ITransaction> result = gateway.Transaction.ConfirmTransparentRedirect(queryString);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.SALE, transaction.Type);
@@ -3323,9 +3323,9 @@ namespace Braintree.Tests
             };
 
             string queryString = TestHelper.QueryStringForTR(trParams, request, gateway.Transaction.TransparentRedirectURLForCreate(), service);
-            Result<Transaction> result = gateway.Transaction.ConfirmTransparentRedirect(queryString);
+            Result<ITransaction> result = gateway.Transaction.ConfirmTransparentRedirect(queryString);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(MerchantAccountIDs.NON_DEFAULT_MERCHANT_ACCOUNT_ID, transaction.MerchantAccountId);
         }
@@ -3344,9 +3344,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(1000.00, transaction.Amount);
             Assert.AreEqual(TransactionType.CREDIT, transaction.Type);
@@ -3374,9 +3374,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(MerchantAccountIDs.NON_DEFAULT_MERCHANT_ACCOUNT_ID, transaction.MerchantAccountId);
         }
@@ -3394,9 +3394,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(MerchantAccountIDs.DEFAULT_MERCHANT_ACCOUNT_ID, transaction.MerchantAccountId);
         }
@@ -3419,9 +3419,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual("custom value", transaction.CustomFields["store_me"]);
             Assert.AreEqual("custom value2", transaction.CustomFields["another_stored_field"]);
@@ -3439,7 +3439,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsFalse(result.IsSuccess());
             Assert.IsNull(result.Target);
 
@@ -3465,7 +3465,7 @@ namespace Braintree.Tests
                 ServiceFeeAmount = 1M
             };
 
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsFalse(result.IsSuccess());
 
             Assert.AreEqual(
@@ -3487,9 +3487,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
-            Transaction foundTransaction = gateway.Transaction.Find(transaction.Id);
+            ITransaction foundTransaction = gateway.Transaction.Find(transaction.Id);
 
             Assert.AreEqual(transaction.Id, foundTransaction.Id);
             Assert.AreEqual(TransactionStatus.AUTHORIZED, foundTransaction.Status);
@@ -3513,7 +3513,7 @@ namespace Braintree.Tests
         [Test]
         public void Find_ExposesThreeDSecureInfo()
         {
-            Transaction transaction = gateway.Transaction.Find("threedsecuredtransaction");
+            ITransaction transaction = gateway.Transaction.Find("threedsecuredtransaction");
 
             ThreeDSecureInfo info = transaction.ThreeDSecureInfo;
             Assert.AreEqual(info.Enrolled, "Y");
@@ -3525,7 +3525,7 @@ namespace Braintree.Tests
         [Test]
         public void Find_ExposesNullThreeDSecureInfoIfBlank()
         {
-            Transaction transaction = gateway.Transaction.Find("settledtransaction");
+            ITransaction transaction = gateway.Transaction.Find("settledtransaction");
 
             Assert.IsNull(transaction.ThreeDSecureInfo);
         }
@@ -3533,7 +3533,7 @@ namespace Braintree.Tests
         [Test]
         public void Find_ExposesDisbursementDetails()
         {
-            Transaction transaction = gateway.Transaction.Find("deposittransaction");
+            ITransaction transaction = gateway.Transaction.Find("deposittransaction");
 
             Assert.AreEqual(transaction.IsDisbursed(), true);
 
@@ -3549,7 +3549,7 @@ namespace Braintree.Tests
         [Test]
         public void Find_ExposesDisputes()
         {
-            Transaction transaction = gateway.Transaction.Find("disputedtransaction");
+            ITransaction transaction = gateway.Transaction.Find("disputedtransaction");
 
             List<IDispute> disputes = transaction.Disputes;
             IDispute dispute = disputes[0];
@@ -3565,7 +3565,7 @@ namespace Braintree.Tests
         [Test]
         public void Find_ExposesRetrievals()
         {
-            Transaction transaction = gateway.Transaction.Find("retrievaltransaction");
+            ITransaction transaction = gateway.Transaction.Find("retrievaltransaction");
 
             List<IDispute> disputes = transaction.Disputes;
             IDispute dispute = disputes[0];
@@ -3588,7 +3588,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
             Assert.AreEqual(false, transaction.IsDisbursed());
         }
@@ -3616,8 +3616,8 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
-            Result<Transaction> result = gateway.Transaction.Void(transaction.Id);
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
+            Result<ITransaction> result = gateway.Transaction.Void(transaction.Id);
             Assert.IsTrue(result.IsSuccess());
 
             Assert.AreEqual(transaction.Id, result.Target.Id);
@@ -3651,8 +3651,8 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
-            Result<Transaction> result = gateway.Transaction.Void(transaction.Id);
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
+            Result<ITransaction> result = gateway.Transaction.Void(transaction.Id);
             Assert.IsTrue(result.IsSuccess());
 
             result = gateway.Transaction.Void(transaction.Id);
@@ -3673,9 +3673,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
 
-            Result<Transaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id);
+            Result<ITransaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id);
 
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual(TransactionStatus.SUBMITTED_FOR_SETTLEMENT, result.Target.Status);
@@ -3696,8 +3696,8 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
-            Result<Transaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, decimal.Parse("50.00"));
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
+            Result<ITransaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, decimal.Parse("50.00"));
 
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual(TransactionStatus.SUBMITTED_FOR_SETTLEMENT, result.Target.Status);
@@ -3726,8 +3726,8 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
-            Result<Transaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, decimal.Parse("50.00"));
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
+            Result<ITransaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, decimal.Parse("50.00"));
 
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual(TransactionStatus.SUBMITTED_FOR_SETTLEMENT, result.Target.Status);
@@ -3756,8 +3756,8 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
-            Result<Transaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, decimal.Parse("50.00"));
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
+            Result<ITransaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, decimal.Parse("50.00"));
 
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual(TransactionStatus.SUBMITTED_FOR_SETTLEMENT, result.Target.Status);
@@ -3786,8 +3786,8 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
-            Result<Transaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, decimal.Parse("50.00"));
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
+            Result<ITransaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, decimal.Parse("50.00"));
 
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual(TransactionStatus.SUBMITTED_FOR_SETTLEMENT, result.Target.Status);
@@ -3809,8 +3809,8 @@ namespace Braintree.Tests
                 ServiceFeeAmount = 50M
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
-            Result<Transaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, 25M);
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
+            Result<ITransaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id, 25M);
 
             Assert.IsFalse(result.IsSuccess());
             Assert.AreEqual(
@@ -3833,7 +3833,7 @@ namespace Braintree.Tests
             };
 
             string transactionId = gateway.Transaction.Sale(request).Target.Id;
-            Transaction transaction = gateway.Transaction.SubmitForSettlement(transactionId, decimal.Parse("50.00")).Target;
+            ITransaction transaction = gateway.Transaction.SubmitForSettlement(transactionId, decimal.Parse("50.00")).Target;
 
             Assert.AreEqual(2, transaction.StatusHistory.Length);
             Assert.AreEqual(TransactionStatus.AUTHORIZED, transaction.StatusHistory[0].Status);
@@ -3853,8 +3853,8 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
-            Result<Transaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id);
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
+            Result<ITransaction> result = gateway.Transaction.SubmitForSettlement(transaction.Id);
             Assert.IsTrue(result.IsSuccess());
 
             result = gateway.Transaction.SubmitForSettlement(transaction.Id);
@@ -3895,7 +3895,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
             gateway.TestTransaction.Settle(transaction.Id);
 
             Result<Transaction> result;
@@ -3915,7 +3915,7 @@ namespace Braintree.Tests
             Assert.AreEqual(TransactionType.CREDIT, refund.Type);
             Assert.AreEqual(transaction.Amount, refund.Amount);
 
-            Transaction firstTransaction = gateway.Transaction.Find(transaction.Id);
+            ITransaction firstTransaction = gateway.Transaction.Find(transaction.Id);
             Assert.AreEqual(refund.Id, firstTransaction.RefundId);
             Assert.AreEqual(firstTransaction.Id, refund.RefundedTransactionId);
         }
@@ -3938,10 +3938,10 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
             gateway.TestTransaction.Settle(transaction.Id);
 
-            Result<Transaction> result = gateway.Transaction.Refund(transaction.Id, decimal.Parse("500.00"));
+            Result<ITransaction> result = gateway.Transaction.Refund(transaction.Id, decimal.Parse("500.00"));
             Assert.IsTrue(result.IsSuccess());
             Assert.AreEqual(TransactionType.CREDIT, result.Target.Type);
             Assert.AreEqual(decimal.Parse("500.00"), result.Target.Amount);
@@ -3964,18 +3964,18 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
             gateway.TestTransaction.Settle(transaction.Id);
 
-            Transaction refund1 = gateway.Transaction.Refund(transaction.Id, 500M).Target;
+            ITransaction refund1 = gateway.Transaction.Refund(transaction.Id, 500M).Target;
             Assert.AreEqual(TransactionType.CREDIT, refund1.Type);
             Assert.AreEqual(500M, refund1.Amount);
 
-            Transaction refund2 = gateway.Transaction.Refund(transaction.Id, 500M).Target;
+            ITransaction refund2 = gateway.Transaction.Refund(transaction.Id, 500M).Target;
             Assert.AreEqual(TransactionType.CREDIT, refund2.Type);
             Assert.AreEqual(500M, refund2.Amount);
 
-            Transaction refundedTransaction = gateway.Transaction.Find(transaction.Id);
+            ITransaction refundedTransaction = gateway.Transaction.Find(transaction.Id);
             Assert.AreEqual(2, refundedTransaction.RefundIds.Count);
             Assert.Contains(refund1.Id, refundedTransaction.RefundIds);
             Assert.Contains(refund2.Id, refundedTransaction.RefundIds);
@@ -3994,7 +3994,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Transaction.Sale(request).Target;
+            ITransaction transaction = gateway.Transaction.Sale(request).Target;
             Assert.AreEqual(TransactionStatus.AUTHORIZED, transaction.Status);
 
             Result<Transaction> result;
@@ -4066,7 +4066,7 @@ namespace Braintree.Tests
                 }
             };
 
-            Transaction transaction = gateway.Subscription.Create(request).Target.Transactions[0];
+            ITransaction transaction = gateway.Subscription.Create(request).Target.Transactions[0];
 
             Assert.AreEqual(PlanFixture.PLAN_WITHOUT_TRIAL.Id, transaction.PlanId);
 
@@ -4122,9 +4122,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             TransactionCloneRequest cloneRequest = new TransactionCloneRequest
             {
@@ -4136,9 +4136,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> cloneResult = gateway.Transaction.CloneTransaction(transaction.Id, cloneRequest);
+            Result<ITransaction> cloneResult = gateway.Transaction.CloneTransaction(transaction.Id, cloneRequest);
             Assert.IsTrue(cloneResult.IsSuccess());
-            Transaction cloneTransaction = cloneResult.Target;
+            ITransaction cloneTransaction = cloneResult.Target;
 
             Assert.AreEqual(123.45, cloneTransaction.Amount);
             Assert.AreEqual("MyShoppingCartProvider", cloneTransaction.Channel);
@@ -4173,9 +4173,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             TransactionCloneRequest cloneRequest = new TransactionCloneRequest
             {
@@ -4186,9 +4186,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> cloneResult = gateway.Transaction.CloneTransaction(transaction.Id, cloneRequest);
+            Result<ITransaction> cloneResult = gateway.Transaction.CloneTransaction(transaction.Id, cloneRequest);
             Assert.IsTrue(cloneResult.IsSuccess());
-            Transaction cloneTransaction = cloneResult.Target;
+            ITransaction cloneTransaction = cloneResult.Target;
 
             Assert.AreEqual(123.45, cloneTransaction.Amount);
             Assert.AreEqual(TransactionStatus.SUBMITTED_FOR_SETTLEMENT, cloneTransaction.Status);
@@ -4207,16 +4207,16 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             TransactionCloneRequest cloneRequest = new TransactionCloneRequest
             {
                 Amount = 123.45M,
             };
 
-            Result<Transaction> cloneResult = gateway.Transaction.CloneTransaction(transaction.Id, cloneRequest);
+            Result<ITransaction> cloneResult = gateway.Transaction.CloneTransaction(transaction.Id, cloneRequest);
             Assert.IsFalse(cloneResult.IsSuccess());
             Assert.AreEqual(ValidationErrorCode.TRANSACTION_CANNOT_CLONE_CREDIT, cloneResult.Errors.ForObject("Transaction").OnField("Base")[0].Code);
         }
@@ -4234,9 +4234,9 @@ namespace Braintree.Tests
                 }
             };
 
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsTrue(result.IsSuccess());
-            Transaction transaction = result.Target;
+            ITransaction transaction = result.Target;
 
             Assert.AreEqual(transaction.CreditCard.Prepaid, Braintree.CreditCardPrepaid.UNKNOWN);
             Assert.AreEqual(transaction.CreditCard.Debit, Braintree.CreditCardDebit.UNKNOWN);
@@ -4255,7 +4255,7 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = nonce
             };
-            Result<Transaction> result = gateway.Transaction.Credit(request);
+            Result<ITransaction> result = gateway.Transaction.Credit(request);
             Assert.IsTrue(result.IsSuccess());
         }
 
@@ -4272,7 +4272,7 @@ namespace Braintree.Tests
                     PayeeEmail = "foo@example.com"
                 }
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
             Assert.IsNotNull(result.Target.PayPalDetails.PayerEmail);
             Assert.IsNotNull(result.Target.PayPalDetails.PaymentId);
@@ -4299,7 +4299,7 @@ namespace Braintree.Tests
                     PayeeEmail = "foo@example.com"
                 }
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
             Assert.IsNotNull(result.Target.PayPalDetails.PayerEmail);
             Assert.IsNotNull(result.Target.PayPalDetails.PaymentId);
@@ -4397,7 +4397,7 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = nonce
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
             Assert.IsNotNull(result.Target.PayPalDetails.PayerEmail);
             Assert.IsNotNull(result.Target.PayPalDetails.PaymentId);
@@ -4420,7 +4420,7 @@ namespace Braintree.Tests
                     StoreInVault = true
                 }
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
             Assert.IsNotNull(result.Target.PayPalDetails.PayerEmail);
             Assert.IsNotNull(result.Target.PayPalDetails.PaymentId);
@@ -4442,7 +4442,7 @@ namespace Braintree.Tests
                     StoreInVault = true
                 }
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
             Assert.IsNotNull(result.Target.PayPalDetails.PayerEmail);
             Assert.IsNotNull(result.Target.PayPalDetails.PaymentId);
@@ -4460,10 +4460,10 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = nonce
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
-            Result<Transaction> voidResult = gateway.Transaction.Void(result.Target.Id);
+            Result<ITransaction> voidResult = gateway.Transaction.Void(result.Target.Id);
             Assert.IsTrue(voidResult.IsSuccess());
         }
 
@@ -4476,10 +4476,10 @@ namespace Braintree.Tests
                 Amount = SandboxValues.TransactionAmount.AUTHORIZE,
                 PaymentMethodNonce = nonce
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
 
-            Result<Transaction> settlementResult = gateway.Transaction.SubmitForSettlement(result.Target.Id);
+            Result<ITransaction> settlementResult = gateway.Transaction.SubmitForSettlement(result.Target.Id);
             Assert.IsTrue(settlementResult.IsSuccess());
             Assert.AreEqual(TransactionStatus.SETTLING, settlementResult.Target.Status);
         }
@@ -4497,7 +4497,7 @@ namespace Braintree.Tests
                     SubmitForSettlement = true
                 }
             };
-            Result<Transaction> result = gateway.Transaction.Sale(request);
+            Result<ITransaction> result = gateway.Transaction.Sale(request);
             Assert.IsTrue(result.IsSuccess());
             var id = result.Target.Id;
 
@@ -4522,7 +4522,7 @@ namespace Braintree.Tests
             Assert.IsTrue(transactionResult.IsSuccess());
 
             gateway.TestTransaction.SettlementDecline(transactionResult.Target.Id);
-            Transaction transaction = gateway.Transaction.Find(transactionResult.Target.Id);
+            ITransaction transaction = gateway.Transaction.Find(transactionResult.Target.Id);
 
             Assert.AreEqual("4001", transaction.ProcessorSettlementResponseCode);
             Assert.AreEqual(TransactionStatus.SETTLEMENT_DECLINED, transaction.Status);
@@ -4546,7 +4546,7 @@ namespace Braintree.Tests
             Assert.IsTrue(transactionResult.IsSuccess());
 
             gateway.TestTransaction.SettlementPending(transactionResult.Target.Id);
-            Transaction transaction = gateway.Transaction.Find(transactionResult.Target.Id);
+            ITransaction transaction = gateway.Transaction.Find(transactionResult.Target.Id);
 
             Assert.AreEqual("4002", transaction.ProcessorSettlementResponseCode);
             Assert.AreEqual(TransactionStatus.SETTLEMENT_PENDING, transaction.Status);
@@ -4556,7 +4556,7 @@ namespace Braintree.Tests
         [Test]
         public void PayPalTransactionsReturnRequiredFields()
         {
-          Transaction transaction = gateway.Transaction.Find("settledtransaction");
+          ITransaction transaction = gateway.Transaction.Find("settledtransaction");
 
           Assert.IsNotNull(transaction.PayPalDetails.DebugId);
           Assert.IsNotNull(transaction.PayPalDetails.PayerEmail);

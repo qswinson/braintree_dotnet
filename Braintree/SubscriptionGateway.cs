@@ -100,19 +100,19 @@ namespace Braintree
             return Search(query);
         }
 
-        private Result<Transaction> RetryCharge(SubscriptionTransactionRequest txnRequest) {
+        private Result<ITransaction> RetryCharge(SubscriptionTransactionRequest txnRequest) {
            XmlNode response = service.Post(service.MerchantPath() + "/transactions", txnRequest);
-           return new ResultImpl<Transaction>(new NodeWrapper(response), gateway);
+           return new ResultImpl<ITransaction>(new NodeWrapper(response), gateway);
        }
 
-       public Result<Transaction> RetryCharge(string subscriptionId) {
+       public Result<ITransaction> RetryCharge(string subscriptionId) {
           return RetryCharge(new SubscriptionTransactionRequest
             {
                 SubscriptionId = subscriptionId
             });
        }
 
-       public Result<Transaction> RetryCharge(string subscriptionId, decimal amount) {
+       public Result<ITransaction> RetryCharge(string subscriptionId, decimal amount) {
            return RetryCharge(new SubscriptionTransactionRequest
            {
                SubscriptionId = subscriptionId,

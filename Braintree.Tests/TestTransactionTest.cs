@@ -37,7 +37,7 @@ namespace Braintree.Tests
             };
 
             var transactionResult = gateway.Transaction.Sale(request);
-            Transaction transaction = gateway.TestTransaction.Settle(transactionResult.Target.Id);
+            ITransaction transaction = gateway.TestTransaction.Settle(transactionResult.Target.Id);
 
             Assert.AreEqual(TransactionStatus.SETTLED, transaction.Status);
         }
@@ -56,7 +56,7 @@ namespace Braintree.Tests
             };
 
             var transactionResult = gateway.Transaction.Sale(request);
-            Transaction transaction = gateway.TestTransaction.SettlementConfirm(transactionResult.Target.Id);
+            ITransaction transaction = gateway.TestTransaction.SettlementConfirm(transactionResult.Target.Id);
 
             Assert.AreEqual(TransactionStatus.SETTLEMENT_CONFIRMED, transaction.Status);
         }
@@ -75,7 +75,7 @@ namespace Braintree.Tests
             };
 
             var transactionResult = gateway.Transaction.Sale(request);
-            Transaction transaction = gateway.TestTransaction.SettlementPending(transactionResult.Target.Id);
+            ITransaction transaction = gateway.TestTransaction.SettlementPending(transactionResult.Target.Id);
 
             Assert.AreEqual(TransactionStatus.SETTLEMENT_PENDING, transaction.Status);
         }
@@ -94,7 +94,7 @@ namespace Braintree.Tests
             };
 
             var transactionResult = gateway.Transaction.Sale(request);
-            Transaction transaction = gateway.TestTransaction.SettlementDecline(transactionResult.Target.Id);
+            ITransaction transaction = gateway.TestTransaction.SettlementDecline(transactionResult.Target.Id);
 
             Assert.AreEqual(TransactionStatus.SETTLEMENT_DECLINED, transaction.Status);
         }

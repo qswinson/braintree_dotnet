@@ -58,7 +58,7 @@ namespace Braintree
         public ValidationErrors Errors { get; protected set; }
         public string Message { get; protected set; }
         public DateTime? Timestamp { get; protected set; }
-        public Transaction Transaction { get; protected set; }
+        public ITransaction Transaction { get; protected set; }
         public IDisbursement Disbursement { get; protected set; }
         public IDispute Dispute { get; protected set; }
         public IPartnerMerchant PartnerMerchant { get; protected set; }

@@ -29,28 +29,28 @@ namespace Braintree
             }
         }
 
-        public virtual Transaction Settle(string id)
+        public virtual ITransaction Settle(string id)
         {
             CheckEnvironment();
             XmlNode response = service.Put(service.MerchantPath() + "/transactions/" + id + "/settle");
             return new Transaction(new NodeWrapper(response), gateway);
         }
 
-        public virtual Transaction SettlementConfirm(string id)
+        public virtual ITransaction SettlementConfirm(string id)
         {
             CheckEnvironment();
             XmlNode response = service.Put(service.MerchantPath() + "/transactions/" + id + "/settlement_confirm");
             return new Transaction(new NodeWrapper(response), gateway);
         }
 
-        public virtual Transaction SettlementPending(string id)
+        public virtual ITransaction SettlementPending(string id)
         {
             CheckEnvironment();
             XmlNode response = service.Put(service.MerchantPath() + "/transactions/" + id + "/settlement_pending");
             return new Transaction(new NodeWrapper(response), gateway);
         }
 
-        public virtual Transaction SettlementDecline(string id)
+        public virtual ITransaction SettlementDecline(string id)
         {
             CheckEnvironment();
             XmlNode response = service.Put(service.MerchantPath() + "/transactions/" + id + "/settlement_decline");

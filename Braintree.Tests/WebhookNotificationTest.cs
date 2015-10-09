@@ -249,7 +249,7 @@ namespace Braintree.Tests
           Assert.AreEqual("my_id", notification.Subscription.Id);
           Assert.AreEqual(1, notification.Subscription.Transactions.Count);
 
-          Transaction transaction = notification.Subscription.Transactions[0];
+          ITransaction transaction = notification.Subscription.Transactions[0];
           Assert.AreEqual(TransactionStatus.SUBMITTED_FOR_SETTLEMENT, transaction.Status);
           Assert.AreEqual(49.99m, transaction.Amount);
         }
