@@ -1857,7 +1857,7 @@ namespace Braintree.Tests
             Result<Subscription> createResult = gateway.Subscription.Create(request);
             Assert.IsFalse(createResult.IsSuccess());
             Assert.IsNull(createResult.Target);
-            ValidationErrors errors = createResult.Errors;
+            IValidationErrors errors = createResult.Errors;
             Assert.AreEqual(ValidationErrorCode.SUBSCRIPTION_TOKEN_FORMAT_IS_INVALID, errors.ForObject("Subscription").OnField("Id")[0].Code);
         }
 
@@ -1879,7 +1879,7 @@ namespace Braintree.Tests
 
             Assert.IsFalse(result.IsSuccess());
             Assert.IsNull(result.Target);
-            ValidationErrors errors = result.Errors;
+            IValidationErrors errors = result.Errors;
             Assert.AreEqual(ValidationErrorCode.SUBSCRIPTION_TOKEN_FORMAT_IS_INVALID, errors.ForObject("Subscription").OnField("Id")[0].Code);
         }
 

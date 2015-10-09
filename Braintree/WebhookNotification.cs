@@ -55,7 +55,7 @@ namespace Braintree
         WebhookKind Kind { get; }
         ISubscription Subscription { get; }
         IMerchantAccount MerchantAccount { get; }
-        ValidationErrors Errors { get; }
+        IValidationErrors Errors { get; }
         string Message { get; }
         DateTime? Timestamp { get; }
         ITransaction Transaction { get; }
@@ -69,7 +69,7 @@ namespace Braintree
         public WebhookKind Kind { get; protected set; }
         public ISubscription Subscription { get; protected set; }
         public IMerchantAccount MerchantAccount { get; protected set; }
-        public ValidationErrors Errors { get; protected set; }
+        public IValidationErrors Errors { get; protected set; }
         public string Message { get; protected set; }
         public DateTime? Timestamp { get; protected set; }
         public ITransaction Transaction { get; protected set; }

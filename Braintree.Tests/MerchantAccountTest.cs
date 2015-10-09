@@ -175,7 +175,7 @@ namespace Braintree.Tests
             };
             Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsFalse(result.IsSuccess());
-            ValidationErrors errors = result.Errors.ForObject("merchant-account");
+            IValidationErrors errors = result.Errors.ForObject("merchant-account");
             Assert.AreEqual(ValidationErrorCode.MERCHANT_ACCOUNT_INDIVIDUAL_FIRST_NAME_IS_REQUIRED,
                 errors.ForObject("individual").OnField("first-name")[0].Code);
             Assert.AreEqual(ValidationErrorCode.MERCHANT_ACCOUNT_INDIVIDUAL_LAST_NAME_IS_REQUIRED,
@@ -241,7 +241,7 @@ namespace Braintree.Tests
             };
             Result<IMerchantAccount> result = gateway.MerchantAccount.Create(request);
             Assert.IsFalse(result.IsSuccess());
-            ValidationErrors errors = result.Errors.ForObject("merchant-account");
+            IValidationErrors errors = result.Errors.ForObject("merchant-account");
             Assert.AreEqual(ValidationErrorCode.MERCHANT_ACCOUNT_INDIVIDUAL_FIRST_NAME_IS_INVALID,
                 errors.ForObject("individual").OnField("first-name")[0].Code);
             Assert.AreEqual(ValidationErrorCode.MERCHANT_ACCOUNT_INDIVIDUAL_LAST_NAME_IS_INVALID,

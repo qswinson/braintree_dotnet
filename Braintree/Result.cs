@@ -11,7 +11,7 @@ namespace Braintree
         ICreditCardVerification CreditCardVerification { get; }
         ITransaction Transaction { get; }
         ISubscription Subscription { get; }
-        ValidationErrors Errors { get; }
+        IValidationErrors Errors { get; }
         Dictionary<string, string> Parameters { get; }
         string Message { get; }
         T Target { get; }
@@ -23,7 +23,7 @@ namespace Braintree
         public ICreditCardVerification CreditCardVerification { get; protected set; }
         public ITransaction Transaction { get; protected set; }
         public ISubscription Subscription { get; protected set; }
-        public ValidationErrors Errors { get; protected set; }
+        public IValidationErrors Errors { get; protected set; }
         public Dictionary<string, string> Parameters { get; protected set; }
         public string Message { get; protected set; }
         public T Target { get; protected set; }

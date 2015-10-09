@@ -13,7 +13,7 @@ namespace Braintree.Tests
         [Test]
         public void OnField_WithValidationError()
         {
-            ValidationErrors errors = new ValidationErrors();
+            IValidationErrors errors = new ValidationErrors();
             errors.AddError("country_name", new ValidationError("country_name", "91803", "invalid country"));
             Assert.AreEqual(ValidationErrorCode.ADDRESS_COUNTRY_NAME_IS_NOT_ACCEPTED, errors.OnField("country_name")[0].Code);
             Assert.AreEqual("invalid country", errors.OnField("country_name")[0].Message);
@@ -23,7 +23,7 @@ namespace Braintree.Tests
         public void OnField_WorksWithAllCommonCasing()
         {
             ValidationError fieldError = new ValidationError("", "1", "");
-            ValidationErrors errors = new ValidationErrors();
+            IValidationErrors errors = new ValidationErrors();
             errors.AddError("country_name", fieldError);
             Assert.AreEqual(fieldError, errors.OnField("country_name")[0]);
             Assert.AreEqual(fieldError, errors.OnField("country-name")[0]);
@@ -34,7 +34,7 @@ namespace Braintree.Tests
         [Test]
         public void OnField_WithNonExistingField()
         {
-            ValidationErrors errors = new ValidationErrors();
+            IValidationErrors errors = new ValidationErrors();
             Assert.IsNull(errors.OnField("foo"));
         }
 
@@ -53,7 +53,7 @@ namespace Braintree.Tests
         [Test]
         public void ForObject_WithNonExistingObject()
         {
-            ValidationErrors errors = new ValidationErrors();
+            IValidationErrors errors = new ValidationErrors();
             Assert.AreEqual(0, errors.ForObject("address").Count);
         }
 
@@ -72,7 +72,7 @@ namespace Braintree.Tests
         [Test]
         public void Size_WithShallowErrors()
         {
-            ValidationErrors errors = new ValidationErrors();
+            IValidationErrors errors = new ValidationErrors();
             errors.AddError("country_name", new ValidationError("country_name", "1", "invalid country"));
             errors.AddError("another_field", new ValidationError("another_field", "2", "another message"));
             Assert.AreEqual(2, errors.Count);
@@ -85,7 +85,7 @@ namespace Braintree.Tests
             addressErrors.AddError("country_name", new ValidationError("country_name", "1", "invalid country"));
             addressErrors.AddError("another_field", new ValidationError("another_field", "2", "another message"));
 
-            ValidationErrors errors = new ValidationErrors();
+            IValidationErrors errors = new ValidationErrors();
             errors.AddError("some_field", new ValidationError("some_field", "3", "some message"));
             errors.AddErrors("address", addressErrors);
 
@@ -118,7 +118,7 @@ namespace Braintree.Tests
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
-            ValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
+            IValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
             Assert.AreEqual(1, errors.DeepCount);
             Assert.AreEqual(ValidationErrorCode.ADDRESS_COUNTRY_NAME_IS_NOT_ACCEPTED, errors.ForObject("address").OnField("country_name")[0].Code);
         }
@@ -150,7 +150,7 @@ namespace Braintree.Tests
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
-            ValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
+            IValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
             Assert.AreEqual(2, errors.DeepCount);
             Assert.AreEqual(ValidationErrorCode.ADDRESS_COUNTRY_NAME_IS_NOT_ACCEPTED, errors.ForObject("address").OnField("country_name")[0].Code);
             Assert.AreEqual(ValidationErrorCode.ADDRESS_STREET_ADDRESS_IS_TOO_LONG, errors.ForObject("address").OnField("street_address")[0].Code);
@@ -181,7 +181,7 @@ namespace Braintree.Tests
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
-            ValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
+            IValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
             Assert.AreEqual(1, errors.DeepCount);
             Assert.AreEqual(ValidationErrorCode.ADDRESS_COUNTRY_NAME_IS_NOT_ACCEPTED, errors.ForObject("credit-card").ForObject("billing-address").OnField("country_name")[0].Code);
         }
@@ -213,7 +213,7 @@ namespace Braintree.Tests
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
-            ValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
+            IValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
             Assert.AreEqual(2, errors.DeepCount);
             Assert.AreEqual(2, errors.ForObject("transaction").OnField("base").Count);
         }
@@ -258,7 +258,7 @@ namespace Braintree.Tests
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
-            ValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
+            IValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
 
             Assert.AreEqual(3, errors.DeepCount);
             Assert.AreEqual(0, errors.Count);
@@ -370,7 +370,7 @@ namespace Braintree.Tests
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
-            ValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
+            IValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
 
             Assert.AreEqual(0, errors.All().Count);
 
@@ -422,7 +422,7 @@ namespace Braintree.Tests
 
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(builder.ToString());
-            ValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
+            IValidationErrors errors = new ValidationErrors(new NodeWrapper(doc.ChildNodes[1]));
 
             Assert.AreEqual(3, errors.DeepAll().Count);
 

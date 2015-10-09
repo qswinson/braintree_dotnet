@@ -6,6 +6,19 @@ using System.Text;
 
 namespace Braintree
 {
+    public interface IValidationErrors
+    {
+        int Count { get; }
+        int DeepCount { get; }
+        void AddError(string fieldName, ValidationError error);
+        void AddErrors(string objectName, ValidationErrors errors);
+        List<ValidationError> All();
+        Dictionary<string, List<string>> ByFormField();
+        List<ValidationError> DeepAll();
+        IValidationErrors ForIndex(int index);
+        IValidationErrors ForObject(string objectName);
+        List<ValidationError> OnField(string fieldName);
+    }
 
     /// <summary>
     /// A collection of Validation Errors returned by the Braintree Gateway
@@ -13,7 +26,7 @@ namespace Braintree
     /// <example>
     /// For more information about Validation Errors, see <a href="http://www.braintreepayments.com/gateway/validation-errors" target="_blank">http://www.braintreepaymentsolutions.com/gateway/validation-errors</a>
     /// </example>
-    public class ValidationErrors
+    public class ValidationErrors : IValidationErrors
     {
         private Dictionary<string, List<ValidationError>> errors;
         private Dictionary<string, ValidationErrors> nestedErrors;
@@ -124,12 +137,12 @@ namespace Braintree
             return results;
         }
 
-        public virtual ValidationErrors ForIndex(int index)
+        public virtual IValidationErrors ForIndex(int index)
         {
             return ForObject("index-" + index);
         }
 
-        public virtual ValidationErrors ForObject(string objectName)
+        public virtual IValidationErrors ForObject(string objectName)
         {
             string key = StringUtil.Dasherize(objectName);
             if (nestedErrors.ContainsKey(key)) return nestedErrors[key];
