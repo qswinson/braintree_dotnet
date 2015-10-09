@@ -102,7 +102,7 @@ namespace Braintree
         string PaymentMethodToken { get; }
         string PlanId { get; }
         decimal? Price { get; }
-        SubscriptionStatusEvent[] StatusHistory { get; }
+        ISubscriptionStatusEvent[] StatusHistory { get; }
         SubscriptionStatus Status { get; }
         List<Transaction> Transactions { get; }
         int? TrialDuration { get; }
@@ -146,7 +146,7 @@ namespace Braintree
         public string PaymentMethodToken { get; protected set; }
         public string PlanId { get; protected set; }
         public decimal? Price { get; protected set; }
-        public SubscriptionStatusEvent[] StatusHistory { get; protected set; }
+        public ISubscriptionStatusEvent[] StatusHistory { get; protected set; }
         public SubscriptionStatus Status { get; protected set; }
         public List<Transaction> Transactions { get; protected set; }
         public int? TrialDuration { get; protected set; }

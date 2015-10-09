@@ -4,7 +4,17 @@ using System;
 
 namespace Braintree
 {
-    public class SubscriptionStatusEvent
+    public interface ISubscriptionStatusEvent
+    {
+        decimal? Price { get; }
+        decimal? Balance { get; }
+        SubscriptionStatus Status { get; }
+        DateTime? Timestamp { get; }
+        SubscriptionSource Source { get; }
+        string User { get; }
+    }
+
+    public class SubscriptionStatusEvent : ISubscriptionStatusEvent
     {
         public decimal? Price { get; protected set; }
         public decimal? Balance { get; protected set; }
