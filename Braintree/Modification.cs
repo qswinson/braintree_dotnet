@@ -4,7 +4,23 @@ using System;
 
 namespace Braintree
 {
-    public class Modification
+    public interface IModification
+    {
+        decimal? Amount { get; }
+        DateTime? CreatedAt { get; }
+        int? CurrentBillingCycle { get; }
+        string Description { get; }
+        string Id { get; }
+        string Kind { get; }
+        string MerchantId { get; }
+        string Name { get; }
+        bool? NeverExpires { get; }
+        int? NumberOfBillingCycles { get; }
+        int? Quantity { get; }
+        DateTime? UpdatedAt { get; }
+    }
+
+    public class Modification : IModification
     {
         public decimal? Amount { get; protected set; }
         public DateTime? CreatedAt { get; protected set; }

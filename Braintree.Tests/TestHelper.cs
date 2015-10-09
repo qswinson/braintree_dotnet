@@ -23,7 +23,7 @@ namespace Braintree.Tests
       return unescapedClientToken;
     }
 
-    public static int CompareModificationsById(Modification left, Modification right)
+    public static int CompareModificationsById(IModification left, IModification right)
     {
       return left.Id.CompareTo(right.Id);
     }
